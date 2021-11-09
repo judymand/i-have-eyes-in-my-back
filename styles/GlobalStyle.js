@@ -37,14 +37,21 @@ export default StyleSheet.create({
     noValid: {
       borderColor: 'red',
       borderWidth: 2,
-      
+    },
+    mediumPasswordStyle: {
+      borderColor: 'blue',
+      borderWidth: 2,
     },
     button: {
-      padding: windowHeight / 20,
+      padding: windowHeight / 30,
+    },
+    viewContainerCard:{
+      alignItems: 'center',
+      marginTop: windowHeight / 20,
     },
     card:{
-      width: '80%',
-      height: '70%',
+      width: windowWidth / 1.4,
+      height: windowHeight / 1.3,
       padding: windowWidth / 6,
       borderRadius: 12,
     },
@@ -66,7 +73,8 @@ export default StyleSheet.create({
       flex:1,
       width: windowWidth,
       height: windowHeight,
-      resizeMode: 'stretch',
+     resizeMode: 'stretch',
+      
     },
   
   });
