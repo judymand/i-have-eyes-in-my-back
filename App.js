@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, SafeAreaView, View, Text, Image} from 'react-native';
+import { StyleSheet, SafeAreaView, View, Text, Image } from 'react-native';
+import Navigtion from './Navigation/HomePageNavigator'
 import style  from './styles/GlobalStyle'
-import { HomePage } from './screens/HomePage';
-// import { SignUp } from './screens/SignUp';
-// import { LogIn } from './screens/LogIn';
-
 
 
 export default function App() {
@@ -14,10 +11,8 @@ export default function App() {
   useEffect(() => {
     setTimeout(() => {
       setisloading(!isloading);
-    }, 1500);
+    }, 2000);
   }, []);
-
-
 
   if (isloading) {
     return (
@@ -30,14 +25,7 @@ export default function App() {
     )
 } else {
     return (
-      <SafeAreaView style={styles.container}>
-        <Text style={styles.header}>
-          I Have Eyes In My Back
-          </Text>
-        <View style={styles.container}>
-          <HomePage />
-        </View>
-      </SafeAreaView>
+      < Navigtion/>
     );
   }
 }
@@ -45,13 +33,14 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    // backgroundColor: '#fff',
+    backgroundColor: '#4E6D4E',
     alignItems: 'center',
     justifyContent: 'center',
     textAlign: "center",
-    width: '100%',
-    height: '100%',
   },
+ 
+  
   header: {
     fontWeight: 'bold',
     fontSize: 32,
