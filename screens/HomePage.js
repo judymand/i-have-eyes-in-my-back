@@ -1,22 +1,23 @@
 import React from 'react';
-import { View, StyleSheet, Button } from 'react-native';
- 
+import { View, StyleSheet, Button} from 'react-native';
 
 export const HomePage = (props) => {
- 
+
+
   return (
         <View style={styles.container}>
             <View style={styles.containerButton}>
               <View style={styles.button}>
-              <Button title="Log In"  color='#2E8B57'/>
+                <Button title="Log In" onPress={ () => props.navigation.navigate('LogIn') } color='#2E8B57'/>
               </View>
               <View style={styles.button}>
-              <Button title="Sign Up"    color='#2E8B57'/>
+                <Button title="Sign Up"  onPress={ () => props.navigation.navigate('SignUp')}   color='#2E8B57'/>
               </View>
             </View>
         </View>
   );
 }
+
 
 const styles = StyleSheet.create({
     container: {
