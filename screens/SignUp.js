@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { View, Button, TouchableWithoutFeedback, Keyboard  } from 'react-native';
 import style  from '../styles/GlobalStyle'
-import Input from '../components/Input'
-import Title from '../components/Title'
-import Card from '../components/Card'
+import { Input } from '../components/Input'
+import { BodyText } from '../components/BodyText'
+import { Card } from '../components/Card'
  
 
 export const SignUp = () => {
@@ -63,34 +63,34 @@ export const SignUp = () => {
       <View style={style.viewContainerCard}>
         <Card > 
           <View style={{textAlign: "center", alignItems: 'center'}}>
-                <Title  style={{fontWeight: 'bold',fontSize: 22}}> Sign Up  </Title>
-                <Title  style={style.text}> First name: </Title>
+                <BodyText  style={{fontWeight: 'bold',fontSize: 22}}> Sign Up  </BodyText>
+                <BodyText  style={style.Bodytext}> First name: </BodyText>
                 <Input 
                 style={style.input} 
                 onChangeText={(text) => {SetfirstName(text)}}
                 value={firstName}
                 />
 
-                <Title  style={style.text}> Last name: </Title>
+                <BodyText  style={style.Bodytext}> Last name: </BodyText>
                   <Input 
                   style={style.input} 
                   onChangeText={(text) => {SetLastName(text)}}
                   value={lastName}
                   />
 
-                <Title  style={style.text}> Email: </Title>
+                <BodyText  style={style.Bodytext}> Email: </BodyText>
                 <Input 
                 style={ email === '' ? style.input : ValideEmail ? style.Valid : style.noValid} 
                 onChangeText={validateEmail}
                 value={email}
                 />
-                <Title style={style.text} > Password:</Title>
+                <BodyText style={style.Bodytext} > Password:</BodyText>
                 <Input 
                 style={ password === '' ? style.input : checkStrongPassword === 'red' ? style.noValid : checkStrongPassword === 'blue' ? style.mediumPasswordStyle : style.Valid } 
                 onChangeText={checkPassword}
                 value={password}
                 />
-                <Title style={style.text} > Verify Password:</Title>
+                <BodyText style={style.Bodytext} > Verify Password:</BodyText>
                 <Input 
                 style={ verifyPassword === '' ? style.input : checkSamePassword ? style.Valid : style.noValid} 
                 onChangeText={samePassword}
