@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-export const Input = (props) => {
+export const BodyText = (props) => {
 
   return (
        <Text style={props.style} >
@@ -11,4 +11,4 @@ export const Input = (props) => {
   );
 }
 
-  export default Input
+  export default BodyText

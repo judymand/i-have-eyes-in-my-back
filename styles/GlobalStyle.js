@@ -13,21 +13,22 @@ export default StyleSheet.create({
       justifyContent: 'center', 
     },
     header: {
-      fontSize: windowWidth > 350 ? 32 : 26,
+      fontSize: windowWidth > 350 ? 26 : 18,
       paddingBottom: windowHeight / 19,
       paddingTop: windowHeight / 25,
       fontWeight: 'bold',
     
     },
-    text: {
-      fontSize: windowWidth > 350 ? 22 : 16,
+    Bodytext: {
+      fontSize: windowWidth > 350 ? 18 : 12,
       paddingTop: windowHeight / 50,
       paddingBottom: windowHeight / 80,
     },
     input: {
       borderWidth: 1,
       width: windowWidth / 2,
-      height: windowHeight / 25,
+      height: windowHeight / 30,
+      alignItems: 'baseline',
     },
     Valid: {
       borderColor: 'green',
@@ -50,7 +51,7 @@ export default StyleSheet.create({
       marginTop: windowHeight / 20,
     },
     card:{
-      width: windowWidth / 1.4,
+      width: windowWidth / 1.2,
       height: windowHeight / 1.3,
       padding: windowWidth / 6,
       borderRadius: 12,
@@ -76,6 +77,24 @@ export default StyleSheet.create({
      resizeMode: 'stretch',
       
     },
+    mainButton: {
+      alignItems: 'center',
+      marginHorizontal: windowHeight / 30,
+      marginVertical: windowHeight / 120,
+      width: windowWidth  / 3,
+      height: windowHeight  / 25,
+      borderRadius: 16,
+      backgroundColor: '#4E6D4E',
+    },
+    mainButtonText: {
+      color: 'white',
+      fontWeight: 'bold',
+      fontSize: windowWidth > 350 ? 20 : 16,
+    },
+    list: {
+      marginVertical: windowHeight / 30,
+      marginHorizontal: windowHeight / 200,
+    }
   
   });
   
