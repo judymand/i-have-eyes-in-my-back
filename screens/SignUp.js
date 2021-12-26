@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
-import { View, Button, TouchableWithoutFeedback, Keyboard  } from 'react-native';
+import { View, Button, TouchableWithoutFeedback, Keyboard, Alert  } from 'react-native';
 import style  from '../styles/GlobalStyle'
 import { Input } from '../components/Input'
 import { BodyText } from '../components/BodyText'
 import { Card } from '../components/Card'
  
 
+
+
+
 export const SignUp = () => {
- 
-  firstName
+  
+
   const [firstName, SetfirstName] = useState('')
   const [lastName, SetLastName] = useState('')
   const [email, SetEmail] = useState('')
@@ -18,7 +21,28 @@ export const SignUp = () => {
   const [checkStrongPassword,setCheckStrongPassword] = useState('')
   const [checkSamePassword,setCheckSamePassword] = useState(false)
 
+  const submitData=()=>{
+    console.log("SDADASDSDASDASDAD")
+    fetch("http://10.200.201.216:3000/signup",
+    {
+      method:"POST",
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify({
+        firstName,
+        lastName,
+        email,
+        password
+ 
 
+      })
+    })
+    
+    .then(res=>res.json())
+
+ 
+  }
   const checkPassword = (Password) => {
     let strongPassword = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})')
     let mediumPassword = new RegExp('((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])(?=.{8,}))')
@@ -47,12 +71,14 @@ export const SignUp = () => {
 
   const samePassword = (text) => {
     SetVerifyPassword(text) 
-    // console.log(password)
-    // console.log(verifyPassword)
-    // console.log(checkStrongPassword)
-    if(password === verifyPassword && checkStrongPassword === "green"){
+     console.log(password)
+     console.log(verifyPassword)
+     console.log(checkStrongPassword)
+     if(checkStrongPassword === "green"){
+    if(password === verifyPassword ){
       setCheckSamePassword(true)
     }
+  }
     else{
       setCheckSamePassword(false)
     }
@@ -90,15 +116,15 @@ export const SignUp = () => {
                 onChangeText={checkPassword}
                 value={password}
                 />
-                <BodyText style={style.Bodytext} > Verify Password:</BodyText>
+                {/* <BodyText style={style.Bodytext} > Verify Password:</BodyText>
                 <Input 
                 style={ verifyPassword === '' ? style.input : checkSamePassword ? style.Valid : style.noValid} 
                 onChangeText={samePassword}
                 value={verifyPassword}
-                /> 
+                />  */}
                 <View style={style.button}>
                 <Button 
-                  title="Sign Up"/>
+                  title="Sign Up" onPress={submitData}/>
                 </View>
               
             </View>

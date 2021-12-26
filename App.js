@@ -3,6 +3,7 @@ import { StyleSheet, SafeAreaView, View, Text, Image } from 'react-native';
 import Navigtion from './Navigation/HomePageNavigator'
 import style  from './styles/GlobalStyle'
 
+import 'react-native-gesture-handler';
 
 export default function App() {
 
