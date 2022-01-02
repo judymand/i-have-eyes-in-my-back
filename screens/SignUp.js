@@ -20,10 +20,12 @@ export const SignUp = () => {
   const [ValideEmail, SetValideEmail] = useState(false)
   const [checkStrongPassword,setCheckStrongPassword] = useState('')
   const [checkSamePassword,setCheckSamePassword] = useState(false)
+ 
+
 
   const submitData=()=>{
-    console.log("SDADASDSDASDASDAD")
-    fetch("http://10.200.201.216:3000/signup",
+    console.log("SIGNUP!!!!!!!!!!!!")
+    fetch("http://192.168.1.173:3000/signup",
     {
       method:"POST",
       headers:{
@@ -34,13 +36,14 @@ export const SignUp = () => {
         lastName,
         email,
         password
+    
  
 
       })
     })
     
     .then(res=>res.json())
-
+     
  
   }
   const checkPassword = (Password) => {
@@ -124,7 +127,7 @@ export const SignUp = () => {
                 />  */}
                 <View style={style.button}>
                 <Button 
-                  title="Sign Up" onPress={submitData}/>
+                  title="Sign Up" onPress={submitData  }/>
                 </View>
               
             </View>
