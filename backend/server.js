@@ -9,12 +9,14 @@ const jwt = require("jsonwebtoken");
 //const Users=
 require('./Users');
 require('./Teacher');
+require('./ClassRoom');
 const router = express.Router();
 const Adm=false;
 app.use(bodyParser.json())
 
 const Users=mongoose.model("users");
 const Teacher=mongoose.model("teacher");
+const ClassRoom=mongoose.model("classRoom");
 //password quzdeb-zeSvom-musba9
 //name app
 const mongoURL="mongodb://iHaveEyes:quzdeb-zeSvom-musba9@cluster0-shard-00-00.tobyl.mongodb.net:27017,cluster0-shard-00-01.tobyl.mongodb.net:27017,cluster0-shard-00-02.tobyl.mongodb.net:27017/app?ssl=true&replicaSet=atlas-x2w3z3-shard-0&authSource=admin&retryWrites=true&w=majority"
@@ -131,6 +133,91 @@ Teacher.findOne({ email: req.body.email })
 
     
 });
+
+//addTeacher//
+app.post("/addTeacher", (req, res, next) => {
+    Teacher.findOne({ email: req.body.email })
+    
+        .then(teachers => {
+            if (teachers) {
+                return res.status(401).json({
+                    message: "Error, the email is on the list of teacher."
+                });
+            }
+            else{
+               
+                const teacher = new Teacher({
+                    email: req.body.email,
+                
+                });
+        
+                teacher
+                    .save()
+                    .then(result => {
+                        res.status(201).json({
+                            message: "Teacher added!",
+                            result: result
+                        });
+                    })
+            
+                    .catch(err => {
+                        res.status(500).json({
+                            error: err
+                        });
+                    });
+               
+            }
+          
+         
+        })
+    
+        
+    });
+
+
+//addClassRoom//
+app.post("/AddClassRoom", (req, res, next) => {
+    newClassRoom = String(req.body.newClassRoom + req.body.newClassNumber)
+    console.log(newClassRoom)
+    ClassRoom.findOne({ className: newClassRoom })
+    
+        .then(cRoom => {
+            if (cRoom) {
+                return res.status(401).json({
+                    message: "Error, the class is on the list of classes."
+                });
+            }
+            else{
+               
+                const classRoom = new ClassRoom({
+                    className: newClassRoom,
+                
+                });
+        
+                classRoom
+                    .save()
+                    .then(result => {
+                        res.status(201).json({
+                            message: "Class added!",
+                            result: result
+                        });
+                    })
+            
+                    .catch(err => {
+                        res.status(500).json({
+                            error: err
+                        });
+                    });
+               
+            }
+          
+         
+        })
+    
+        
+    });
+    
+
 
 //get Users //
 
@@ -314,3 +401,47 @@ app.post('/update',(req,res)=>{
 app.listen(3000,()=>{
     console.log("server runnicng")
 })
+
+
+// get classes
+
+app.post("/getClasses", (req, res, next) => {
+    let fetchedClasses;
+    let classessArr = [];
+    let u;
+    // '_id': { '$nin': [req.body.id] }
+    ClassRoom.find({})
+        .then(classRoom => {
+            if (!classRoom) {
+                return res.status(401).json({
+                    message: "Auth failed"
+                });
+            }
+
+            fetchedClasses = classRoom;
+
+            for (let i = 0; i < fetchedClasses.length; i++) {
+                u = {
+                    "_id": fetchedClasses[i]._id,
+                    "className": fetchedClasses[i].className,
+                }
+
+                classessArr.push(u)
+            }
+
+            console.log(classessArr)
+        })
+        .then(result => {
+            res.status(200).json({
+                classRoom: classessArr
+            });
+        })
+        .catch(err => {
+            return res.status(401).json({
+                message: "Auth failed"
+            });
+        });
+
+});
+
+//
