@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, SafeAreaView, View, Text, Image } from 'react-native';
-import Navigtion from './Navigation/HomePageNavigator'
+import Navigtion from './Navigation/Navigator'
 import style  from './styles/GlobalStyle'
 
 import 'react-native-gesture-handler';

@@ -79,14 +79,19 @@ export default StyleSheet.create({
     },
     mainButton: {
       alignItems: 'center',
-      marginHorizontal: windowHeight / 30,
+      justifyContent: 'center',
+      // marginHorizontal: windowHeight / 30,
       marginVertical: windowHeight / 120,
-      width: windowWidth  / 3,
       height: windowHeight  / 25,
       borderRadius: 16,
       backgroundColor: '#4E6D4E',
     },
+    smallButton: {
+      width: windowWidth  / 3,
+    },
     mainButtonText: {
+      alignItems: 'center',
+      justifyContent: 'center',
       color: 'white',
       fontWeight: 'bold',
       fontSize: windowWidth > 350 ? 20 : 16,
@@ -94,7 +99,11 @@ export default StyleSheet.create({
     list: {
       marginVertical: windowHeight / 30,
       marginHorizontal: windowHeight / 200,
-    }
+    },
+    adminButtons: {
+      width: windowWidth  / 1.3,
+      height: windowHeight  / 18,
+    },
   
   });
   

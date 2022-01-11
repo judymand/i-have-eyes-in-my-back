@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Button, TouchableWithoutFeedback, Keyboard, Alert  } from 'react-native';
+import { View, Button, TouchableWithoutFeedback, Keyboard} from 'react-native';
 import style  from '../styles/GlobalStyle'
 import { Input } from '../components/Input'
 import { BodyText } from '../components/BodyText'
@@ -20,12 +20,14 @@ export const SignUp = () => {
   const [ValideEmail, SetValideEmail] = useState(false)
   const [checkStrongPassword,setCheckStrongPassword] = useState('')
   const [checkSamePassword,setCheckSamePassword] = useState(false)
+  // const [changePge, SetChangePge] = useState(0)
+  // const [emailInDatabase, SetEmailInDatabase]= useState(false)
  
 
 
   const submitData=()=>{
     console.log("SIGNUP!!!!!!!!!!!!")
-    fetch("http://192.168.1.173:3000/signup",
+    fetch("http://10.0.0.5:3000/signup",
     {
       method:"POST",
       headers:{
@@ -87,33 +89,34 @@ export const SignUp = () => {
     }
   }
 
+
   return (
     <TouchableWithoutFeedback onPress={ () => { Keyboard.dismiss();}}>
       <View style={style.viewContainerCard}>
         <Card > 
           <View style={{textAlign: "center", alignItems: 'center'}}>
-                <BodyText  style={{fontWeight: 'bold',fontSize: 22}}> Sign Up  </BodyText>
-                <BodyText  style={style.Bodytext}> First name: </BodyText>
+                <BodyText  style={{fontWeight: 'bold',fontSize: 22}}> הרשמה  </BodyText>
+                <BodyText  style={style.Bodytext}> שם פרטי: </BodyText>
                 <Input 
                 style={style.input} 
                 onChangeText={(text) => {SetfirstName(text)}}
                 value={firstName}
                 />
 
-                <BodyText  style={style.Bodytext}> Last name: </BodyText>
+                <BodyText  style={style.Bodytext}> שם משפחה: </BodyText>
                   <Input 
                   style={style.input} 
                   onChangeText={(text) => {SetLastName(text)}}
                   value={lastName}
                   />
 
-                <BodyText  style={style.Bodytext}> Email: </BodyText>
+                <BodyText  style={style.Bodytext}> דוא״ל: </BodyText>
                 <Input 
                 style={ email === '' ? style.input : ValideEmail ? style.Valid : style.noValid} 
                 onChangeText={validateEmail}
                 value={email}
                 />
-                <BodyText style={style.Bodytext} > Password:</BodyText>
+                <BodyText style={style.Bodytext} > סיסמא:</BodyText>
                 <Input 
                 style={ password === '' ? style.input : checkStrongPassword === 'red' ? style.noValid : checkStrongPassword === 'blue' ? style.mediumPasswordStyle : style.Valid } 
                 onChangeText={checkPassword}
@@ -127,7 +130,7 @@ export const SignUp = () => {
                 />  */}
                 <View style={style.button}>
                 <Button 
-                  title="Sign Up" onPress={submitData  }/>
+                  title="הירשם" onPress={submitData  }/>
                 </View>
               
             </View>

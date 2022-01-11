@@ -16,7 +16,7 @@ export const LogIn = (props) => {
   
   const submitData=()=>{
     console.log("LOGIN!!!!!!!!!!!")
-    fetch("http://192.168.1.173:3000/login",
+    fetch("http://10.0.0.5:3000/login",
     {
       method:"POST",
       headers:{

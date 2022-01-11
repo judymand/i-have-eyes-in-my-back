@@ -1,15 +1,15 @@
-const express=require('express')
-const app=express()
-const bodyParser=require('body-parser')
-const mongoose=require('mongoose')
+const express = require('express')
+const app = express()
+const bodyParser = require('body-parser')
+const mongoose = require('mongoose')
 const bcrypt = require("bcrypt");
 
 const jwt = require("jsonwebtoken");
 
 //const Users=
-require('./Users');
-require('./Teacher');
-require('./ClassRoom');
+require('./models/Users');
+require('./models/Teacher');
+require('./models/ClassRoom');
 const router = express.Router();
 const Adm=false;
 app.use(bodyParser.json())
@@ -87,6 +87,20 @@ app.get('/',(req,res)=>{
     })
     res.send("welcome to node js")
 })
+
+//Check if the email is in the email list//
+app.post("/signup", (req, res, next) => {
+    Teacher.findOne({ email: req.body.email })
+        .then(teachers => {
+            if (!teachers) {
+                return res.status(401).json({
+                    message: "Error try fix your Email"
+                });
+            }
+         
+        }) 
+    });
+
 
 //signup//
 app.post("/signup", (req, res, next) => {
@@ -444,4 +458,43 @@ app.post("/getClasses", (req, res, next) => {
 
 });
 
-//
+// get students
+
+app.post("/getStudents", (req, res, next) => {
+    let fetchedStudents;
+    let classessArr = [];
+    let u;
+    // '_id': { '$nin': [req.body.id] }
+    ClassRoom.find({})
+        .then(classRoom => {
+            if (!classRoom) {
+                return res.status(401).json({
+                    message: "Auth failed"
+                });
+            }
+
+            fetchedClasses = classRoom;
+
+            for (let i = 0; i < fetchedClasses.length; i++) {
+                u = {
+                    "_id": fetchedClasses[i]._id,
+                    "className": fetchedClasses[i].className,
+                }
+
+                classessArr.push(u)
+            }
+
+            console.log(classessArr)
+        })
+        .then(result => {
+            res.status(200).json({
+                classRoom: classessArr
+            });
+        })
+        .catch(err => {
+            return res.status(401).json({
+                message: "Auth failed"
+            });
+        });
+
+});

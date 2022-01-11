@@ -4,10 +4,9 @@ import { List } from '../components/List'
 import { View } from 'react-native';
 
 
-export const ClassList = (props) => {
+export const StudentList = (props) => {
 
   const [data, Setdata] = useState([])
-  const className = null
 
   useEffect(() => {
     fetch('http://10.0.0.5:3000/getClasses',
@@ -29,10 +28,10 @@ export const ClassList = (props) => {
     
     <List 
     Data={data} 
-    type='className' 
+    type='studenName' 
     num={2} 
     onPress={props}/>
        
   );
 }
-  export default ClassList
+  export default StudentList
