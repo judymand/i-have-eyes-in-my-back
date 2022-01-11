@@ -35,15 +35,15 @@ export const AddClass = (props) => {
     <TouchableWithoutFeedback onPress={ () => { Keyboard.dismiss();}}>
       <View style={style.viewContainerCard}>
         <Card>
-          <BodyText style={style.header} > Add a new class</BodyText>
+          <BodyText style={style.header} > הוסף כיתה חדשה </BodyText>
           <View style={{textAlign: "center", alignItems: 'center'}}>
           
-            <BodyText style={style.Bodytext} > Class: </BodyText>
+            <BodyText style={style.Bodytext} > כיתה: </BodyText>
             <Input
             onChangeText={(text) => {SetNewClassRoom(text)}}
             value={newClassRoom}
             /> 
-            <BodyText style={style.Bodytext} > Class Number: </BodyText>
+            <BodyText style={style.Bodytext} > מספר כיתה: </BodyText>
             <Input
             onChangeText={(text) => {SetnewClassNumber(text)}}
             keyboardType='numeric'
@@ -51,7 +51,7 @@ export const AddClass = (props) => {
             /> 
             <View style={style.button}>
               <Button 
-                title="Add" onPress={ submitData}/>
+                title="הוסף" onPress={ submitData}/>
             </View>
           </View>
         </Card>

@@ -6,7 +6,10 @@ import { BodyText } from '../components/BodyText'
 export const MainButton = (props) => {
 
   return (
-       <TouchableOpacity activeOpacity={0.6} style={{...style.mainButton, ...props.style}} onPress={props.onPress}>
+       <TouchableOpacity 
+       activeOpacity={0.6} 
+       style={{...style.mainButton, ...props.style}} 
+       onPress={props.onPress}>
          <View style={style.mainButton}> 
           <BodyText style={style.mainButtonText}> 
             {props.children} 

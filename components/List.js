@@ -11,36 +11,30 @@ import { MainButton } from './MainButton'
     const type = props.type
 
     const Item = ({ item }) => {
+      let title
+      let styleButton = style.adminButtons
       if(type == 'className' ){
-        return(
-          <View style={style.list}>
-              <MainButton style={style.smallButton} >
-                {item.className}
-            </MainButton>
-          </View>
-        );
+        title = item.className
+        styleButton = style.smallButton
       }
       else if(type == 'studenName'){
-        return(
-          <View style={style.list}>
-              <MainButton>
-                {item.studenName}
-            </MainButton>
-          </View>
-        );
+        title = item.studenName
+        styleButton = style.smallButton
       }
       else if(type == 'title'){
-        return(
-          <View style={style.title}>
-              <MainButton style={props.styleButton}>
-                {item.title}
-            </MainButton>
-          </View>
-        );
+        title = item.title
       }
-      else{
-
-      }
+      return(
+        <View style>
+            <MainButton 
+            style={styleButton}
+            onPress={ () => props.onPress(item)}
+            >
+              {title}
+          </MainButton>
+        </View>
+      );
+      
     }
     
   
@@ -51,8 +45,7 @@ import { MainButton } from './MainButton'
   
       return (
         <Item
-          item={item}
-          onPress={props.onPress}
+          item={item} 
           backgroundColor={{ backgroundColor }}
           textColor={{ color }}
         />
