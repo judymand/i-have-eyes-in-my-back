@@ -17,6 +17,14 @@ import { AddProfession } from '../screens/adminScreens/AddProfession';
 import { ProfessionList } from '../screens/ProfessionList';
 import { Settings } from '../screens/Settings';
 
+import { AddAdmin } from '../screens/adminScreens/AddAdmin';
+import { BelongsProfessionClass } from '../screens/adminScreens/BelongsProfessionClass';
+import { BelongsStudentClass } from '../screens/adminScreens/BelongsStudentClass';
+import { DeleteClass } from '../screens/adminScreens/DeleteClass';
+import { DeleteTeacher } from '../screens/adminScreens/DeleteTeacher';
+import { RemoveProfession } from '../screens/adminScreens/RemoveProfession';
+import { RemoveStudentClass } from '../screens/adminScreens/RemoveStudentClass';
+
 
 const HomePageNavigator = createStackNavigator({
     HomePage: {
@@ -31,8 +39,17 @@ const HomePageNavigator = createStackNavigator({
     AdminPanel: AdminPanel,
     AddTeacher: AddTeacher,
     AddClass: AddClass,
+    AddProfession: AddProfession,
     ClassList: ClassList,
     Addstudent: Addstudent,
+    DeleteClass: DeleteClass,
+    BelongsProfessionClass: BelongsProfessionClass,
+    BelongsStudentClass: BelongsStudentClass,
+    DeleteTeacher: DeleteTeacher,
+    RemoveProfession: RemoveProfession,
+    RemoveStudentClass:RemoveStudentClass,
+    AddAdmin: AddAdmin,
+
     Settings: {
         screen: Settings,
         navigationOptions: {
@@ -74,6 +91,17 @@ const TeacherNavigator = createStackNavigator({
 
 
 const TabNavigator = createBottomTabNavigator({
+    logoff: {
+        screen: HomePageNavigator,
+        navigationOptions: {
+            tabBarLabel: 'יציאה',
+            tabBarIcon: (tabInfo) => {
+                return(
+                    <Entypo name="log-out" size={24} color={tabInfo.tintColor} />
+                )
+            },
+        },
+    },
     Settings:  {
         screen: Settings,
         navigationOptions: {
@@ -85,17 +113,7 @@ const TabNavigator = createBottomTabNavigator({
             },
         },
     },
-    logoff: {
-        screen: HomePageNavigator,
-        navigationOptions: {
-            tabBarLabel: 'יציאה',
-            tabBarIcon: (tabInfo) => {
-                return(
-                    <Entypo name="log-out" size={24} color={tabInfo.tintColor} />
-                )
-            },
-        },
-    }
+   
         
 }, {
     tabBarOptions: {
