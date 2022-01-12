@@ -31,7 +31,7 @@ export const ClassList = (props) => {
     Data={data} 
     type='className' 
     num={2} 
-    onPress={props}/>
+    onPress={props.onPress}/>
        
   );
 }

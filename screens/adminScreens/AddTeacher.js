@@ -46,10 +46,11 @@ export const AddTeacher = (props) => {
     <TouchableWithoutFeedback onPress={ () => { Keyboard.dismiss();}}>
       <View style={style.viewContainerCard}>
         <Card>
-          <BodyText style={style.header} > Add a new teacher</BodyText>
+          <BodyText style={style.header} > הוספת מורה למערכת</BodyText>
+          <BodyText style={style.BodyText} > ע״י הוספת הדואר האלקטרוני של המורה, המורה יוכל להירשם לאפליקציה</BodyText>
           <View style={{textAlign: "center", alignItems: 'center'}}>
           
-            <BodyText style={style.Bodytext} > Email: </BodyText>
+            <BodyText style={style.Bodytext} > דואר אלקטרוני: </BodyText>
             <Input
             style={ email === '' ? style.input : ValideEmail ? style.Valid : style.noValid} 
             onChangeText={(text) => {validateEmail(text)}}
@@ -57,7 +58,7 @@ export const AddTeacher = (props) => {
             /> 
             <View style={style.button}>
               <Button 
-                title="Add" onPress={submitData}/>
+                title="הוסף" onPress={submitData}/>
             </View>
           </View>
         </Card>

@@ -1,9 +1,7 @@
 const mongoose=require('mongoose');
 
 const TeacherSchema=new mongoose.Schema({
-    email:String
-
-   
+    email: String
 })
 
 mongoose.model("teacher",TeacherSchema)

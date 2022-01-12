@@ -9,14 +9,18 @@ const jwt = require("jsonwebtoken");
 //const Users=
 require('./models/Users');
 require('./models/Teacher');
+require('./models/Admin');
 require('./models/ClassRoom');
+require('./models/Profession');
 const router = express.Router();
 const Adm=false;
 app.use(bodyParser.json())
 
 const Users=mongoose.model("users");
 const Teacher=mongoose.model("teacher");
+const Admin=mongoose.model("admin");
 const ClassRoom=mongoose.model("classRoom");
+const Profession=mongoose.model("profession");
 //password quzdeb-zeSvom-musba9
 //name app
 const mongoURL="mongodb://iHaveEyes:quzdeb-zeSvom-musba9@cluster0-shard-00-00.tobyl.mongodb.net:27017,cluster0-shard-00-01.tobyl.mongodb.net:27017,cluster0-shard-00-02.tobyl.mongodb.net:27017/app?ssl=true&replicaSet=atlas-x2w3z3-shard-0&authSource=admin&retryWrites=true&w=majority"
@@ -148,6 +152,7 @@ Teacher.findOne({ email: req.body.email })
     
 });
 
+
 //addTeacher//
 app.post("/addTeacher", (req, res, next) => {
     Teacher.findOne({ email: req.body.email })
@@ -160,39 +165,68 @@ app.post("/addTeacher", (req, res, next) => {
             }
             else{
                
-                const teacher = new Teacher({
-                    email: req.body.email,
-                
-                });
+                const teacher = new Teacher(
+                    { email: req.body.email, },
+                    { versionKey: false }
+                );
         
                 teacher
-                    .save()
-                    .then(result => {
-                        res.status(201).json({
-                            message: "Teacher added!",
-                            result: result
-                        });
-                    })
-            
-                    .catch(err => {
-                        res.status(500).json({
-                            error: err
-                        });
+                .save()
+                .then(result => {
+                    res.status(201).json({
+                        message: "Teacher added!",
+                        result: result
                     });
-               
-            }
-          
-         
-        })
-    
+                })
         
+                .catch(err => {
+                    res.status(500).json({
+                        error: err
+                    });
+                });
+            }
+        })    
+    });
+
+//addAdmin//
+app.post("/addAdmin", (req, res, next) => {
+    Admin.findOne({ email: req.body.email })
+    
+        .then(admin => {
+            if (admin) {
+                return res.status(401).json({
+                    message: "Error, the email is on the list of admin."
+                });
+            }
+            else{
+               
+                const nAdmin = new Admin(
+                    { email: req.body.email, },
+                    { versionKey: false }
+                );
+        
+                nAdmin
+                .save()
+                .then(result => {
+                    res.status(201).json({
+                        message: "Admin added!",
+                        result: result
+                    });
+                })
+        
+                .catch(err => {
+                    res.status(500).json({
+                        error: err
+                    });
+                });
+            }
+        })    
     });
 
 
 //addClassRoom//
 app.post("/AddClassRoom", (req, res, next) => {
     newClassRoom = String(req.body.newClassRoom + req.body.newClassNumber)
-    console.log(newClassRoom)
     ClassRoom.findOne({ className: newClassRoom })
     
         .then(cRoom => {
@@ -203,34 +237,63 @@ app.post("/AddClassRoom", (req, res, next) => {
             }
             else{
                
-                const classRoom = new ClassRoom({
-                    className: newClassRoom,
-                
-                });
+                const classRoom = new ClassRoom(
+                    { className: newClassRoom, },
+                    { versionKey: false }
+                );
         
                 classRoom
-                    .save()
-                    .then(result => {
-                        res.status(201).json({
-                            message: "Class added!",
-                            result: result
-                        });
-                    })
-            
-                    .catch(err => {
-                        res.status(500).json({
-                            error: err
-                        });
+                .save()
+                .then(result => {
+                    res.status(201).json({
+                        message: "Class added!",
+                        result: result
                     });
-               
+                })
+                .catch(err => {
+                    res.status(500).json({
+                        error: err
+                    });
+                });
             }
-          
-         
-        })
-    
-        
+        })  
     });
     
+//addProfession//
+app.post("/AddProfession", (req, res, next) => {
+    let userprofession = String(req.body.profession)
+    
+    Profession.findOne({ profession: userprofession})
+        
+    .then(nprofession => {
+        if (nprofession) {
+            return res.status(401).json({
+                message: "Error, the profession is on the list."
+            });
+        }
+        else{
+            const newprofession = new Profession(
+                { profession: userprofession },
+            );
+
+            newprofession
+            .save()
+            .then(result => {
+                res.status(201).json({
+                    message: "Profession added!",
+                    result: result
+                });
+            })
+            .catch(err => {
+                res.status(500).json({
+                    error: err
+                });
+            });
+        }
+    })  
+});
+
+       
 
 
 //get Users //
@@ -498,3 +561,14 @@ app.post("/getStudents", (req, res, next) => {
         });
 
 });
+
+
+app.post('/deleteClassRoomS',(req,res)=>{
+    ClassRoomS.findByIdAndRemove(req.body.id)
+    .then(data => {
+        console.log(data)
+        res.send("deleted")
+    }).catch(err=>{
+        console.log(err)
+    })
+})
