@@ -506,7 +506,6 @@ app.post("/getClasses", (req, res, next) => {
                 classessArr.push(u)
             }
 
-            console.log(classessArr)
         })
         .then(result => {
             res.status(200).json({
@@ -563,12 +562,31 @@ app.post("/getStudents", (req, res, next) => {
 });
 
 
-app.post('/deleteClassRoomS',(req,res)=>{
-    ClassRoomS.findByIdAndRemove(req.body.id)
+app.post('/deleteClassRoom',(req,res, next)=>{
+    ClassRoom.findByIdAndRemove(req.body.id)
     .then(data => {
-        console.log(data)
-        res.send("deleted")
-    }).catch(err=>{
+        // res.send("deleted")
+        // res.redirect(req.get('referer')); 
+    })
+    .catch(err=>{
         console.log(err)
     })
+    
 })
+
+app.post('/deleteCTeacher',(req,res, next)=>{
+    let email 
+    Teacher.findByIdAndRemove(req.body.id)
+    .then(data => {
+        // res.send("deleted")
+        // res.redirect(req.get('referer')); 
+    })
+    .catch(err=>{
+        console.log(err)
+    })
+    Users.deleteOne({ email: req.body.email })
+
+    
+})
+
+

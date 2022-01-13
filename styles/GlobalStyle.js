@@ -80,7 +80,7 @@ export default StyleSheet.create({
     mainButton: {
       alignItems: 'center',
       justifyContent: 'center',
-      // marginHorizontal: windowHeight / 30,
+      marginHorizontal: windowHeight / 30,
       marginVertical: windowHeight / 120,
       height: windowHeight  / 25,
       borderRadius: 16,
