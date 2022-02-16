@@ -1,7 +1,11 @@
 const mongoose=require('mongoose');
 
 const ProfessionSchema = new mongoose.Schema({
-    profession: String
+    profession: {
+        type: String,
+        required: true,
+        unique: true,
+    },
 })
 
-mongoose.model("profession",ProfessionSchema)
+module.exports = mongoose.model("profession",ProfessionSchema)

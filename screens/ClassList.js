@@ -10,7 +10,7 @@ export const ClassList = (props) => {
   const className = null
 
   useEffect(() => {
-    fetch('http://10.0.0.5:3000/getClasses',
+    fetch('http://localhost:3000/getClasses',
     {
       method:"POST",
       headers:{

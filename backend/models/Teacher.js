@@ -1,7 +1,11 @@
 const mongoose=require('mongoose');
 
 const TeacherSchema=new mongoose.Schema({
-    email: String
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+    }
 })
 
-mongoose.model("teacher",TeacherSchema)
+module.exports = mongoose.model("teacher",TeacherSchema)

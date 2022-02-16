@@ -2,7 +2,7 @@ import React from 'react';
 import style from '../../styles/GlobalStyle'
 import { List } from '../../components/List'
 
-export const ProfessionsList = (props) => {
+export const ProfessionsSelection = (props) => {
 
   return (
        <List>
@@ -11,4 +11,4 @@ export const ProfessionsList = (props) => {
        
   );
 }
-  export default ProfessionsList
+  export default ProfessionsSelection

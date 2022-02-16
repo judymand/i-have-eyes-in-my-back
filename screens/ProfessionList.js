@@ -7,10 +7,9 @@ import { View } from 'react-native';
 export const ProfessionList = (props) => {
 
   const [data, Setdata] = useState([])
-  const className = null
 
   useEffect(() => {
-    fetch('http://10.0.0.5:3000/getClasses',
+    fetch('http://localhost:3000/getProfessions',
     {
       method:"POST",
       headers:{
@@ -19,7 +18,8 @@ export const ProfessionList = (props) => {
     })
     .then(res => res.json())
     .then(result => 
-      Setdata(result.classRoom)
+      {Setdata(result.profession)
+      console.log(result.profession)}
       )
 
   }, [])
@@ -29,7 +29,7 @@ export const ProfessionList = (props) => {
     
     <List 
     Data={data} 
-    type='className' 
+    type='Profession' 
     num={2} 
     onPress={props}/>
        

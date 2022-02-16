@@ -1,12 +1,15 @@
 import { createStackNavigator } from 'react-navigation-stack'
-import { createAppContainer } from "react-navigation";
+import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons'; 
 import React from 'react';
+
+// import all pages of the app
 import { HomePage } from '../screens/HomePage';
-import { SignUp } from '../screens/SignUp';
-import { LogIn } from '../screens/LogIn';
+import { SignUpByEmail } from '../screens/registration/SignUpByEmail';
+import { SignUp } from '../screens/registration/SignUp';
+import { LogIn } from '../screens/registration/LogIn';
 import { ClassList } from '../screens/ClassList';
 import { StudentList } from '../screens/StudentList';
 import { AddTeacher } from '../screens/adminScreens/AddTeacher';
@@ -16,7 +19,6 @@ import { AdminPanel } from '../screens/adminScreens/AdminPanel';
 import { AddProfession } from '../screens/adminScreens/AddProfession';
 import { ProfessionList } from '../screens/ProfessionList';
 import { Settings } from '../screens/Settings';
-
 import { AddAdmin } from '../screens/adminScreens/AddAdmin';
 import { BelongsProfessionClass } from '../screens/adminScreens/BelongsProfessionClass';
 import { BelongsStudentClass } from '../screens/adminScreens/BelongsStudentClass';
@@ -24,38 +26,43 @@ import { DeleteClass } from '../screens/adminScreens/DeleteClass';
 import { DeleteTeacher } from '../screens/adminScreens/DeleteTeacher';
 import { RemoveProfession } from '../screens/adminScreens/RemoveProfession';
 import { RemoveStudentClass } from '../screens/adminScreens/RemoveStudentClass';
-
+import { classSelection } from '../screens/teacherScreens/classSelection'
+import { ProfessionsSelection } from '../screens/teacherScreens/ProfessionsSelection'
 
 const HomePageNavigator = createStackNavigator({
+    // classSelection: classSelection,
     HomePage: {
         screen: HomePage,
         navigationOptions: {
             headerTitle: 'I have eyes in my back'
         }
     },
+    SignUpByEmail: SignUpByEmail,
     SignUp: SignUp,
     LogIn: LogIn ,
-    StudentList: StudentList,
-    AdminPanel: AdminPanel,
-    AddTeacher: AddTeacher,
-    AddClass: AddClass,
-    AddProfession: AddProfession,
-    ClassList: ClassList,
-    Addstudent: Addstudent,
-    DeleteClass: DeleteClass,
-    BelongsProfessionClass: BelongsProfessionClass,
-    BelongsStudentClass: BelongsStudentClass,
-    DeleteTeacher: DeleteTeacher,
-    RemoveProfession: RemoveProfession,
-    RemoveStudentClass:RemoveStudentClass,
-    AddAdmin: AddAdmin,
+    // StudentList: StudentList,
+    // AdminPanel: AdminPanel,
+    // AddTeacher: AddTeacher,
+    // AddClass: AddClass,
+    // AddProfession: AddProfession,
+    // ClassList: ClassList,
+    // Addstudent: Addstudent,
+    // DeleteClass: DeleteClass,
+    // BelongsProfessionClass: BelongsProfessionClass,
+    // BelongsStudentClass: BelongsStudentClass,
+    // DeleteTeacher: DeleteTeacher,
+    // RemoveProfession: RemoveProfession,
+    // RemoveStudentClass:RemoveStudentClass,
+    // AddAdmin: AddAdmin,
+    // ProfessionList: ProfessionList,
+    // ProfessionsSelection: ProfessionsSelection,
 
-    Settings: {
-        screen: Settings,
-        navigationOptions: {
-            headerTitle: 'שינוי פרטי פרופיל'
-        },
-    },
+    // Settings: {
+    //     screen: Settings,
+    //     navigationOptions: {
+    //         headerTitle: 'שינוי פרטי פרופיל'
+    //     },
+    // },
 });
 
 const AdminNavigator = createStackNavigator({
@@ -121,4 +128,11 @@ const TabNavigator = createBottomTabNavigator({
     }
 })
 
-export default createAppContainer(TabNavigator)
+const mainNavigator = createSwitchNavigator({
+    HomePage: HomePageNavigator,
+    AdminNavigator: AdminNavigator,
+    TeacherNavigator: TeacherNavigator
+    
+})
+
+export default createAppContainer(HomePageNavigator)

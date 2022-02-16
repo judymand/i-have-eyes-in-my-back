@@ -1,7 +1,11 @@
 const mongoose=require('mongoose');
 
 const AdminSchema=new mongoose.Schema({
-    email: String
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+    }
 })
 
-mongoose.model("admin",AdminSchema)
+module.exports = mongoose.model("admin",AdminSchema)

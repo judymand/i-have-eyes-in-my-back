@@ -1,7 +1,11 @@
 const mongoose=require('mongoose');
 
 const ClassRoomSchema=new mongoose.Schema({
-    className: String,
+    className: {
+        type: String,
+        required: true,
+        unique: true,
+    },
     student:{
         type: [String],
         default: [''],
@@ -13,4 +17,4 @@ const ClassRoomSchema=new mongoose.Schema({
    
 })
 
-mongoose.model("classRoom",ClassRoomSchema)
+module.exports = mongoose.model("classRoom",ClassRoomSchema)

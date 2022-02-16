@@ -1,13 +1,22 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, SafeAreaView, View, Text, Image } from 'react-native';
-import Navigtion from './Navigation/Navigator'
+import { createStore, combineReducers } from 'redux';
+import NavigationContainer from './Navigation/NavigationContainer'
+import Navigator from './Navigation/Navigator';
 import style  from './styles/GlobalStyle'
-
 import 'react-native-gesture-handler';
+// import authReducer from './store/reducer/auth'
+// import { Provider } from 'react-redux';
 
 export default function App() {
 
   const [isloading, setisloading] = useState(true);
+
+
+  // const rootReducer = combineReducers({
+  //   authReducer: authReducer
+  // })
+  // const store = createStore(rootReducer)
 
   useEffect(() => {
     setTimeout(() => {
@@ -26,7 +35,11 @@ export default function App() {
     )
 } else {
     return (
-      < Navigtion/>
+      // <Provider store={store}>
+      //   < NavigationContainer/>
+      // </Provider>
+      <Navigator />
+      
     );
   }
 }

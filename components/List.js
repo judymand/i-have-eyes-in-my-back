@@ -21,6 +21,10 @@ import { MainButton } from './MainButton'
         title = item.studenName
         styleButton = style.smallButton
       }
+      else if(type == 'Profession'){
+        title = item.profession
+        styleButton = style.smallButton
+      }
       else if(type == 'title'){
         title = item.title
       }
@@ -36,8 +40,6 @@ import { MainButton } from './MainButton'
       );
       
     }
-    
-  
   
     const renderItem = ({ item }) => {
       const backgroundColor = item.id === selectedId ? "#6e3b6e" : "#f9c2ff";

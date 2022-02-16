@@ -11,7 +11,7 @@ export const HomePage = (props) => {
                 <Button title="התחברות" onPress={ () => props.navigation.navigate('LogIn') } color='#2E8B57'/>
               </View>
               <View style={styles.button}>
-                <Button title="הרשמה"  onPress={ () => props.navigation.navigate('SignUp')}   color='#2E8B57'/>
+                <Button title="הרשמה"  onPress={ () => props.navigation.navigate('SignUpByEmail')}   color='#2E8B57'/>
               </View>
             </View>
         </View>
