@@ -23,6 +23,7 @@ const Profession = require('./models/Profession');
 
 const userController = require('./controllers/userController')
 const classController = require('./controllers/classControllers')
+const professionControllers = require('./controllers/professionControllers')
 
 const auth = require('./controllers/auth')
 
@@ -49,8 +50,18 @@ app.post('/login', userController.Login)
 
 app.post("/addTeacher",  auth.isAuth, userController.addNewTeacher)
 
-app.post("/AddClassRoom", auth.isAuth, classController.addNewClass)
-    
+
+
+// app.post("/AddClassRoom", auth.isAuth, classController.addNewClass)
+app.post("/AddClassRoom", classController.addNewClass) 
+
+
+app.get("/getClasses", classController.getAllClass)
+app.post("/deleteClassRoom",classController.deleteClass )
+
+
+app.post("/AddProfession", professionControllers.addNewProfession)
+
   
 
 //addTeacher//
@@ -88,110 +99,10 @@ app.post("/addTeacher", (req, res, next) => {
         })    
     });
 
-//addAdmin//
-// app.post("/addAdmin", (req, res, next) => {
-//     Admin.findOne({ email: req.body.email })
-    
-//         .then(admin => {
-//             if (admin) {
-//                 return res.status(401).json({
-//                     message: "Error, the email is on the list of admin."
-//                 });
-//             }
-//             else{
-               
-//                 const nAdmin = new Admin(
-//                     { email: req.body.email, },
-//                     { versionKey: false }
-//                 );
-        
-//                 nAdmin
-//                 .save()
-//                 .then(result => {
-//                     res.status(201).json({
-//                         message: "Admin added!",
-//                         result: result
-//                     });
-//                 })
-        
-//                 .catch(err => {
-//                     res.status(500).json({
-//                         error: err
-//                     });
-//                 });
-//             }
-//         })    
-//     });
+ 
 
+    
 
-//addClassRoom//
-app.post("/AddClassRoom", (req, res, next) => {
-    newClassRoom = String(req.body.newClassRoom + req.body.newClassNumber)
-    ClassRoom.findOne({ className: newClassRoom })
-    
-        .then(cRoom => {
-            if (cRoom) {
-                return res.status(401).json({
-                    message: "Error, the class is on the list of classes."
-                });
-            }
-            else{
-               
-                const classRoom = new ClassRoom(
-                    { className: newClassRoom, },
-                    { versionKey: false }
-                );
-        
-                classRoom
-                .save()
-                .then(result => {
-                    res.status(201).json({
-                        message: "Class added!",
-                        result: result
-                    });
-                })
-                .catch(err => {
-                    res.status(500).json({
-                        error: err
-                    });
-                });
-            }
-        })  
-    });
-    
-//addProfession//
-app.post("/AddProfession", (req, res, next) => {
-    let userprofession = String(req.body.profession)
-    
-    Profession.findOne({ profession: userprofession})
-        
-    .then(nprofession => {
-        if (nprofession) {
-            return res.status(401).json({
-                message: "Error, the profession is on the list."
-            });
-        }
-        else{
-            const newprofession = new Profession(
-                { profession: userprofession },
-            );
-
-            newprofession
-            .save()
-            .then(result => {
-                res.status(201).json({
-                    message: "Profession added!",
-                    result: result
-                });
-            })
-            .catch(err => {
-                res.status(500).json({
-                    error: err
-                });
-            });
-        }
-    })  
-});
 
        
 
@@ -380,86 +291,8 @@ app.listen(3000,()=>{
 })
 
 
-// get classes
-
-app.post("/getClasses", (req, res, next) => {
-    let fetchedClasses;
-    let classessArr = [];
-    let u;
-    // '_id': { '$nin': [req.body.id] }
-    ClassRoom.find({})
-        .then(classRoom => {
-            if (!classRoom) {
-                return res.status(401).json({
-                    message: "Auth failed"
-                });
-            }
-
-            fetchedClasses = classRoom;
-
-            for (let i = 0; i < fetchedClasses.length; i++) {
-                u = {
-                    "_id": fetchedClasses[i]._id,
-                    "className": fetchedClasses[i].className,
-                }
-
-                classessArr.push(u)
-            }
-
-        })
-        .then(result => {
-            res.status(200).json({
-                classRoom: classessArr
-            });
-        })
-        .catch(err => {
-            return res.status(401).json({
-                message: "Auth failed"
-            });
-        });
-
-});
 
 
-// get Professions
-
-app.post("/getProfessions", (req, res, next) => {
-    let fetchedProfessions;
-    let ProfessionsArr = [];
-    let u;
-    // '_id': { '$nin': [req.body.id] }
-    Profession.find({})
-        .then(profession => {
-            if (!profession) {
-                return res.status(401).json({
-                    message: "Auth failed"
-                });
-            }
-
-            fetchedProfessions = profession;
-
-            for (let i = 0; i < fetchedProfessions.length; i++) {
-                u = {
-                    "_id": fetchedProfessions[i]._id,
-                    "profession": fetchedProfessions[i].profession,
-                }
-
-                ProfessionsArr.push(u)
-            }
-
-        })
-        .then(result => {
-            res.status(200).json({
-                profession: ProfessionsArr
-            });
-        })
-        .catch(err => {
-            return res.status(401).json({
-                message: "Auth failed"
-            });
-        });
-
-});
 
 // get students
 
@@ -502,18 +335,6 @@ app.post("/getStudents", (req, res, next) => {
 
 });
 
-
-app.post('/deleteClassRoom',(req,res, next)=>{
-    ClassRoom.findByIdAndRemove(req.body.id)
-    .then(data => {
-        // res.send("deleted")
-        // res.redirect(req.get('referer')); 
-    })
-    .catch(err=>{
-        console.log(err)
-    })
-    
-})
 
 app.post('/deleteCTeacher',(req,res, next)=>{
     let email 
