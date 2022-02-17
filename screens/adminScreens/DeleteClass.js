@@ -6,21 +6,41 @@ import { ClassList } from '../ClassList'
 
 export const DeleteClass = (props) => {
 
-  const submitData = (id) => {
-    fetch("http://10.0.0.5:3000/deleteClassRoom",
-    {
-      method:"POST",
-      headers:{
-        'Content-Type':'application/json'
-      },
-      body:JSON.stringify({
-        id,
-      })
-    })   
-    .then( res => { 
-      res.json()
+  const submitData = async (id) => {
+
+    try{
+
+      let response = await fetch("http://localhost:3000/deleteClassRoom",
+      {
+        method:"POST",
+        headers:{
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify({
+          id,
+        })
+      })   
+
+
+      const resData = await response.json()
+
     
-    })
+      Alert.alert(
+        resData.message,
+        '',
+      [
+        { 
+          text: resData.textButton,
+          onPress: () => props.navigation.navigate(resData.pageName) 
+        }
+      ]
+      )
+      
+
+    }catch(error){
+      console.log(error)
+    }
+    
   }
 
   const deleteClassRoom = (item) => {

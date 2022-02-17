@@ -9,18 +9,28 @@ export const ClassList = (props) => {
   const [data, Setdata] = useState([])
   const className = null
 
-  useEffect(() => {
-    fetch('http://localhost:3000/getClasses',
-    {
-      method:"POST",
-      headers:{
-        'Content-Type':'application/json'
+  useEffect( () => {
+    async function fetchMyAPI(){
+      try{
+
+        let response = await fetch("http://localhost:3000/getClasses",
+        {
+          method:"GET",
+          headers:{
+            'Content-Type':'application/json'
+          }
+        })
+       
+        const resData = await response.json()
+        
+        Setdata(resData.classRoom)
+       
+      }catch(error){
+        console.log(error)
       }
-    })
-    .then(res => res.json())
-    .then(result => 
-      Setdata(result.classRoom)
-      )
+  }
+  fetchMyAPI()
+ 
 
   }, [])
 

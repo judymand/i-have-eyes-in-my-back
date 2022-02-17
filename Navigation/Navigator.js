@@ -73,6 +73,7 @@ const AdminNavigator = createStackNavigator({
     StudentList: StudentList,
     AddTeacher: AddTeacher,
     AddClass: AddClass,
+    DeleteClass: DeleteClass,
     AddProfession: AddProfession,
     Addstudent: Addstudent,
     Settings: {

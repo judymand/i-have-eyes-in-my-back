@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import style from '../../styles/GlobalStyle'
-import { View, TouchableWithoutFeedback, Keyboard, Button } from 'react-native';
+import { View, TouchableWithoutFeedback, Keyboard, Button, Alert } from 'react-native';
 import { BodyText } from '../../components/BodyText'
 import { Input } from '../../components/Input'
 import { Card } from '../../components/Card'
@@ -11,21 +11,39 @@ export const AddClass = (props) => {
   const [newClassNumber, SetnewClassNumber] = useState('')
 
 
-  const submitData=()=>{
-    console.log("Add!!!!!!!!!!!!")
-    fetch("http://10.0.0.5:3000/AddClassRoom",
-    {
-      method:"POST",
-      headers:{
-        'Content-Type':'application/json'
-      },
-      body:JSON.stringify({
-        newClassRoom,
-        newClassNumber
+  const submitData = async () => {
+
+    try{
+
+      let response = await fetch("http://localhost:3000/AddClassRoom",
+      {
+        method:"POST",
+        headers:{
+          'Content-Type':'application/json'
+        },
+        body:JSON.stringify({
+          newClassRoom,
+          newClassNumber
+        })
       })
-    })
-    
-    .then(res=>res.json())
+   
+      const resData = await response.json()
+  
+      Alert.alert(
+        resData.message,
+        '',
+      [
+        { 
+          text: resData.list.textButton, 
+          onPress: () => props.navigation.navigate(resData.list.pageName),     
+        }
+      ]
+      )
+  
+    }catch(error){
+      console.log(error)
+    }
+  
      
  
   }
