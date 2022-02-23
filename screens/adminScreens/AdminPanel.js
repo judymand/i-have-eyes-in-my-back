@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import style from '../../styles/GlobalStyle'
 import { List } from '../../components/List'
-import { View, Dimensions } from 'react-native';
+import { Dimensions } from 'react-native';
 
 const windowWidth = Dimensions.get('window').width
 
@@ -19,7 +19,8 @@ export const AdminPanel = (props) => {
       {_id: 8, title: 'שייך מקצוע לכיתה', pageName: 'BelongsProfessionClass' },
       {_id: 9, title: 'הוסף אדמין', pageName: 'AddAdmin' },
   ]
-  
+
+ 
   return (
     
     <List 
@@ -27,7 +28,14 @@ export const AdminPanel = (props) => {
     type='title' 
     num={1}
     MultipleSelection={false}
-    onPress={ (item) => props.navigation.navigate(item.pageName) } 
+    onPress={ (item) => {
+      if(item){
+        let nextPage = data.filter(obj => {return obj.title === item})
+        if(nextPage)
+          props.navigation.navigate(nextPage[0].pageName)
+      }
+   
+    } } 
     styleButton={style.adminButtons}/>
        
   );

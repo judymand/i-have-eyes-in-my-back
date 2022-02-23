@@ -31,9 +31,9 @@ import { ProfessionsSelection } from '../screens/teacherScreens/ProfessionsSelec
 
 const HomePageNavigator = createStackNavigator({
 
-    BelongsProfessionClass: BelongsProfessionClass,
+    // BelongsProfessionClass: BelongsProfessionClass,
     // DeleteClass: DeleteClass,
-    ProfessionList: ProfessionList,
+    AdminPanel: AdminPanel,
     // classSelection: classSelection,
     HomePage: {
         screen: HomePage,
@@ -44,6 +44,7 @@ const HomePageNavigator = createStackNavigator({
     SignUpByEmail: SignUpByEmail,
     SignUp: SignUp,
     LogIn: LogIn ,
+    AddClass: AddClass,
     // StudentList: StudentList,
     // AdminPanel: AdminPanel,
     // AddTeacher: AddTeacher,

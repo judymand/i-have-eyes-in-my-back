@@ -20,7 +20,7 @@ import { MainButton } from './MainButton'
         props.onPress(selectedId) // This is be executed when `loading` state changes
       }
 
-    }, [MultipleSelection, selectedList])
+    }, [MultipleSelection, selectedList, selectedId])
     
 
     
