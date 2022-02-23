@@ -9,21 +9,34 @@ export const ProfessionList = (props) => {
   const [data, Setdata] = useState([])
 
   useEffect(() => {
-    fetch('http://localhost:3000/getProfessions',
-    {
-      method:"POST",
-      headers:{
-        'Content-Type':'application/json'
+    async function fetchMyAPI(){
+      try{
+
+        let response = await fetch("http://localhost:3000/getProfessions",
+        {
+          method:"GET",
+          headers:{
+            'Content-Type':'application/json'
+          }
+        })
+
+        const resData = await response.json()
+
+        Setdata(resData.profession)
+
+        // .then(res => res.json())
+        // .then(result => 
+        //   {Setdata(result.profession)
+        //   console.log(result.profession)}
+        //   )
+
+      }catch(error){
+        console.log(error)
       }
-    })
-    .then(res => res.json())
-    .then(result => 
-      {Setdata(result.profession)
-      console.log(result.profession)}
-      )
+    }
+    fetchMyAPI()
 
   }, [])
-
 
   return (
     
@@ -31,7 +44,9 @@ export const ProfessionList = (props) => {
     Data={data} 
     type='Profession' 
     num={2} 
-    onPress={props}/>
+    MultipleSelection={props.MultipleSelection}
+    onPress={props.onPress}
+    />
        
   );
 }

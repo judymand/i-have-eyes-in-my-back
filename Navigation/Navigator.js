@@ -30,6 +30,10 @@ import { classSelection } from '../screens/teacherScreens/classSelection'
 import { ProfessionsSelection } from '../screens/teacherScreens/ProfessionsSelection'
 
 const HomePageNavigator = createStackNavigator({
+
+    BelongsProfessionClass: BelongsProfessionClass,
+    // DeleteClass: DeleteClass,
+    ProfessionList: ProfessionList,
     // classSelection: classSelection,
     HomePage: {
         screen: HomePage,

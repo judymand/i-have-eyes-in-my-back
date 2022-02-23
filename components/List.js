@@ -1,18 +1,54 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FlatList, View, StatusBar, StyleSheet} from 'react-native';
 import style from '../styles/GlobalStyle'
 import { MainButton } from './MainButton'
 
 
   export const List = (props) => {
-    const [selectedId, setSelectedId] = useState(null);
-    // const Data = props.navigation.getParam('DATA')
-    const Data = props.Data
-    const type = props.type
 
-    const Item = ({ item }) => {
+    const [selectedId, setSelectedId] = useState(null);
+    const[selectedList, setSelectedList] = useState([]);
+    
+    const {Data, type, MultipleSelection} = props;
+
+    useEffect(() => {
+
+      if(MultipleSelection){
+        props.onPress(selectedList);  // This is be executed when `loading` state changes
+      }
+      else{
+        props.onPress(selectedId) // This is be executed when `loading` state changes
+      }
+
+    }, [MultipleSelection, selectedList])
+    
+
+    
+    const handleSelection = (title) => {
+      var selected = selectedId
+   
+      if(selected === title)
+        setSelectedId(null)
+      else 
+        setSelectedId(title)
+     
+   }
+   
+   const handleSelectionMultiple = (title) => {
+      var selectedIds = [...selectedList] 
+      if(selectedList.includes(title))
+        selectedIds = selectedIds.filter( id => id !== title)
+      else 
+        selectedIds.push(title)
+      setSelectedList(selectedIds)
+   }
+
+    const renderItem = ({ item }) => {
+
       let title
       let styleButton = style.adminButtons
+      let styleButtonSelested = style.notSelected
+
       if(type == 'className' ){
         title = item.className
         styleButton = style.smallButton
@@ -28,11 +64,27 @@ import { MainButton } from './MainButton'
       else if(type == 'title'){
         title = item.title
       }
+      if(MultipleSelection){   
+        styleButtonSelested = selectedList.includes(title) ? style.selected : style.notSelected  
+      }
+      else{
+        styleButtonSelested = title === selectedId ? style.selected : style.notSelected
+      }
+   
       return(
         <View style>
             <MainButton 
+            styleMainButton={{backgroundColor: styleButtonSelested.backgroundColor}}
+            styleMainButtonText={{color: styleButtonSelested.color}}
             style={styleButton}
-            onPress={ () => props.onPress(item)}
+            onPress={ () => {
+              if(MultipleSelection){
+                handleSelectionMultiple(title) 
+              }
+              else{
+                handleSelection(title)
+              }
+            }}
             >
               {title}
           </MainButton>
@@ -40,19 +92,7 @@ import { MainButton } from './MainButton'
       );
       
     }
-  
-    const renderItem = ({ item }) => {
-      const backgroundColor = item.id === selectedId ? "#6e3b6e" : "#f9c2ff";
-      const color = item.id === selectedId ? 'white' : 'black';
-  
-      return (
-        <Item
-          item={item} 
-          backgroundColor={{ backgroundColor }}
-          textColor={{ color }}
-        />
-      );
-    };
+
   
     return (
       <View style={styles.container}>
@@ -61,8 +101,16 @@ import { MainButton } from './MainButton'
           renderItem={renderItem}
           keyExtractor={(item) => item._id}
           numColumns={props.num}
-          extraData={selectedId}
+          extraData={
+            () =>{
+              if(MultipleSelection)
+                {selectedList, Data}
+              else
+                {selectedId, Data}
+            }
+          }
         />
+        
       </View>
     );
   };

@@ -58,11 +58,13 @@ app.post("/AddClassRoom", classController.addNewClass)
 
 app.get("/getClasses", classController.getAllClass)
 app.post("/deleteClassRoom",classController.deleteClass )
+app.post("/addProfessionsToClasses", classController.addProfessionsToClasses)
 
 
 app.post("/AddProfession", professionControllers.addNewProfession)
+app.get("/getProfessions", professionControllers.getAllProfession)
 
-  
+
 
 //addTeacher//
 app.post("/addTeacher", (req, res, next) => {

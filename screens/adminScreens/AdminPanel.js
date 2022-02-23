@@ -25,7 +25,8 @@ export const AdminPanel = (props) => {
     <List 
     Data={data} 
     type='title' 
-    num={1} 
+    num={1}
+    MultipleSelection={false}
     onPress={ (item) => props.navigation.navigate(item.pageName) } 
     styleButton={style.adminButtons}/>
        

@@ -1,38 +1,57 @@
 import React, { useState, useEffect } from 'react';
-import style from '../styles/GlobalStyle'
+// import style from '../styles/GlobalStyle'
 import { List } from '../components/List'
-import { View } from 'react-native';
+// import { View,  ActivityIndicator, Text} from 'react-native';
 
 
 export const ClassList = (props) => {
 
+  const [isLoading, setIsLoading] = useState(false);
   const [data, Setdata] = useState([])
   const className = null
+  const { navigation } = props
+  
+const loadClasses = async () => {
+    try{
+      setIsLoading(true);
+      let response = await fetch("http://localhost:3000/getClasses",
+      {
+        method:"GET",
+        headers:{
+          'Content-Type':'application/json'
+        }
+      })
+     
+      const resData = await response.json()
+      
+      Setdata(resData.classRoom)
+      setIsLoading(false);
+
+     
+    }catch(error){
+      console.log(error)
+    }
+}
 
   useEffect( () => {
-    async function fetchMyAPI(){
-      try{
-
-        let response = await fetch("http://localhost:3000/getClasses",
-        {
-          method:"GET",
-          headers:{
-            'Content-Type':'application/json'
-          }
-        })
-       
-        const resData = await response.json()
-        
-        Setdata(resData.classRoom)
-       
-      }catch(error){
-        console.log(error)
-      }
-  }
-  fetchMyAPI()
- 
-
+    loadClasses()
   }, [])
+
+ 
+  // if (isLoading) {
+  //   return (
+  //     <View >
+  //       <ActivityIndicator size="large" color={Colors.primary} />
+  //     </View>
+  //   );
+  // }
+  // if (!isLoading && data.length === 0) {
+  //   return (
+  //     <View >
+  //       <Text>לא קיימות כיתות במערכת</Text>
+  //     </View>
+  //   );
+  // }
 
 
   return (
@@ -41,6 +60,7 @@ export const ClassList = (props) => {
     Data={data} 
     type='className' 
     num={2} 
+    MultipleSelection={props.MultipleSelection}
     onPress={props.onPress}/>
        
   );

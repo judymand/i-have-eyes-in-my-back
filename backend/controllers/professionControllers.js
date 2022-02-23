@@ -61,7 +61,46 @@ exports.addNewProfession = async (req, res) => {
 
 
 
-// // get Professions
+// get Professions
+exports.getAllProfession = async (req, res) => {
+
+    try{
+
+        let oneProfession
+        let ProfessionsArr = [];
+    
+        let allProfession = await Profession.find({})
+
+        if (!allProfession) {
+            return res.status(401).json({
+                message: "Auth failed"
+            });
+        }
+
+        for (let i = 0; i < allProfession.length; i++) {
+            oneProfession = {
+                "_id": allProfession[i]._id,
+                "profession": allProfession[i].profession,
+            }
+
+            ProfessionsArr.push(oneProfession)
+        }
+
+        res.status(200).json({
+            profession: ProfessionsArr
+        });
+
+    }catch(error){
+        res.status(500).json({
+            error: error,
+            success: false,
+            message: "אופסי, ישנה תקלה.\n בבקשה נסה שנית מאוחר יותר.",
+            list: list,
+        });
+    }
+
+}
+
 
 // app.post("/getProfessions", (req, res, next) => {
 //     let fetchedProfessions;

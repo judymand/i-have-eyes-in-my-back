@@ -8,10 +8,10 @@ export const MainButton = (props) => {
   return (
        <TouchableOpacity 
        activeOpacity={0.6} 
-       style={{...style.mainButton, ...props.style}} 
+       style={{...style.mainButton, ...props.style,...props.styleMainButton }} 
        onPress={props.onPress}>
-         <View style={style.mainButton}> 
-          <BodyText style={style.mainButtonText}> 
+         <View style={{...style.mainButton,...props.styleMainButton}}> 
+          <BodyText style={{...style.mainButtonText,...props.styleMainButtonText}}> 
             {props.children} 
           </BodyText>
          </View>

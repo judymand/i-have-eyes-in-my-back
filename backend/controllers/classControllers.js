@@ -139,3 +139,58 @@ exports.deleteClass = async (req, res) => {
 
 
 }
+
+exports.addProfessionsToClasses = async (req, res) => {
+
+    try{
+
+        let classList = req.body.classList
+        let professionList = req.body.professionList
+        let oneClass
+        let result = classList.forEach( async (item) => {
+             
+            oneClass =  await ClassRoom.findOne({ className: item})
+            
+            professionList.forEach( async  (profession) => {
+                await ClassRoom.updateOne(oneClass, {
+                    $addToSet: {
+                        profession: profession
+                    }
+                })  
+            })
+            
+
+        })
+       
+        if(result !== null){
+            return res.status(201).json({
+                success: true,
+                professionList: professionList,
+                classList: classList,
+                // token: token,
+                message: professionList + ' נוספו בהצלחה ל ' + classList,
+                list: list
+            })
+        }
+  
+        
+        return res.status(401).json({
+            success: false,
+            // token: token,
+            message: "אופסי, ישנה תקלה.\n בבקשה נסה שנית מאוחר יותר.",
+            list: list
+        
+        })
+
+    }catch(err){
+        console.log(err)
+        res.status(500).json({
+            error: err,
+            message: "אופסי, ישנה תקלה.\n בבקשה נסה שנית מאוחר יותר.",
+            list: list
+            
+        });
+    }
+
+}
+

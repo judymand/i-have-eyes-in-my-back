@@ -12,6 +12,19 @@ export default StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center', 
     },
+    containerButtonRow: {
+      flexDirection: 'row',
+      justifyContent: 'space-evenly',
+      width: '100%',
+    },
+    homePageButton: {
+      borderRadius: 10,
+      backgroundColor: 'white',
+      borderColor: '#4E6D4E',
+      color: '#4E6D4E',
+      borderWidth: 2,
+      width: '35%',
+    },
     header: {
       fontSize: windowWidth > 350 ? 26 : 18,
       paddingBottom: windowHeight / 19,
@@ -104,6 +117,14 @@ export default StyleSheet.create({
       width: windowWidth  / 1.3,
       height: windowHeight  / 18,
     },
-  
+    selected:{
+      backgroundColor: 'black',
+      color: '#fff'
+    },
+    notSelected:{
+      backgroundColor:  "#4E6D4E",
+      color: 'black'
+    }
+
   });
   
