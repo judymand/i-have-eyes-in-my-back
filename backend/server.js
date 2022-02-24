@@ -24,6 +24,7 @@ const Profession = require('./models/Profession');
 const userController = require('./controllers/userController')
 const classController = require('./controllers/classControllers')
 const professionControllers = require('./controllers/professionControllers')
+const studentControllers = require('./controllers/studentControllers')
 
 const auth = require('./controllers/auth')
 
@@ -63,6 +64,8 @@ app.post("/addProfessionsToClasses", classController.addProfessionsToClasses)
 
 app.post("/AddProfession", professionControllers.addNewProfession)
 app.get("/getProfessions", professionControllers.getAllProfession)
+
+app.get("/getStudent",studentControllers.getAllStudent)
 
 
 

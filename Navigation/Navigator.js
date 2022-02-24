@@ -28,11 +28,11 @@ import { RemoveProfession } from '../screens/adminScreens/RemoveProfession';
 import { RemoveStudentClass } from '../screens/adminScreens/RemoveStudentClass';
 import { classSelection } from '../screens/teacherScreens/classSelection'
 import { ProfessionsSelection } from '../screens/teacherScreens/ProfessionsSelection'
+import { StudentSelection } from '../screens/teacherScreens/StudentSelection'
 
 const HomePageNavigator = createStackNavigator({
 
-    // BelongsProfessionClass: BelongsProfessionClass,
-    // DeleteClass: DeleteClass,
+    classSelection: classSelection,
     AdminPanel: AdminPanel,
     // classSelection: classSelection,
     HomePage: {
@@ -60,7 +60,8 @@ const HomePageNavigator = createStackNavigator({
     // RemoveStudentClass:RemoveStudentClass,
     // AddAdmin: AddAdmin,
     // ProfessionList: ProfessionList,
-    // ProfessionsSelection: ProfessionsSelection,
+    ProfessionsSelection: ProfessionsSelection,
+    StudentSelection: StudentSelection,
 
     // Settings: {
     //     screen: Settings,
