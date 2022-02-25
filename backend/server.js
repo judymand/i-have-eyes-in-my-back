@@ -64,6 +64,7 @@ app.post("/addProfessionsToClasses", classController.addProfessionsToClasses)
 
 app.post("/AddProfession", professionControllers.addNewProfession)
 app.get("/getProfessions", professionControllers.getAllProfession)
+app.post("/getProfessionsOfClass", professionControllers.getAllProfessionOfClass)
 
 app.get("/getStudent",studentControllers.getAllStudent)
 

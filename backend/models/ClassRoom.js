@@ -8,11 +8,9 @@ const ClassRoomSchema=new mongoose.Schema({
     },
     student:{
         type: [String],
-        default: [''],
     },
     profession: {
         type: [String],
-        default: [''],
     },
    
 })

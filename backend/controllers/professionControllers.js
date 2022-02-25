@@ -1,4 +1,5 @@
 const Profession = require('../models/Profession');
+const ClassRoom = require('../models/ClassRoom');
 
 let list = { textButton:'חזרה לעמוד הראשי',  pageName: 'AdminPanel'}
 
@@ -102,40 +103,47 @@ exports.getAllProfession = async (req, res) => {
 }
 
 
-// app.post("/getProfessions", (req, res, next) => {
-//     let fetchedProfessions;
-//     let ProfessionsArr = [];
-//     let u;
-//     // '_id': { '$nin': [req.body.id] }
-//     Profession.find({})
-//         .then(profession => {
-//             if (!profession) {
-//                 return res.status(401).json({
-//                     message: "Auth failed"
-//                 });
-//             }
+exports.getAllProfessionOfClass = async (req, res) => {
 
-//             fetchedProfessions = profession;
+      try{
 
-//             for (let i = 0; i < fetchedProfessions.length; i++) {
-//                 u = {
-//                     "_id": fetchedProfessions[i]._id,
-//                     "profession": fetchedProfessions[i].profession,
-//                 }
+        let theSelectionClass = req.body.theSelectionClass
+        let ProfessionsArr = [];
+        let oneProfession
+    
+        let theClass = await ClassRoom.findOne({ className: theSelectionClass })
 
-//                 ProfessionsArr.push(u)
-//             }
+        if (!theClass) {
+            return res.status(401).json({
+                success: false,
+                message: "faild"
+            });
+        }
 
-//         })
-//         .then(result => {
-//             res.status(200).json({
-//                 profession: ProfessionsArr
-//             });
-//         })
-//         .catch(err => {
-//             return res.status(401).json({
-//                 message: "Auth failed"
-//             });
-//         });
+        
+        for (let i = 0; i < theClass.profession.length; i++) {
+            if(theClass.profession[i] !== ""){
+                oneProfession = {
+                    "_id": i,
+                    "profession": theClass.profession[i],
+                }
+                ProfessionsArr.push(oneProfession)
+            }
 
-// });
+                
+        }
+     
+        res.status(200).json({
+            profession: ProfessionsArr
+        });
+
+    }catch(error){
+        res.status(500).json({
+            error: error,
+            success: false,
+            message: "אופסי, ישנה תקלה.\n בבקשה נסה שנית מאוחר יותר.",
+            
+        });
+    }
+
+}
