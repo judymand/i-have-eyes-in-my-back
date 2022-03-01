@@ -10,14 +10,12 @@ import { HomePage } from '../screens/HomePage';
 import { SignUpByEmail } from '../screens/registration/SignUpByEmail';
 import { SignUp } from '../screens/registration/SignUp';
 import { LogIn } from '../screens/registration/LogIn';
-import { ClassList } from '../screens/ClassList';
 import { StudentList } from '../screens/StudentList';
 import { AddTeacher } from '../screens/adminScreens/AddTeacher';
 import { AddClass } from '../screens/adminScreens/AddClass';
 import { Addstudent } from '../screens/adminScreens/Addstudent';
 import { AdminPanel } from '../screens/adminScreens/AdminPanel';
 import { AddProfession } from '../screens/adminScreens/AddProfession';
-import { ProfessionList } from '../screens/ProfessionList';
 import { Settings } from '../screens/Settings';
 import { AddAdmin } from '../screens/adminScreens/AddAdmin';
 import { BelongsProfessionClass } from '../screens/adminScreens/BelongsProfessionClass';
@@ -32,9 +30,6 @@ import { StudentSelection } from '../screens/teacherScreens/StudentSelection'
 
 const HomePageNavigator = createStackNavigator({
 
-    classSelection: classSelection,
-    AdminPanel: AdminPanel,
-    // classSelection: classSelection,
     HomePage: {
         screen: HomePage,
         navigationOptions: {
@@ -44,39 +39,12 @@ const HomePageNavigator = createStackNavigator({
     SignUpByEmail: SignUpByEmail,
     SignUp: SignUp,
     LogIn: LogIn ,
-    AddClass: AddClass,
-    // StudentList: StudentList,
-    // AdminPanel: AdminPanel,
-    // AddTeacher: AddTeacher,
-    // AddClass: AddClass,
-    // AddProfession: AddProfession,
-    // ClassList: ClassList,
-    // Addstudent: Addstudent,
-    // DeleteClass: DeleteClass,
-    // BelongsProfessionClass: BelongsProfessionClass,
-    // BelongsStudentClass: BelongsStudentClass,
-    // DeleteTeacher: DeleteTeacher,
-    // RemoveProfession: RemoveProfession,
-    // RemoveStudentClass:RemoveStudentClass,
-    // AddAdmin: AddAdmin,
-    // ProfessionList: ProfessionList,
-    ProfessionsSelection: ProfessionsSelection,
-    StudentSelection: StudentSelection,
 
-    // Settings: {
-    //     screen: Settings,
-    //     navigationOptions: {
-    //         headerTitle: 'שינוי פרטי פרופיל'
-    //     },
-    // },
 });
 
 const AdminNavigator = createStackNavigator({
     
-    AdminPanel: AdminPanel,
-    ClassList: ClassList,
-    ProfessionList: ProfessionList,
-    StudentList: StudentList,
+    HomePage: AdminPanel,
     AddTeacher: AddTeacher,
     AddClass: AddClass,
     DeleteClass: DeleteClass,
@@ -90,11 +58,13 @@ const AdminNavigator = createStackNavigator({
     },
 });
 
-const TeacherNavigator = createStackNavigator({   
-    ClassList: ClassList,
-    ProfessionList: ProfessionList,
-    StudentList: StudentList,
-    Addstudent: Addstudent,
+const TeacherNavigator = createStackNavigator({ 
+    
+    HomePage: classSelection,
+    ProfessionsSelection: ProfessionsSelection,
+    StudentSelection: StudentSelection,
+
+    
     Settings: {
         screen: Settings,
         navigationOptions: {
@@ -136,10 +106,10 @@ const TabNavigator = createBottomTabNavigator({
 })
 
 const mainNavigator = createSwitchNavigator({
-    HomePage: HomePageNavigator,
+    HomePageNavigator: HomePageNavigator,
     AdminNavigator: AdminNavigator,
     TeacherNavigator: TeacherNavigator
     
 })
 
-export default createAppContainer(HomePageNavigator)
+export default createAppContainer(mainNavigator)

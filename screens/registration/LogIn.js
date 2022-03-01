@@ -4,8 +4,9 @@ import style from '../../styles/GlobalStyle'
 import { Input } from '../../components/Input'
 import { Card } from '../../components/Card'
 import { BodyText } from '../../components/BodyText'
-
-
+import * as authActions from '../../store/actions/auth';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 
 
@@ -13,57 +14,92 @@ export const LogIn = (props) => {
  
   const [email, SetEmail] = useState('')
   const [password, SetPassword] = useState('')
-  
-  const submitData =  async () => {
-    
-    try{
-    
-      let response = await fetch("http://localhost:3000/login",
-      {
-        method:"POST",
-        headers:{
-          'Content-Type':'application/json'
-        },
-        body:JSON.stringify({
-          email,
-          password
-    
-        })
-      })  
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
+  const dispatch = useDispatch();
+  const isAdmin = useSelector(state => state.isAdmin);
+ 
 
-      const resData = await response.json()
+  const submitData =  async  () => {
+    let action;
+    action = authActions.login( email, password);
+    setError(null);
+    setIsLoading(true);
+    try {
+      await dispatch(action);
+    } catch (err) {
+      setError(err.message);
+      setIsLoading(false);
+    }
 
-      if(response.status == 201 || response.status == 401 ){
-        Alert.alert(
-          resData.message,
-          '',
-        [
-          { 
-            text: resData.textButton, 
-            onPress: () => props.navigation.navigate(resData.pageName),     
-          }
-        ]
-        )
-      }else{
-        Alert.alert(
-          'משהו השתבש, נסה שנית מאוחר יותר.',
-          '',
-        [
-          { 
-            text: 'חזרה לעמוד הבית', 
-            onPress: () => props.navigation.navigate('HomePage'), 
-          }
-        ]  
-        )
-      }
+  }
+
+
+  // const submitData = useCallback(
+  //   (email,password)  => {
+  //     dispatchFormState({
+  //       type: LOGIN,
+  //       email: email,
+  //       password: password
+  //     });
+  //   },
+  //   [dispatchFormState]
+  // );
+
+
+
+    // try{
+
+    //   let response = await fetch("http://localhost:3000/login",
+    //   {
+    //     method:"POST",
+    //     headers:{
+    //       'Content-Type':'application/json'
+    //     },
+    //     body:JSON.stringify({
+    //       email,
+    //       password
+    
+    //     })
+    //   })  
+
+    //   const resData = await response.json()
+
+    //   if(response.status == 201 ){
+    //     dispatch({ type: LOGIN, token: resData.token, userId: resData.user._id, isAdmin: user.admin });
+    //   }
+    //   else if(response.status == 401 ){
+    //     Alert.alert(
+    //       resData.message,
+    //       '',
+    //     [
+    //       { 
+    //         text: resData.textButton, 
+    //         onPress: () => props.navigation.navigate(resData.pageName),     
+    //       }
+    //     ]
+    //     )
+    //   }
+    //   else{
+    //     Alert.alert(
+    //       'משהו השתבש, נסה שנית מאוחר יותר.',
+    //       '',
+    //     [
+    //       { 
+    //         text: 'חזרה לעמוד הבית', 
+    //         onPress: () => props.navigation.navigate('HomePage'), 
+    //       }
+    //     ]  
+    //     )
+    //   }
    
 
-    }catch{
-      (err) => {console.log(err)}
+    // }catch{
+    //   (err) => {console.log(err)}
 
-    }
+    // }
   
-  }
+  // }
   
 
   return (

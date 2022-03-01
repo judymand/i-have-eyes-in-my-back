@@ -1,7 +1,7 @@
 const Users = require('../models/Users');
 const Teacher = require('../models/Teacher');
 const Admin = require('../models/Admin');
-
+const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
 
@@ -73,8 +73,6 @@ exports.CreateAuser = async (req, res, next) => {
             
         let result = await user.save()
 
-        console.log(result)
-
         if(result){
             return res.status(201).json({
                 success: true,
@@ -95,10 +93,9 @@ exports.CreateAuser = async (req, res, next) => {
         
        
     }catch(err){
-        console.log(err)
         return res.status(401).json({
             success: false,
-            message: "adhtv kt hsugv!!.",
+            message: err,
             textButton:'חזרה לעמוד הבית',
             pageName: 'HomePage'
     });
@@ -112,24 +109,22 @@ exports.CreateAuser = async (req, res, next) => {
 exports.Login = async (req, res, next) => {
     
     try{
-        
+       
         let password = req.body.password
         const lowerCasedEmail = await this.lowerCaseEmail(req.body.email)
         let user =  await Users.findOne({ email: lowerCasedEmail })
 
+       
         if(user){
 
-         
             let fetchedUsers = await this.validatePassword(password, user.password);
-            console.log(fetchedUsers)
-       
+            
             if(fetchedUsers){
-
+               
                 const token = jwt.sign({ userId: user._id }, process.env.TOKEN_SECRET, {
                     expiresIn: '1800s',
                 })
-                
-    
+
                 if(user.admin){
                     return res.status(201).json({
                         success: true,

@@ -1,3 +1,5 @@
+import { LOGIN, LOGOUT } from '../actions/auth';
+
 const initialState = {
     userId: null,
     token: null,
@@ -5,7 +7,20 @@ const initialState = {
 }
 
 const authReducer = (state = initialState, action) => {
-    return state
+    console.log(action)
+    switch(action.type){
+        case LOGIN:
+            return {
+                userId: action.userId,
+                token: action.token,
+                isAdmin: action.isAdmin
+            }
+        case LOGOUT:
+            return initialState;
+        default:
+            return state
+    }
+    
 }
 
 export default authReducer

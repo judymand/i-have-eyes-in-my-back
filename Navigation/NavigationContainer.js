@@ -6,26 +6,37 @@ import Navigator from './Navigator';
 
 const NavigationContainer = props => {
   const navRef = useRef();
-  const isAuth = useSelector(state => !!state.auth.token);
-  const isAdmin = useSelector(state => !!state.auth.admin);
+  const isAuth = useSelector(state => !!state.authReducer.token);
+  const isAdmin = useSelector(state => state.authReducer.isAdmin);
+
+  const state = useSelector(state => state.authReducer);
 
   useEffect(() => {
-    if (!isAuth) {
 
-        if(isAdmin){
-            navRef.current.dispatch(
-                NavigationActions.navigate({ routeName: 'AdminNavigator' })
-              );
-        }
-        else{
-            navRef.current.dispatch(
-                NavigationActions.navigate({ routeName: 'TeacherNavigator' })
-              );
-        }
+    console.log(state)
+    
 
-     
+    if (isAuth) {
+
+      if(isAdmin){
+    
+        navRef.current.dispatch(
+            NavigationActions.navigate({ routeName: 'AdminNavigator' })
+          );
+      }
+      else{
+        navRef.current.dispatch(
+            NavigationActions.navigate({ routeName: 'TeacherNavigator' })
+          );
+      }
+
     }
-  }, [isAuth, isAdmin]);
+    else{
+      navRef.current.dispatch(
+        NavigationActions.navigate({ routeName: 'HomePageNavigator' })
+      );
+    }
+  }, [isAuth]);
 
   return <Navigator ref={navRef} />;
 };
