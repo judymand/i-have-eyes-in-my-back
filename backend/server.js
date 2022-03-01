@@ -57,7 +57,7 @@ app.post("/addTeacher",  auth.isAuth, userController.addNewTeacher)
 app.post("/AddClassRoom", classController.addNewClass) 
 
 
-app.get("/getClasses", classController.getAllClass)
+app.get("/getClasses", auth.isAuth, classController.getAllClass)
 app.post("/deleteClassRoom",classController.deleteClass )
 app.post("/addProfessionsToClasses", classController.addProfessionsToClasses)
 

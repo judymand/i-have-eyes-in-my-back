@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 // import style from '../styles/GlobalStyle'
 import { List } from '../components/List'
 // import { View,  ActivityIndicator, Text} from 'react-native';
-
+import { useSelector } from 'react-redux';
 
 export const ClassList = (props) => {
 
@@ -10,15 +10,17 @@ export const ClassList = (props) => {
   const [data, Setdata] = useState([])
   const className = null
   const { navigation } = props
+  const isAuth = useSelector(state => state.authReducer.token);
   
 const loadClasses = async () => {
     try{
       setIsLoading(true);
-      let response = await fetch("http://localhost:3000/getClasses",
+      let response = await fetch('http://localhost:3000/getClasses',
       {
         method:"GET",
         headers:{
-          'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          'authorization': isAuth 
         }
       })
      

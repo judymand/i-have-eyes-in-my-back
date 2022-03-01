@@ -1,5 +1,5 @@
 const Users = require('../models/Users');
-
+const jwt = require("jsonwebtoken");
 
 // middleware function
 // Checks that the token is the same
@@ -7,10 +7,12 @@ const Users = require('../models/Users');
 exports.isAuth = async (req, res, next) => {
 
     if (req.headers && req.headers.authorization) {
-      const token = req.headers.authorization.split(' ')[1];
-  
+      // const token = req.headers.authorization.split(' ')[1];
+      const token = req.headers.authorization.split(' ')[0];
+
       try {
         const decode = jwt.verify(token, process.env.TOKEN_SECRET);
+
         const user = await Users.findById(decode.userId);
         if (!user) {
           return res.json({ success: false, message: 'unauthorized access!' });
