@@ -4,6 +4,7 @@ import style  from '../../styles/GlobalStyle'
 import { Input } from '../../components/Input'
 import { BodyText } from '../../components/BodyText'
 import { Card } from '../../components/Card'
+import { LinearGradient } from 'expo-linear-gradient';
  
 export const SignUpByEmail = (props) => {
 
@@ -23,9 +24,8 @@ export const SignUpByEmail = (props) => {
                 email,
             })
         })
-        // console.log(response.status)
+   
         const resData = await response.json()
-        // console.log(resData.message)
 
         if(response.status == 202){
           props.navigation.navigate('SignUp', { Email: email, Admin: resData.admin})
@@ -62,32 +62,37 @@ export const SignUpByEmail = (props) => {
 
   return (
     <TouchableWithoutFeedback onPress={ () => { Keyboard.dismiss();}}>
-      <View style={style.viewContainerCard}>
-        <Card > 
-          <View style={{textAlign: "center", alignItems: 'center'}}>
-                <BodyText  style={{fontWeight: 'bold',fontSize: 22}}> הרשמה  </BodyText>
-              
+     <LinearGradient colors={['#c8e8ca', '#4E6D4E']} style={style.gradient}>
+          
+      <Card > 
+        <View style={{textAlign: "center", alignItems: 'center'}}>
+              <BodyText  style={{fontWeight: 'bold',fontSize: 22}}> הרשמה  </BodyText>
+            
 
-                <BodyText  style={style.Bodytext}> דוא״ל: </BodyText>
-                <Input 
-                style={ email === '' ? style.input : ValideEmail ? style.Valid : style.noValid} 
-                onChangeText={validateEmail}
-                value={email}
-                />
-               
-               
-                <View style={style.button}>
-                <Button 
-                  title="המשך" onPress={ submitData }/>
-                </View>
+              <BodyText  style={style.Bodytext}> דוא״ל: </BodyText>
+              <Input 
+              style={ email === '' ? style.input : ValideEmail ? style.Valid : style.noValid} 
+              onChangeText={validateEmail}
+              value={email}
+              />
               
-            </View>
-          </Card>
-        </View>
+              
+              <View style={style.button}>
+              <Button 
+                title="המשך" onPress={ submitData }/>
+              </View>
+            
+          </View>
+        </Card>
+      </LinearGradient>
     </TouchableWithoutFeedback>
        
   );
 }
+
+SignUpByEmail.navigationOptions = {
+  headerTitle: 'הרשמה למערכת'
+};
 
 
 export default SignUpByEmail

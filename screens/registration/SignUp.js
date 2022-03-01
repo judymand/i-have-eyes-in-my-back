@@ -4,6 +4,7 @@ import style  from '../../styles/GlobalStyle'
 import { Input } from '../../components/Input'
 import { BodyText } from '../../components/BodyText'
 import { Card } from '../../components/Card'
+import { LinearGradient } from 'expo-linear-gradient';
 // import { computeWindowedRenderLimits } from 'react-native/Libraries/Lists/VirtualizeUtils';
  
 
@@ -101,49 +102,55 @@ export const SignUp = (props) => {
   }
 
 
+
   return (
     <TouchableWithoutFeedback onPress={ () => { Keyboard.dismiss();}}>
-      <View style={style.viewContainerCard}>
-        <Card > 
-          <View style={{textAlign: "center", alignItems: 'center'}}>
-                <BodyText  style={{fontWeight: 'bold',fontSize: 22}}> הרשמה  </BodyText>
-                <BodyText  style={style.Bodytext}> שם פרטי: </BodyText>
+       <LinearGradient colors={['#c8e8ca', '#4E6D4E']} style={style.gradient}>
+          
+      <Card > 
+        <View style={{textAlign: "center", alignItems: 'center'}}>
+              <BodyText  style={{fontWeight: 'bold',fontSize: 22}}> הרשמה  </BodyText>
+              <BodyText  style={style.Bodytext}> שם פרטי: </BodyText>
+              <Input 
+              style={style.input} 
+              onChangeText={(text) => {SetfirstName(text)}}
+              value={firstName}
+              />
+
+              <BodyText  style={style.Bodytext}> שם משפחה: </BodyText>
                 <Input 
                 style={style.input} 
-                onChangeText={(text) => {SetfirstName(text)}}
-                value={firstName}
+                onChangeText={(text) => {SetLastName(text)}}
+                value={lastName}
                 />
-
-                <BodyText  style={style.Bodytext}> שם משפחה: </BodyText>
-                  <Input 
-                  style={style.input} 
-                  onChangeText={(text) => {SetLastName(text)}}
-                  value={lastName}
-                  />
-                <BodyText style={style.Bodytext} > סיסמא:</BodyText>
-                <Input 
-                style={ password === '' ? style.input : checkStrongPassword === 'red' ? style.noValid : checkStrongPassword === 'blue' ? style.mediumPasswordStyle : style.Valid } 
-                onChangeText={checkPassword}
-                value={password}
-                />
-                {/* <BodyText style={style.Bodytext} > וידוי סיסמא:</BodyText>
-                <Input 
-                style={ verifyPassword === '' ? style.input : checkSamePassword ? style.Valid : style.noValid} 
-                onChangeText={samePassword}
-                value={verifyPassword}
-                />  */}
-                <View style={style.button}>
-                <Button 
-                  title="הירשם" onPress={ submitData }/>
-                </View>
-              
-            </View>
-          </Card>
-        </View>
+              <BodyText style={style.Bodytext} > סיסמא:</BodyText>
+              <Input 
+              style={ password === '' ? style.input : checkStrongPassword === 'red' ? style.noValid : checkStrongPassword === 'blue' ? style.mediumPasswordStyle : style.Valid } 
+              onChangeText={checkPassword}
+              value={password}
+              />
+              {/* <BodyText style={style.Bodytext} > וידוי סיסמא:</BodyText>
+              <Input 
+              style={ verifyPassword === '' ? style.input : checkSamePassword ? style.Valid : style.noValid} 
+              onChangeText={samePassword}
+              value={verifyPassword}
+              />  */}
+              <View style={style.button}>
+              <Button 
+                title="הירשם" onPress={ submitData }/>
+              </View>
+            
+          </View>
+        </Card>
+      </LinearGradient>
     </TouchableWithoutFeedback>
        
   );
 }
+
+SignUp.navigationOptions = {
+  headerTitle: 'הרשמה למערכת'
+};
 
 
 export default SignUp

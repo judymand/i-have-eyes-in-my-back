@@ -61,13 +61,15 @@ export default StyleSheet.create({
     },
     viewContainerCard:{
       alignItems: 'center',
-      marginTop: windowHeight / 20,
+      justifyContent: 'center',
     },
     card:{
-      width: windowWidth / 1.2,
-      height: windowHeight / 1.3,
-      padding: windowWidth / 6,
       borderRadius: 12,
+      width: '80%',
+      maxWidth: windowWidth / 1.2,
+      maxHeight: windowHeight / 2.2,
+      padding: windowHeight / 25,
+   
     },
 
     cardIOS: {
@@ -77,11 +79,20 @@ export default StyleSheet.create({
       shadowRadius: 6,
       shadowOpacity: 0.26,
       backgroundColor: 'white',
+    
    
     },
     cardAndroid: {
       elevation: 8,
+      borderRadius:12,
+      backgroundColor: 'white',
+   
         
+    },
+    gradient: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'center'
     },
     image: {
       flex:1,

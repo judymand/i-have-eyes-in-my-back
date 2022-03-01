@@ -9,12 +9,7 @@ const NavigationContainer = props => {
   const isAuth = useSelector(state => !!state.authReducer.token);
   const isAdmin = useSelector(state => state.authReducer.isAdmin);
 
-  const state = useSelector(state => state.authReducer);
-
   useEffect(() => {
-
-    console.log(state)
-    
 
     if (isAuth) {
 

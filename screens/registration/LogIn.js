@@ -7,7 +7,7 @@ import { BodyText } from '../../components/BodyText'
 import * as authActions from '../../store/actions/auth';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-
+import { LinearGradient } from 'expo-linear-gradient';
 
 
 export const LogIn = (props) => {
@@ -34,78 +34,12 @@ export const LogIn = (props) => {
 
   }
 
-
-  // const submitData = useCallback(
-  //   (email,password)  => {
-  //     dispatchFormState({
-  //       type: LOGIN,
-  //       email: email,
-  //       password: password
-  //     });
-  //   },
-  //   [dispatchFormState]
-  // );
-
-
-
-    // try{
-
-    //   let response = await fetch("http://localhost:3000/login",
-    //   {
-    //     method:"POST",
-    //     headers:{
-    //       'Content-Type':'application/json'
-    //     },
-    //     body:JSON.stringify({
-    //       email,
-    //       password
-    
-    //     })
-    //   })  
-
-    //   const resData = await response.json()
-
-    //   if(response.status == 201 ){
-    //     dispatch({ type: LOGIN, token: resData.token, userId: resData.user._id, isAdmin: user.admin });
-    //   }
-    //   else if(response.status == 401 ){
-    //     Alert.alert(
-    //       resData.message,
-    //       '',
-    //     [
-    //       { 
-    //         text: resData.textButton, 
-    //         onPress: () => props.navigation.navigate(resData.pageName),     
-    //       }
-    //     ]
-    //     )
-    //   }
-    //   else{
-    //     Alert.alert(
-    //       'משהו השתבש, נסה שנית מאוחר יותר.',
-    //       '',
-    //     [
-    //       { 
-    //         text: 'חזרה לעמוד הבית', 
-    //         onPress: () => props.navigation.navigate('HomePage'), 
-    //       }
-    //     ]  
-    //     )
-    //   }
-   
-
-    // }catch{
-    //   (err) => {console.log(err)}
-
-    // }
   
-  // }
-  
-
   return (
-      <TouchableWithoutFeedback onPress={ () => { Keyboard.dismiss();}}>
-         <View style={style.viewContainerCard}>
-          <Card>
+      <TouchableWithoutFeedback onPress={ () => { Keyboard.dismiss();}} >
+        <LinearGradient colors={['#c8e8ca', '#4E6D4E']} style={style.gradient}>
+          
+            <Card>
               <View style={{textAlign: "center", alignItems: 'center'}}>
                   <BodyText style={style.header} > כניסה למערכת</BodyText>
                   <BodyText style={style.Bodytext} > הכנס מייל:</BodyText>
@@ -124,10 +58,14 @@ export const LogIn = (props) => {
                   </View>
               </View>
             </Card>
-          </View>
-        </ TouchableWithoutFeedback>
+         
+        </ LinearGradient>
+      </ TouchableWithoutFeedback>
   );
 }
 
+LogIn.navigationOptions = {
+  headerTitle: 'התחברות'
+};
 
 export default LogIn
