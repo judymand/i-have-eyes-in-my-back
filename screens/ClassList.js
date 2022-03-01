@@ -10,7 +10,7 @@ export const ClassList = (props) => {
   const [data, Setdata] = useState([])
   const className = null
   const { navigation } = props
-  const isAuth = useSelector(state => state.authReducer.token);
+  const token = useSelector(state => state.authReducer.token);
   
 const loadClasses = async () => {
     try{
@@ -20,7 +20,7 @@ const loadClasses = async () => {
         method:"GET",
         headers:{
           'Content-Type':'application/json',
-          'authorization': isAuth 
+          'authorization': 'JWT '+ token 
         }
       })
      
