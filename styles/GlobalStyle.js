@@ -18,12 +18,13 @@ export default StyleSheet.create({
       width: '100%',
     },
     homePageButton: {
-      borderRadius: 10,
+      borderRadius: 30,
       backgroundColor: 'white',
-      borderColor: '#4E6D4E',
+      // borderColor: '#4E6D4E',
+      borderColor: '#8B0000',
       color: '#4E6D4E',
-      borderWidth: 2,
-      width: '35%',
+      borderWidth: 5,
+      width: '45%',
     },
     header: {
       fontSize: windowWidth > 350 ? 26 : 18,
@@ -62,12 +63,14 @@ export default StyleSheet.create({
     viewContainerCard:{
       alignItems: 'center',
       justifyContent: 'center',
+      textAlign: 'right'
     },
     card:{
       borderRadius: 12,
       width: '80%',
+      height: '50%',
       maxWidth: windowWidth / 1.2,
-      maxHeight: windowHeight / 2.2,
+      maxHeight: windowHeight / 1.4,
       padding: windowHeight / 25,
    
     },
@@ -92,7 +95,7 @@ export default StyleSheet.create({
     gradient: {
       flex: 1,
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
     },
     image: {
       flex:1,

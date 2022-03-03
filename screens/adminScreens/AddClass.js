@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import style from '../../styles/GlobalStyle'
-import { View, TouchableWithoutFeedback, Keyboard, Button, Alert } from 'react-native';
+import { View, TouchableWithoutFeedback, Keyboard, Button, Alert, ImageBackground } from 'react-native';
 import { BodyText } from '../../components/BodyText'
 import { Input } from '../../components/Input'
 import { Card } from '../../components/Card'
+import { LinearGradient } from 'expo-linear-gradient';
+import { useSelector } from 'react-redux';
 
 export const AddClass = (props) => {
   
   const [newClassRoom, SetNewClassRoom] = useState('')
   const [newClassNumber, SetnewClassNumber] = useState('')
-
+  const token = useSelector(state => state.authReducer.token);
 
   const submitData = async () => {
+    
 
     try{
 
@@ -19,7 +22,8 @@ export const AddClass = (props) => {
       {
         method:"POST",
         headers:{
-          'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          'authorization': 'JWT '+ token
         },
         body:JSON.stringify({
           newClassRoom,
@@ -51,8 +55,9 @@ export const AddClass = (props) => {
   return (
 
     <TouchableWithoutFeedback onPress={ () => { Keyboard.dismiss();}}>
-      <View style={style.viewContainerCard}>
-        <Card>
+      <LinearGradient colors={['#c8e8ca', '#4E6D4E']} style={style.gradient}>
+      {/* <ImageBackground source={require("../../assets/logo.jpeg")}  style={[style.image,{alignItems:'center', justifyContent: 'center',  opacity: 0.8}]} > */}
+        <Card style={ {backgroundColor: '#d9e6f2'}}>
           <BodyText style={style.header} > הוסף כיתה חדשה </BodyText>
           <View style={{textAlign: "center", alignItems: 'center'}}>
           
@@ -73,7 +78,8 @@ export const AddClass = (props) => {
             </View>
           </View>
         </Card>
-      </View>
+        {/* </ImageBackground> */}
+      </LinearGradient>
     </ TouchableWithoutFeedback>
        
   );

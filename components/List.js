@@ -61,6 +61,9 @@ import { MainButton } from './MainButton'
         title = item.profession
         styleButton = style.smallButton
       }
+      else if(type == 'Teacher'){
+        title = item.email
+      }
       else if(type == 'title'){
         title = item.title
       }

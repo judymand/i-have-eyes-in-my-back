@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 
 
-export const ProfessionList = (props) => {
+export const TeacherList = (props) => {
 
   const [data, Setdata] = useState([])
   const token = useSelector(state => state.authReducer.token);
@@ -13,7 +13,7 @@ export const ProfessionList = (props) => {
     async function fetchMyAPI(){
       try{
 
-        let response = await fetch("http://localhost:3000/getProfessions",
+        let response = await fetch("http://localhost:3000/getAllTeacher",
         {
           method:"GET",
           headers:{
@@ -24,7 +24,7 @@ export const ProfessionList = (props) => {
 
         const resData = await response.json()
 
-        Setdata(resData.profession)
+        Setdata(resData.teacherArr)
 
         // .then(res => res.json())
         // .then(result => 
@@ -44,12 +44,12 @@ export const ProfessionList = (props) => {
     
     <List 
     Data={data} 
-    type='Profession' 
-    num={2} 
+    type='Teacher' 
+    num={1} 
     MultipleSelection={props.MultipleSelection}
     onPress={props.onPress}
     />
        
   );
 }
-  export default ProfessionList
+  export default TeacherList

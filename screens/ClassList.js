@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import style from '../styles/GlobalStyle'
 import { List } from '../components/List'
-// import { View,  ActivityIndicator, Text} from 'react-native';
 import { useSelector } from 'react-redux';
 
 export const ClassList = (props) => {

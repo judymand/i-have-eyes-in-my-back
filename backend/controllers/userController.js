@@ -4,6 +4,8 @@ const Admin = require('../models/Admin');
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
+let list = { textButton:'חזרה לעמוד הראשי',  pageName: 'AdminPanel'}
+
 
 //Check if the email is in the email list.
 exports.emailCheck = async (req, res, next) => {
@@ -175,115 +177,117 @@ exports.Login = async (req, res, next) => {
 }
 
 
-//addTeacher//
-exports.addNewTeacher = async (req, res, next) => {
+//addUserEmail//
+exports.addNewUserEmail = async (req, res, next) => {
 
-    let teacher =  await Teacher.findOne({ email: req.body.email })
+    try{
 
-    if(teacher){
-        return res.status(401).json({
-            message: "Error, the email is on the list of teacher."
+        let admin = req.body.admin
+
+        let newUserEmail
+        let type = "מורה"
+        let listName = "מורים"
+
+        if(admin){
+            type =  "מנהל"
+            listName = "מנהלים"
+            newUserEmail =  await Admin.findOne({ email: req.body.email })
+        }
+        else{
+            newUserEmail =  await Teacher.findOne({ email: req.body.email })
+        }
+
+        if(newUserEmail){
+            return res.status(401).json({
+                success: true,
+                message: "שגיאה, המייל כבר נמצא ברשימת ה" + listName,
+                list: list
+            });
+        }
+
+        let newUser
+
+        if(admin){
+            newUser = new Admin(
+                { email: req.body.email, },
+                { versionKey: false }
+            );
+        }
+        else{
+            newUser = new Teacher(
+                { email: req.body.email, },
+                { versionKey: false }
+            );
+        }
+
+        let result = await newUser.save()
+
+        if(result)
+            return res.status(201).json({
+                success: true,
+                message:  'המייל נכנס בהצלחה לרשימת ה' + listName,
+                list: list
+
         });
-    }
+        else
+            return res.status(401).json({
+                success: false,
+                message: "אופסי, ישנה תקלה.\n בבקשה נסה שנית מאוחר יותר.",
+                list: list
+        });
 
-    const Newteacher = new Teacher(
-        { email: req.body.email, },
-        { versionKey: false }
-    );
-    
-    let result = await Newteacher.save()
+    }catch(err){
 
-    if(result)
-        return res.status(201).json({
-            success: true,
-            message: 'המייל נכנס בהצלחה לרשימת המורים.',
-            textButton:'חזרה לעמוד הראשי',
-            pageName: 'AdminPanle'
-
-    });
-    else
+        console.log(err)
         return res.status(401).json({
             success: false,
+            error: err,
             message: "אופסי, ישנה תקלה.\n בבקשה נסה שנית מאוחר יותר.",
-            textButton:'חזרה לעמוד הראשי',
-            pageName: 'AdminPanle'
-    });
-
-
+            list: list
+        });
+    }
 
 }
 
 
-// app.post("/addTeacher", (req, res, next) => {
-//     Teacher.findOne({ email: req.body.email })
-    
-//         .then(teachers => {
-//             if (teachers) {
-//                 return res.status(401).json({
-//                     message: "Error, the email is on the list of teacher."
-//                 });
-//             }
-//             else{
-               
-//                 const teacher = new Teacher(
-//                     { email: req.body.email, },
-//                     { versionKey: false }
-//                 );
-        
-//                 teacher
-//                 .save()
-//                 .then(result => {
-//                     res.status(201).json({
-//                         message: "Teacher added!",
-//                         result: result
-//                     });
-//                 })
-        
-//                 .catch(err => {
-//                     res.status(500).json({
-//                         error: err
-//                     });
-//                 });
-//             }
-//         })    
-//     });
+
+exports.getAllTeacher = async (req, res, next) => {
+
+    try{
+
+        console.log('1')
+        let teacherArr = [];
+        // let oneTeacher
+        let allTeachers = await Teacher.find({})
+
+        if (!allTeachers) {
+            return res.status(401).json({
+                message: "Auth failed"
+            });
+        }
+
+        for (let i = 0; i < allTeachers.length; i++) {
+            teacherArr.push(allTeachers[i])
+        }
+
+        console.log(teacherArr)
+
+        res.status(200).json({
+            teacherArr: teacherArr
+        });
+        next()
 
 
+   }catch(err){
 
-//addAdmin//
-// app.post("/addAdmin", (req, res, next) => {
-//     Admin.findOne({ email: req.body.email })
-    
-//         .then(admin => {
-//             if (admin) {
-//                 return res.status(401).json({
-//                     message: "Error, the email is on the list of admin."
-//                 });
-//             }
-//             else{
-               
-//                 const nAdmin = new Admin(
-//                     { email: req.body.email, },
-//                     { versionKey: false }
-//                 );
-        
-//                 nAdmin
-//                 .save()
-//                 .then(result => {
-//                     res.status(201).json({
-//                         message: "Admin added!",
-//                         result: result
-//                     });
-//                 })
-        
-//                 .catch(err => {
-//                     res.status(500).json({
-//                         error: err
-//                     });
-//                 });
-//             }
-//         })    
-//     });
-
+        console.log(err)
+        return res.status(401).json({
+            success: false,
+            error: err,
+            message: "אופסי, ישנה תקלה.\n בבקשה נסה שנית מאוחר יותר.",
+            list: list
+        });
+    }
+}
 
 

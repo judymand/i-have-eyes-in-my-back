@@ -122,10 +122,6 @@ export const BelongsProfessionClass = (props) => {
   
   }
 
-  const AddProfessionToClass = (item) => {
-
-  }
-
   if(!classSelected){
     return (
 

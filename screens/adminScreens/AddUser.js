@@ -4,47 +4,55 @@ import { View, TouchableWithoutFeedback, Keyboard, Button, Alert } from 'react-n
 import { BodyText } from '../../components/BodyText'
 import { Input } from '../../components/Input'
 import { Card } from '../../components/Card'
+import { LinearGradient } from 'expo-linear-gradient';
+import { useSelector } from 'react-redux';
 
-export const AddAdmin = (props) => {
+
+export const AddUser = (props) => {
 
   const [email, SetEmail] = useState('')
   const [valideEmail, SetValideEmail] = useState(false)
   const [newMessage, SetNewMessage] = useState('')
+  const admin = props.navigation.getParam('admin')
+  const token = useSelector(state => state.authReducer.token);
+  
+  let name  = "מורה"
+  if(admin){
+    name = "מנהל"
+  }
 
-
-  const submitData=()=>{
-    console.log("Add!!!!!!!!!!!!")
-    fetch("http://10.0.0.5:3000/addAdmin",
-    {
-      method:"POST",
-      headers:{
-        'Content-Type':'application/json'
-      },
-      body:JSON.stringify({
-        email
+  const submitData = async () => {
+    try{
+      
+      let response = await fetch("http://localhost:3000/addUser",
+      {
+        method:"POST",
+        headers:{
+          'Content-Type':'application/json',
+          'authorization': 'JWT '+ token
+        },
+        body:JSON.stringify({
+          email,
+          admin
+        })
       })
-    })
-    .then(res=> res.json() )
-    // .then(res => {
-    //   res.json()
-    //   console.log(JSON.stringify(res))
-    //   console.log('1')
+      const resData = await response.json()
 
-    //   if(JSON.stringify(res.message)){
-    //     SetNewMessage(JSON.stringify(res.message))
-    //   }
-    // })
-    // .then(result => {
-    //   console.log('2')
-    //   console.log(result)
-    //   console.log('3')
-    //   if(JSON.stringify(result.message)){
-        
-    //     SetNewMessage(JSON.stringify(result.message))
-    //   }
-    // })
+      Alert.alert(
+        resData.message,
+        '',
+      [
+        { 
+          text: resData.list.textButton, 
+          onPress: () => props.navigation.navigate(resData.list.pageName),     
+        }
+      ]
+      )
+    
+    }
+    catch{
 
-    Alert.alert(newMessage)
+    }
  
   }
 
@@ -64,10 +72,14 @@ export const AddAdmin = (props) => {
   return (
 
     <TouchableWithoutFeedback onPress={ () => { Keyboard.dismiss();}}>
-      <View style={style.viewContainerCard}>
+      <LinearGradient colors={['#c8e8ca', '#4E6D4E']} style={style.gradient}>
         <Card>
-          <BodyText style={style.header} > הוספת משתמש אדמין/מנהל חדש</BodyText>
-          <BodyText style={style.BodyText} >  ע״י הוספת הדואר האלקטרוני של המנהל, המנהל יוכל להירשם לאפליקציה כאדמין</BodyText>
+          <BodyText style={style.header} > הוספת משתמש {name} חדש למערכת</BodyText>
+          <BodyText style={style.BodyText} > 
+          
+            ע״י הוספת הדואר האלקטרוני של ה{name},
+           ה{name} יוכל להירשם לאפליקציה כמשתמש מסוג {name}
+           </BodyText>
           <View style={{textAlign: "center", alignItems: 'center'}}>
           
             <BodyText style={style.Bodytext} > דואר אלקטרוני: </BodyText>
@@ -81,10 +93,10 @@ export const AddAdmin = (props) => {
             </View>
           </View>
         </Card>
-      </View>
+      </LinearGradient>
     </ TouchableWithoutFeedback>
   
     
   );
 }
-  export default AddAdmin
+  export default AddUser

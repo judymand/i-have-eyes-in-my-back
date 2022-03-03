@@ -11,18 +11,16 @@ import { SignUpByEmail } from '../screens/registration/SignUpByEmail';
 import { SignUp } from '../screens/registration/SignUp';
 import { LogIn } from '../screens/registration/LogIn';
 import { StudentList } from '../screens/StudentList';
-import { AddTeacher } from '../screens/adminScreens/AddTeacher';
 import { AddClass } from '../screens/adminScreens/AddClass';
-import { Addstudent } from '../screens/adminScreens/Addstudent';
 import { AdminPanel } from '../screens/adminScreens/AdminPanel';
 import { AddProfession } from '../screens/adminScreens/AddProfession';
 import { Settings } from '../screens/Settings';
-import { AddAdmin } from '../screens/adminScreens/AddAdmin';
+import { AddUser } from '../screens/adminScreens/AddUser';
 import { BelongsProfessionClass } from '../screens/adminScreens/BelongsProfessionClass';
 import { BelongsStudentClass } from '../screens/adminScreens/BelongsStudentClass';
 import { DeleteClass } from '../screens/adminScreens/DeleteClass';
 import { DeleteTeacher } from '../screens/adminScreens/DeleteTeacher';
-import { RemoveProfession } from '../screens/adminScreens/RemoveProfession';
+import { DeleteProfession } from '../screens/adminScreens/DeleteProfession';
 import { RemoveStudentClass } from '../screens/adminScreens/RemoveStudentClass';
 import { classSelection } from '../screens/teacherScreens/classSelection'
 import { ProfessionsSelection } from '../screens/teacherScreens/ProfessionsSelection'
@@ -33,23 +31,34 @@ const HomePageNavigator = createStackNavigator({
     HomePage: {
         screen: HomePage,
         navigationOptions: {
-            headerTitle: 'I have eyes in my back'
+            headerTitle: 'I have eyes in my back',
+            backgroundColor: '#4E6D4E'
         }
     },
     SignUpByEmail: SignUpByEmail,
     SignUp: SignUp,
-    LogIn: LogIn ,
+    LogIn: LogIn 
 
-});
+   
+}
+    // navigationOptions: {
+    //     headerStyle: {
+    //         backgroundColor: '#4E6D4E'
+    //     },
+    // }
+
+);
 
 const AdminNavigator = createStackNavigator({
     
-    HomePage: AdminPanel,
-    AddTeacher: AddTeacher,
+    AdminPanel: AdminPanel,
+    AddUser: AddUser,
     AddClass: AddClass,
     DeleteClass: DeleteClass,
+    DeleteProfession: DeleteProfession,
+    DeleteTeacher: DeleteTeacher,
     AddProfession: AddProfession,
-    Addstudent: Addstudent,
+    BelongsProfessionClass: BelongsProfessionClass,
     Settings: {
         screen: Settings,
         navigationOptions: {
@@ -60,7 +69,7 @@ const AdminNavigator = createStackNavigator({
 
 const TeacherNavigator = createStackNavigator({ 
     
-    HomePage: classSelection,
+    classSelection: classSelection,
     ProfessionsSelection: ProfessionsSelection,
     StudentSelection: StudentSelection,
 

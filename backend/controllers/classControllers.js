@@ -1,4 +1,5 @@
 const ClassRoom = require('../models/ClassRoom');
+const Profession = require('../models/Profession');
 
 let list = { textButton:'חזרה לעמוד הראשי',  pageName: 'AdminPanel'}
 
@@ -105,27 +106,36 @@ exports.deleteClass = async (req, res) => {
 
     try{
 
-        let result = await ClassRoom.findByIdAndRemove(req.body.id)
+        let listOfClass = req.body.classListToDeleate
 
-        if(result){
-            return res.status(201).json({
-                success: true,
-                Newclass: result,
-                // token: token,
-                message: " הכיתה " + result.className + ' נמחקה בהצלחה מרשימת הכיתות.',
-                textButton:'המשך',
-                pageName: 'DeleteClass'
-            })
-        }
-  
-        return res.status(401).json({
-            success: false,
-            // token: token,
-            message: "אופסי, ישנה תקלה.\n בבקשה נסה שנית מאוחר יותר.",
-            textButton:'חזרה לעמוד הראשי',
-            pageName: 'AdminPanel'
         
+
+        listOfClass.forEach( async (oneClass) =>  {
+
+           let result =  await ClassRoom.findOneAndRemove({ className: oneClass })
+
+           if(!result){
+                return res.status(401).json({
+                success: false,
+                message: "אופסי, ישנה תקלה.\n בבקשה נסה שנית מאוחר יותר.",
+                textButton:'חזרה לעמוד הראשי',
+                pageName: 'AdminPanel' 
+                })
+            }
+    
         })
+
+      
+        return res.status(201).json({
+            success: true,
+            Newclass: listOfClass,
+            message: " הכיתה " + listOfClass + ' נמחקה בהצלחה מרשימת הכיתות.',
+            textButton:'המשך',
+            pageName: 'DeleteClass'
+        })
+      
+  
+     
 
     }catch(err){
         res.status(500).json({
@@ -147,40 +157,39 @@ exports.addProfessionsToClasses = async (req, res) => {
         let classList = req.body.classList
         let professionList = req.body.professionList
         let oneClass
-        let result = classList.forEach( async (item) => {
+
+
+        await classList.forEach( async (item) => {
              
             oneClass =  await ClassRoom.findOne({ className: item})
-            
-            professionList.forEach( async  (profession) => {
-                await ClassRoom.updateOne(oneClass, {
-                    $addToSet: {
-                        profession: profession
-                    }
-                })  
-            })
-            
 
+            await ClassRoom.updateOne(oneClass, {
+                $addToSet: {
+                    profession: professionList
+                }
+            })
+
+            // if(!result){
+            //     return res.status(401).json({
+            //     success: false,
+            //     message: "אופסי, ישנה תקלה.\n בבקשה נסה שנית מאוחר יותר.",
+            //     list: list
+            //     })
+            // }
+            
         })
        
-        if(result !== null){
-            return res.status(201).json({
-                success: true,
-                professionList: professionList,
-                classList: classList,
-                // token: token,
-                message: professionList + ' נוספו בהצלחה ל ' + classList,
-                list: list
-            })
-        }
-  
-        
-        return res.status(401).json({
-            success: false,
-            // token: token,
-            message: "אופסי, ישנה תקלה.\n בבקשה נסה שנית מאוחר יותר.",
+       
+        return res.status(201).json({
+            success: true,
+            professionList: professionList,
+            classList: classList,
+            message: professionList + ' נוספו בהצלחה ל ' + classList,
             list: list
-        
         })
+
+    
+       
 
     }catch(err){
         console.log(err)
@@ -194,3 +203,57 @@ exports.addProfessionsToClasses = async (req, res) => {
 
 }
 
+exports.deleateProfessions = async (req, res) => {
+
+    try{
+
+        let professionList = req.body.professionListToDeleate
+
+        let allClass = await ClassRoom.find({})
+
+        allClass.forEach( async (oneClass) => {
+
+            await ClassRoom.updateOne( oneClass, {
+                $pullAll: {
+                    profession: professionList,
+                },
+            });
+        })
+
+        
+
+        professionList.forEach( async (profession) =>  {
+
+            let result =  await Profession.findOneAndRemove({ profession: profession })
+ 
+            if(!result){
+                 return res.status(401).json({
+                 success: false,
+                 message: "אופסי, ישנה תקלה.\n בבקשה נסה שנית מאוחר יותר.",
+                 textButton:'חזרה לעמוד הראשי',
+                 pageName: 'AdminPanel' 
+                 })
+             }
+     
+        })
+
+        return res.status(201).json({
+            success: true,
+            professionList: professionList,
+            message: " המקצוע " + professionList + ' נמחקה בהצלחה מרשימת המקצועות.',
+            list: list
+        })
+
+
+
+    }catch(err){
+        console.log(err)
+        res.status(500).json({
+            error: err,
+            message: "אופסי, ישנה תקלה.\n בבקשה נסה שנית מאוחר יותר.",
+            list: list
+            
+        });
+    }
+
+}

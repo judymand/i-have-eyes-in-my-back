@@ -49,7 +49,6 @@ app.post('/signup', userController.CreateAuser)
 
 app.post('/login', userController.Login)
 
-app.post("/addTeacher",  auth.isAuth, userController.addNewTeacher)
 
 
 
@@ -58,54 +57,20 @@ app.post("/AddClassRoom", classController.addNewClass)
 
 
 app.get("/getClasses", auth.isAuth, classController.getAllClass)
-app.post("/deleteClassRoom",classController.deleteClass )
+app.post("/deleteClassRoom", auth.isAuth,classController.deleteClass )
 app.post("/addProfessionsToClasses", classController.addProfessionsToClasses)
 
-
-app.post("/AddProfession", professionControllers.addNewProfession)
+app.post("/AddProfession", auth.isAuth, professionControllers.addNewProfession)
 app.get("/getProfessions", professionControllers.getAllProfession)
 app.post("/getProfessionsOfClass", professionControllers.getAllProfessionOfClass)
 
+app.post("/deleteProfession", auth.isAuth, classController.deleateProfessions)
+
+app.post("/getAllTeacher",  auth.isAuth, userController.getAllTeacher)
+
 // app.get("/getStudent",studentControllers.getAllStudent)
 
-
-
-//addTeacher//
-app.post("/addTeacher", (req, res, next) => {
-    Teacher.findOne({ email: req.body.email })
-    
-        .then(teachers => {
-            if (teachers) {
-                return res.status(401).json({
-                    message: "Error, the email is on the list of teacher."
-                });
-            }
-            else{
-               
-                const teacher = new Teacher(
-                    { email: req.body.email, },
-                    { versionKey: false }
-                );
-        
-                teacher
-                .save()
-                .then(result => {
-                    res.status(201).json({
-                        message: "Teacher added!",
-                        result: result
-                    });
-                })
-        
-                .catch(err => {
-                    res.status(500).json({
-                        error: err
-                    });
-                });
-            }
-        })    
-    });
-
- 
+app.post("/addUser", auth.isAuth, userController.addNewUserEmail)
 
     
 

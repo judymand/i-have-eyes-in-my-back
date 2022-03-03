@@ -4,10 +4,13 @@ import { View, TouchableWithoutFeedback, Keyboard, Button, Alert } from 'react-n
 import { BodyText } from '../../components/BodyText'
 import { Input } from '../../components/Input'
 import { Card } from '../../components/Card'
+import { LinearGradient } from 'expo-linear-gradient';
+import { useSelector } from 'react-redux';
 
 export const AddProfession = (props) => {
 
   const [profession, SetProfession] = useState('')
+  const token = useSelector(state => state.authReducer.token);
 
   const submitData = async () => {
     
@@ -16,7 +19,8 @@ export const AddProfession = (props) => {
       {
         method:"POST",
         headers:{
-          'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          'authorization': 'JWT '+ token
         },
         body:JSON.stringify({
           profession
@@ -43,7 +47,7 @@ export const AddProfession = (props) => {
 
   return (
     <TouchableWithoutFeedback onPress={ () => { Keyboard.dismiss();}}>
-      <View style={style.viewContainerCard}>
+      <LinearGradient colors={['#c8e8ca', '#4E6D4E']} style={style.gradient}>
         <Card>
           <BodyText style={style.header} > הוסף מקצוע </BodyText>
           <BodyText style={style.Bodytext} >  הוסף מקצוע חדש למקצועות הלימוד הנלמדים בבית הספר </BodyText>
@@ -60,7 +64,7 @@ export const AddProfession = (props) => {
             </View>
           </View>
         </Card>
-      </View>
+      </LinearGradient>
     </ TouchableWithoutFeedback>
   );
 }
