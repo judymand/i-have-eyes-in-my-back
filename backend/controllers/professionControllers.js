@@ -147,3 +147,58 @@ exports.getAllProfessionOfClass = async (req, res) => {
     }
 
 }
+
+exports.deleateProfessions = async (req, res) => {
+
+    try{
+
+        let professionList = req.body.professionListToDeleate
+
+        let allClass = await ClassRoom.find({})
+
+        allClass.forEach( async (oneClass) => {
+
+            await ClassRoom.updateOne( oneClass, {
+                $pullAll: {
+                    profession: professionList,
+                },
+            });
+        })
+
+        
+
+        professionList.forEach( async (profession) =>  {
+
+            let result =  await Profession.findOneAndRemove({ profession: profession })
+ 
+            if(!result){
+                 return res.status(401).json({
+                 success: false,
+                 message: "אופסי, ישנה תקלה.\n בבקשה נסה שנית מאוחר יותר.",
+                 textButton:'חזרה לעמוד הראשי',
+                 pageName: 'AdminPanel' 
+                 })
+             }
+     
+        })
+
+        return res.status(201).json({
+            success: true,
+            professionList: professionList,
+            message: " המקצוע " + professionList + ' נמחקה בהצלחה מרשימת המקצועות.',
+            list: list
+        })
+
+
+
+    }catch(err){
+        console.log(err)
+        res.status(500).json({
+            error: err,
+            message: "אופסי, ישנה תקלה.\n בבקשה נסה שנית מאוחר יותר.",
+            list: list
+            
+        });
+    }
+
+}

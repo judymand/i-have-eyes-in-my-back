@@ -255,9 +255,7 @@ exports.getAllTeacher = async (req, res, next) => {
 
     try{
 
-        console.log('1')
         let teacherArr = [];
-        // let oneTeacher
         let allTeachers = await Teacher.find({})
 
         if (!allTeachers) {
@@ -269,8 +267,6 @@ exports.getAllTeacher = async (req, res, next) => {
         for (let i = 0; i < allTeachers.length; i++) {
             teacherArr.push(allTeachers[i])
         }
-
-        console.log(teacherArr)
 
         res.status(200).json({
             teacherArr: teacherArr
@@ -290,4 +286,40 @@ exports.getAllTeacher = async (req, res, next) => {
     }
 }
 
+exports.deleteTeacher = async (req, res, next) => {
+
+    try{
+      
+        let teacherArr = req.body.teacherListToDeleate;
+
+        teacherArr.forEach( async (teacher) =>  {
+
+            await Teacher.findOneAndRemove({ email: teacher })
+
+            let emailUser = await Users.findOne({ email: teacher })
+
+            if(emailUser){
+                Users.findOneAndRemove({ email: teacher })
+            }
+
+        })
+
+        return res.status(201).json({
+            success: true,
+            teacherArr: teacherArr,
+            message: " המיילים והמשתמשים " + teacherArr + ' נמחקן בהצלחה מרשימת המיילים של משתמש מסוג מורה ומרשימת המשתמשים.',
+            list: list
+        })
+
+   }catch(err){
+
+        console.log(err)
+        return res.status(401).json({
+            success: false,
+            error: err,
+            message: "אופסי, ישנה תקלה.\n בבקשה נסה שנית מאוחר יותר.",
+            list: list
+        });
+    }
+}
 

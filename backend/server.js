@@ -51,26 +51,23 @@ app.post('/login', userController.Login)
 
 
 
-
-// app.post("/AddClassRoom", auth.isAuth, classController.addNewClass)
-app.post("/AddClassRoom", classController.addNewClass) 
-
-
 app.get("/getClasses", auth.isAuth, classController.getAllClass)
+app.post("/AddClassRoom", auth.isAuth, classController.addNewClass) 
 app.post("/deleteClassRoom", auth.isAuth,classController.deleteClass )
 app.post("/addProfessionsToClasses", classController.addProfessionsToClasses)
 
+app.get("/getProfessions", auth.isAuth, professionControllers.getAllProfession)
 app.post("/AddProfession", auth.isAuth, professionControllers.addNewProfession)
-app.get("/getProfessions", professionControllers.getAllProfession)
 app.post("/getProfessionsOfClass", professionControllers.getAllProfessionOfClass)
+app.post("/deleteProfession", auth.isAuth, professionControllers.deleateProfessions)
 
-app.post("/deleteProfession", auth.isAuth, classController.deleateProfessions)
-
-app.post("/getAllTeacher",  auth.isAuth, userController.getAllTeacher)
+app.get("/getAllTeacher", auth.isAuth, userController.getAllTeacher)
+app.post("/addUserEmail", auth.isAuth, userController.addNewUserEmail)
+app.post("/deleteTeacher",auth.isAuth, userController.deleteTeacher)
 
 // app.get("/getStudent",studentControllers.getAllStudent)
 
-app.post("/addUser", auth.isAuth, userController.addNewUserEmail)
+
 
     
 
@@ -321,29 +318,3 @@ app.post('/deleteCTeacher',(req,res, next)=>{
 
     
 })
-
-// Add a Profession to the list of Profession in the class
-
-app.post("/AddProfessionClassRoom", (req, res, next) => {
-    ClassRoom.findOneAndUpdate(
-        { _id: req.body.classRoom },
-        
-        
-        )
-
-        .then(cRoom => {
-            if (cRoom) {
-
-                
-            }
-            else{
-                return res.status(401).json({
-                    message: "Error, the class is on the list of classes."
-                });
-               
-            }
-        }) 
-     
-    });
-
-
