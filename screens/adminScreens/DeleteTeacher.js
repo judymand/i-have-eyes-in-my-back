@@ -29,7 +29,7 @@ export const DeleteTeacher = (props) => {
           teacherListToDeleate: teacherListToDeleate,
         })
       })   
-
+ 
 
       const resData = await response.json()
 
@@ -64,7 +64,7 @@ export const DeleteTeacher = (props) => {
       text1 = ' חזור '
       text2 = ''
 
-    }else if(pteacherListToDeleate.length === 1){
+    }else if(teacherListToDeleate.length === 1){
       message = 'המייל שנבחר: '
       text1 = 'שנה בחירה'
       text2 = 'מחק מורה'

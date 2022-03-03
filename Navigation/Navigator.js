@@ -6,15 +6,17 @@ import { Entypo } from '@expo/vector-icons';
 import React from 'react';
 
 // import all pages of the app
+
+//homePage + registration
 import { HomePage } from '../screens/HomePage';
 import { SignUpByEmail } from '../screens/registration/SignUpByEmail';
 import { SignUp } from '../screens/registration/SignUp';
 import { LogIn } from '../screens/registration/LogIn';
-import { StudentList } from '../screens/StudentList';
-import { AddClass } from '../screens/adminScreens/AddClass';
+
+// admin screens
 import { AdminPanel } from '../screens/adminScreens/AdminPanel';
+import { AddClass } from '../screens/adminScreens/AddClass';
 import { AddProfession } from '../screens/adminScreens/AddProfession';
-import { Settings } from '../screens/Settings';
 import { AddUser } from '../screens/adminScreens/AddUser';
 import { BelongsProfessionClass } from '../screens/adminScreens/BelongsProfessionClass';
 import { BelongsStudentClass } from '../screens/adminScreens/BelongsStudentClass';
@@ -22,9 +24,15 @@ import { DeleteClass } from '../screens/adminScreens/DeleteClass';
 import { DeleteTeacher } from '../screens/adminScreens/DeleteTeacher';
 import { DeleteProfession } from '../screens/adminScreens/DeleteProfession';
 import { RemoveStudentClass } from '../screens/adminScreens/RemoveStudentClass';
+
+
+// teacher screens
 import { classSelection } from '../screens/teacherScreens/classSelection'
 import { ProfessionsSelection } from '../screens/teacherScreens/ProfessionsSelection'
 import { StudentSelection } from '../screens/teacherScreens/StudentSelection'
+import { RemoveProfessionClass } from '../screens/adminScreens/RemoveProfessionClass'
+
+import { Settings } from '../screens/Settings';
 
 const HomePageNavigator = createStackNavigator({
 
@@ -59,6 +67,7 @@ const AdminNavigator = createStackNavigator({
     DeleteTeacher: DeleteTeacher,
     AddProfession: AddProfession,
     BelongsProfessionClass: BelongsProfessionClass,
+    RemoveProfessionClass, RemoveProfessionClass,
     Settings: {
         screen: Settings,
         navigationOptions: {

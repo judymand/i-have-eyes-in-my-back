@@ -11,6 +11,7 @@ export const TeacherList = (props) => {
 
   useEffect(() => {
     async function fetchMyAPI(){
+
       try{
 
         let response = await fetch("http://localhost:3000/getAllTeacher",
@@ -25,12 +26,6 @@ export const TeacherList = (props) => {
         const resData = await response.json()
 
         Setdata(resData.teacherArr)
-
-        // .then(res => res.json())
-        // .then(result => 
-        //   {Setdata(result.profession)
-        //   console.log(result.profession)}
-        //   )
 
       }catch(error){
         console.log(error)

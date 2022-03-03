@@ -10,14 +10,15 @@ export const AdminPanel = (props) => {
   const data = [
       {_id: 0, title: 'הוספת כיתה' , pageName: 'AddClass'},
       {_id: 1, title: 'מחיקת כיתה' , pageName: 'DeleteClass'},
-      {_id: 2, title: 'הוספת מורה למערכת' , pageName: 'AddUser', admin: false},
-      {_id: 3, title: 'מחיקת מורה' , pageName: 'DeleteTeacher'},
-      {_id: 4, title: 'שייך תלמיד לכיתה' , pageName: 'BelongsStudentClass'},
-      {_id: 5, title: 'הסר תלמיד מכיתה' , pageName: 'RemoveStudentClass'},
-      {_id: 6, title: 'הוסף מקצוע', pageName: 'AddProfession' },
-      {_id: 7, title: 'הסר מקצוע', pageName: 'DeleteProfession' },
-      {_id: 8, title: 'שייך מקצוע לכיתה', pageName: 'BelongsProfessionClass' },
-      {_id: 9, title: 'הוסף אדמין', pageName: 'AddUser' , admin: true },
+      {_id: 2, title: 'הוסף מקצוע', pageName: 'AddProfession' },
+      {_id: 3, title: 'הסר מקצוע', pageName: 'DeleteProfession' },
+      {_id: 4, title: 'שייך מקצוע לכיתה', pageName: 'BelongsProfessionClass' },
+      {_id: 5, title: 'הסר מקצוע מכיתה', pageName: 'RemoveProfessionClass' },
+      {_id: 6, title: 'שייך תלמיד לכיתה' , pageName: 'BelongsStudentClass'},
+      {_id: 7, title: 'הסר תלמיד מכיתה' , pageName: 'RemoveStudentClass'}, 
+      {_id: 8, title: 'הוספת מורה למערכת' , pageName: 'AddUser', admin: false},
+      {_id: 9, title: 'מחיקת מורה' , pageName: 'DeleteTeacher'},
+      {_id: 10, title: 'הוסף אדמין', pageName: 'AddUser' , admin: true },
   ]
 
  

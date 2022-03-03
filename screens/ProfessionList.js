@@ -26,11 +26,6 @@ export const ProfessionList = (props) => {
 
         Setdata(resData.profession)
 
-        // .then(res => res.json())
-        // .then(result => 
-        //   {Setdata(result.profession)
-        //   console.log(result.profession)}
-        //   )
 
       }catch(error){
         console.log(error)

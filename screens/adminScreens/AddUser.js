@@ -24,7 +24,7 @@ export const AddUser = (props) => {
   const submitData = async () => {
     try{
       
-      let response = await fetch("http://localhost:3000/addUser",
+      let response = await fetch("http://localhost:3000/addUserEmail",
       {
         method:"POST",
         headers:{
