@@ -61,6 +61,8 @@ app.post("/AddProfession", auth.isAuth, professionControllers.addNewProfession)
 app.post("/getProfessionsOfClass", professionControllers.getAllProfessionOfClass)
 app.post("/deleteProfession", auth.isAuth, professionControllers.deleateProfessions)
 
+app.post("/deleteProfessionFromClass", auth.isAuth, professionControllers.deleateProfessionsFromClass)
+
 app.get("/getAllTeacher", auth.isAuth, userController.getAllTeacher)
 app.post("/addUserEmail", auth.isAuth, userController.addNewUserEmail)
 app.post("/deleteTeacher",auth.isAuth, userController.deleteTeacher)
