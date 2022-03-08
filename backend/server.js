@@ -24,7 +24,7 @@ const Profession = require('./models/Profession');
 const userController = require('./controllers/userController')
 const classController = require('./controllers/classControllers')
 const professionControllers = require('./controllers/professionControllers')
-// const studentControllers = require('./controllers/studentControllers')
+const studentControllers = require('./controllers/studentControllers')
 
 const auth = require('./controllers/auth')
 
@@ -54,22 +54,24 @@ app.post('/login', userController.Login)
 app.get("/getClasses", auth.isAuth, classController.getAllClass)
 app.post("/AddClassRoom", auth.isAuth, classController.addNewClass) 
 app.post("/deleteClassRoom", auth.isAuth,classController.deleteClass )
-app.post("/addProfessionsToClasses", classController.addProfessionsToClasses)
+app.post("/addProfessionsToClasses", auth.isAuth, classController.addProfessionsToClasses)
 
 app.get("/getProfessions", auth.isAuth, professionControllers.getAllProfession)
 app.post("/AddProfession", auth.isAuth, professionControllers.addNewProfession)
 app.post("/getProfessionsOfClass", professionControllers.getAllProfessionOfClass)
-app.post("/deleteProfession", auth.isAuth, professionControllers.deleateProfessions)
+app.post("/deleteProfession", auth.isAuth, professionControllers.deleteProfessions)
 
-app.post("/deleteProfessionFromClass", auth.isAuth, professionControllers.deleateProfessionsFromClass)
+app.post("/deleteProfessionFromClass", auth.isAuth, professionControllers.deleteProfessionsFromClass)
 
 app.get("/getAllTeacher", auth.isAuth, userController.getAllTeacher)
 app.post("/addUserEmail", auth.isAuth, userController.addNewUserEmail)
 app.post("/deleteTeacher",auth.isAuth, userController.deleteTeacher)
 
-// app.get("/getStudent",studentControllers.getAllStudent)
+app.get("/getAllStudent", auth.isAuth, studentControllers.getAllStudent)
+app.post("/addStudentsToClass", auth.isAuth, studentControllers.addStudentsToClass)
 
-
+app.post("/getStudentOfClass", auth.isAuth, studentControllers.getAllStudentsOfClass)
+app.post("/deleteStudentsFromClass", auth.isAuth, studentControllers.deleteStudentsFromClass)
 
     
 

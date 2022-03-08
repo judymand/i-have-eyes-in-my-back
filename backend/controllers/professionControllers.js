@@ -148,7 +148,7 @@ exports.getAllProfessionOfClass = async (req, res) => {
 
 }
 
-exports.deleateProfessions = async (req, res) => {
+exports.deleteProfessions = async (req, res) => {
 
     try{
 
@@ -202,7 +202,7 @@ exports.deleateProfessions = async (req, res) => {
 
 }
 
-exports.deleateProfessionsFromClass = async (req, res) => {
+exports.deleteProfessionsFromClass = async (req, res) => {
 
 
     try{

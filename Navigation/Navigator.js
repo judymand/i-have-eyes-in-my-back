@@ -68,6 +68,8 @@ const AdminNavigator = createStackNavigator({
     AddProfession: AddProfession,
     BelongsProfessionClass: BelongsProfessionClass,
     RemoveProfessionClass, RemoveProfessionClass,
+    BelongsStudentClass: BelongsStudentClass,
+    RemoveStudentClass: RemoveStudentClass,
     Settings: {
         screen: Settings,
         navigationOptions: {

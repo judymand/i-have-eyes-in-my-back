@@ -1,36 +1,49 @@
 import React, { useState, useEffect } from 'react';
-import style from '../styles/GlobalStyle'
 import { List } from '../components/List'
-import { View } from 'react-native';
+import { useSelector } from 'react-redux';
+
 
 
 export const StudentList = (props) => {
 
   const [data, Setdata] = useState([])
+  const token = useSelector(state => state.authReducer.token);
 
   useEffect(() => {
-    fetch('http://10.0.0.5:3000/getClasses',
-    {
-      method:"POST",
-      headers:{
-        'Content-Type':'application/json'
+    async function fetchMyAPI(){
+      try{
+
+        let response = await fetch("http://localhost:3000/getAllStudent",
+        {
+          method:"GET",
+          headers:{
+            'Content-Type':'application/json',
+            'authorization': 'JWT '+ token 
+          }
+        })
+
+        const resData = await response.json()
+
+        Setdata(resData.studentList)
+
+
+      }catch(error){
+        console.log(error)
       }
-    })
-    .then(res => res.json())
-    .then(result => 
-      Setdata(result.classRoom)
-      )
+    }
+    fetchMyAPI()
 
   }, [])
-
 
   return (
     
     <List 
     Data={data} 
-    type='studenName' 
-    num={2} 
-    onPress={props}/>
+    type='Student' 
+    num={1} 
+    MultipleSelection={props.MultipleSelection}
+    onPress={props.onPress}
+    />
        
   );
 }

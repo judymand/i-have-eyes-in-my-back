@@ -5,10 +5,12 @@ import { ClassList } from '../ClassList'
 import { ProfessionList } from '../ProfessionList'
 import { BodyText } from '../../components/BodyText'
 import { MainButton } from '../../components/MainButton'
+import { useSelector } from 'react-redux';
 
 
 export const BelongsProfessionClass = (props) => {
 
+  const token = useSelector(state => state.authReducer.token);
   const [classSelected, setClassSelected] = useState(false)
   const[classList, setClassList] = useState([]);
   const[professionList, setProfessionList] = useState([]);
@@ -21,7 +23,8 @@ export const BelongsProfessionClass = (props) => {
       {
         method:"POST",
         headers:{
-          'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          'authorization': 'JWT '+ token
         },
         body:JSON.stringify({
           classList,
