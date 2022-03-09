@@ -68,8 +68,9 @@ import { MainButton } from './MainButton'
         title = item.title
       }
       else if(type == 'Student'){
-        title = item
+        title = item.name
       }
+      
       if(MultipleSelection){   
         styleButtonSelested = selectedList.includes(title) ? style.selected : style.notSelected  
       }

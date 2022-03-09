@@ -73,6 +73,8 @@ app.post("/addStudentsToClass", auth.isAuth, studentControllers.addStudentsToCla
 app.post("/getStudentOfClass", auth.isAuth, studentControllers.getAllStudentsOfClass)
 app.post("/deleteStudentsFromClass", auth.isAuth, studentControllers.deleteStudentsFromClass)
 
+app.post("/createNewLesson", auth.isAuth, studentControllers.LessonObject)
+
     
 
 
