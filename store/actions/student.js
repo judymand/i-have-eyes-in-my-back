@@ -3,7 +3,7 @@ import { getToken } from './auth'
 
 const device =  Platform.OS === 'ios'
 
-let api = "10.0.0.4"
+let api = "10.0.0.10"
 
 if(device){
   api = "localhost"

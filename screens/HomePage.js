@@ -5,7 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { useDispatch } from 'react-redux';
 import * as authActions from '../store/actions/auth';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { MainButton } from '../components/MainButton'
 
 export const HomePage = (props) => {
 
@@ -41,11 +41,22 @@ export const HomePage = (props) => {
           {/* <ImageBackground source={require("../assets/logo.jpeg")}  style={[style.image,{alignItems:'center', justifyContent: 'center',  opacity: 0.85}]} > */}
           <LinearGradient colors={['#c8e8ca', '#4E6D4E']} style={style.gradient}>
             <View style={style.containerButtonRow}>
-              <View style={[style.homePageButton, {backgroundColor: '#A52A2A'}]}>
-                <Button title="התחברות" onPress={ () => props.navigation.navigate('LogIn') } color='black' />
+              <View style={style.homePageBorderButton}>
+                {/* <Button title="התחברות" onPress={ () => props.navigation.navigate('LogIn') } color='black' /> */}
+                <MainButton
+                styleMainButtonText={style.homePageButton}
+                onPress={ () => props.navigation.navigate('LogIn') }
+                >
+                  התחברות
+                </MainButton>
               </View>
-              <View style={[style.homePageButton, {backgroundColor: '#A52A2A'}]}>
-                <Button title="הרשמה"  onPress={ () => props.navigation.navigate('SignUpByEmail')}   color='black'/>
+              <View style={style.homePageBorderButton}>
+                <MainButton
+                  styleMainButtonText={style.homePageButton}
+                  onPress={ () => props.navigation.navigate('SignUpByEmail')} 
+                  >
+                  הרשמה
+                  </MainButton>
               </View>
             </View>
           </LinearGradient>

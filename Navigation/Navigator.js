@@ -51,20 +51,45 @@ const HomePageNavigator = createStackNavigator({
         navigationOptions: {
             headerTitle: 'I have eyes in my back',
             backgroundColor: '#4E6D4E'
+            
         }
     },
     SignUpByEmail: SignUpByEmail,
     SignUp: SignUp,
     LogIn: LogIn 
 
-}
-    // navigationOptions: {
-    //     headerStyle: {
-    //         backgroundColor: '#4E6D4E'
-    //     },
-    // }
+},
+    {
+        defaultNavigationOptions: {
+            headerTitleAlign: 'center',
+            headerStyle: {
+                backgroundColor: '#4E6D4E'
+            },
+        
+        }
+    }
+    
 
 );
+
+const logOut = ({navigation}) => ({
+    headerTitleAlign: 'center',
+    headerStyle: {
+    //   backgroundColor: '#29434e',
+      shadowColor: 'transparent',
+      elevation: 2
+    },
+    headerRight: () => 
+        <TouchableOpacity activeOpacity={0.6} style={{paddingRight: 15}}>
+            <Entypo name="log-out" size={26} coloe="black" 
+            onPress={ () => {
+                navigation.navigate('LogOut')
+            }
+            }/>
+        </TouchableOpacity>
+            
+    ,
+})
 
 const AdminNavigator = createStackNavigator({
     
@@ -79,6 +104,7 @@ const AdminNavigator = createStackNavigator({
     RemoveProfessionClass, RemoveProfessionClass,
     BelongsStudentClass: BelongsStudentClass,
     RemoveStudentClass: RemoveStudentClass,
+    LogOut: LogOut,
     Settings: {
         screen: Settings,
         navigationOptions: {
@@ -87,24 +113,10 @@ const AdminNavigator = createStackNavigator({
     },
 },
 {
-    defaultNavigationOptions : ({navigation}) => ({
-        headerStyle: {
-        //   backgroundColor: '#29434e',
-          shadowColor: 'transparent',
-          elevation: 2
-        },
-        headerRight: () => 
-            <TouchableOpacity activeOpacity={0.6}>
-                <Entypo name="log-out" size={24} coloe="black" 
-                onPress={ () => {
-                    navigation.navigate('LogOut')
-                }
-                }/>
-            </TouchableOpacity>
-                
-        ,
-      })
+    defaultNavigationOptions : logOut
 });
+
+
 
 const TeacherNavigator = createStackNavigator({ 
     
@@ -123,23 +135,7 @@ const TeacherNavigator = createStackNavigator({
 
 },
 {
-    defaultNavigationOptions : ({navigation}) => ({
-        headerStyle: {
-        //   backgroundColor: '#29434e',
-        //   shadowColor: 'transparent',
-          elevation: 2
-        },
-        headerRight: () => 
-            <TouchableOpacity activeOpacity={0.6}>
-                <Entypo name="log-out" size={24} coloe="black" 
-                onPress={ () => {
-                    navigation.navigate('LogOut')
-                }
-                }/>
-            </TouchableOpacity>
-                
-        ,
-      })
+    defaultNavigationOptions: logOut
 }
 );
 
@@ -151,7 +147,7 @@ const TabNavigatorAdmin = createBottomTabNavigator({
             tabBarLabel: 'עמוד בית',
             tabBarIcon: (tabInfo) => {
                 return(
-                    <Ionicons name="ios-home-outline" size={24} color="black" />
+                    <Ionicons name="ios-home-outline" size={24} color={tabInfo.tintColor} />
                 )
             },
         },
@@ -184,22 +180,11 @@ const TabNavigatorTeacher = createBottomTabNavigator({
             tabBarLabel: 'עמוד בית',
             tabBarIcon: (tabInfo) => {
                 return(
-                    <Ionicons name="ios-home-outline" size={24} color="black" />
+                    <Ionicons name="ios-home-outline" size={24} color={tabInfo.tintColor} />
                 )
             },
         },
     },
-    // logoff: {
-    //     screen: LogOut,
-    //     navigationOptions: {
-    //         tabBarLabel: 'התנתק',
-    //         tabBarIcon: (tabInfo) => {
-    //             return(
-    //                 <Entypo name="log-out" size={24} color={tabInfo.tintColor} />
-    //             )
-    //         },
-    //     },
-    // },
     
     Settings:  {
         screen: Settings,

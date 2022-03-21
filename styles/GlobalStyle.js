@@ -14,17 +14,26 @@ export default StyleSheet.create({
     },
     containerButtonRow: {
       flexDirection: 'row',
+      // flex: 1,
       justifyContent: 'space-evenly',
       width: '100%',
+      // height: '100%'
     },
-    homePageButton: {
+    homePageBorderButton: {
       borderRadius: 30,
-      backgroundColor: 'white',
-      // borderColor: '#4E6D4E',
-      borderColor: '#8B0000',
+      backgroundColor: '#4E6D4E',
+      borderColor: '#4E6D4E',
       color: '#4E6D4E',
       borderWidth: 5,
       width: '45%',
+    },
+    homePageButton: {
+      fontSize: 22,
+      flex: 1,
+      width: '100%',
+      height: '100%',
+      alignItems: 'center',
+      justifyContent: 'center'
     },
     header: {
       fontSize: windowWidth > 350 ? 26 : 18,
