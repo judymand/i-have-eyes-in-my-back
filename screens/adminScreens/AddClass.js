@@ -6,6 +6,7 @@ import { Input } from '../../components/Input'
 import { Card } from '../../components/Card'
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSelector } from 'react-redux';
+import * as allClass from '../../store/actions/class';
 
 export const AddClass = (props) => {
   
@@ -18,20 +19,7 @@ export const AddClass = (props) => {
 
     try{
 
-      let response = await fetch("http://localhost:3000/AddClassRoom",
-      {
-        method:"POST",
-        headers:{
-          'Content-Type':'application/json',
-          'authorization': 'JWT '+ token
-        },
-        body:JSON.stringify({
-          newClassRoom,
-          newClassNumber
-        })
-      })
-   
-      const resData = await response.json()
+      const resData = await allClass.addClass(newClassRoom, newClassNumber)
   
       Alert.alert(
         resData.message,

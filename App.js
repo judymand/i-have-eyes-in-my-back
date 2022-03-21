@@ -1,12 +1,14 @@
+import 'react-native-gesture-handler';
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, SafeAreaView, View, Text, Image } from 'react-native';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import NavigationContainer from './Navigation/NavigationContainer'
 import style  from './styles/GlobalStyle'
-import 'react-native-gesture-handler';
 import authReducer from './store/reducer/auth'
 import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
+
+
 
 export default function App() {
 
@@ -16,6 +18,7 @@ export default function App() {
     authReducer: authReducer
   })
   const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
+  
 
   useEffect(() => {
     setTimeout(() => {
@@ -37,11 +40,12 @@ export default function App() {
       <Provider store={store}>
         < NavigationContainer/>
       </Provider>
-      // <Navigator />
       
     );
   }
 }
+
+
 
 const styles = StyleSheet.create({
   container: {

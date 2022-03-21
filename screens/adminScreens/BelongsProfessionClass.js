@@ -5,12 +5,10 @@ import { ClassList } from '../ClassList'
 import { ProfessionList } from '../ProfessionList'
 import { BodyText } from '../../components/BodyText'
 import { MainButton } from '../../components/MainButton'
-import { useSelector } from 'react-redux';
-
+import * as allClass from '../../store/actions/class';
 
 export const BelongsProfessionClass = (props) => {
 
-  const token = useSelector(state => state.authReducer.token);
   const [classSelected, setClassSelected] = useState(false)
   const[classList, setClassList] = useState([]);
   const[professionList, setProfessionList] = useState([]);
@@ -19,20 +17,7 @@ export const BelongsProfessionClass = (props) => {
 
     try{
 
-      let response = await fetch("http://localhost:3000/addProfessionsToClasses",
-      {
-        method:"POST",
-        headers:{
-          'Content-Type':'application/json',
-          'authorization': 'JWT '+ token
-        },
-        body:JSON.stringify({
-          classList,
-          professionList
-        })
-      })
-  
-      const resData = await response.json()
+      const resData = await allClass.AddProfessionToClassList(classList, professionList)
 
       Alert.alert(
         resData.message,

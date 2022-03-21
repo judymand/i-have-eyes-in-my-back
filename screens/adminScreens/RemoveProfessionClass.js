@@ -2,16 +2,14 @@ import React, { useState } from 'react';
 import style from '../../styles/GlobalStyle'
 import { View, Alert } from 'react-native';
 import { BodyText } from '../../components/BodyText'
-import { useSelector } from 'react-redux';
 import { MainButton } from '../../components/MainButton'
 import { ClassList } from '../ClassList'
 import { List } from '../../components/List'
+import * as professions from '../../store/actions/professions';
 
 
 export const RemoveProfessionClass = (props) => {
 
-
-  const token = useSelector(state => state.authReducer.token);
   const [isClass, setIsClass] = useState(false);
   const [data, setData] = useState([]);
   const[selectClass, setSelectClass] = useState("");
@@ -20,20 +18,7 @@ export const RemoveProfessionClass = (props) => {
   const getProfessionOfClass = async () => {
 
     try{
-
-      let response = await fetch("http://localhost:3000/getProfessionsOfClass",
-      {
-        method:"POST",
-        headers:{
-          'Content-Type':'application/json',
-          'authorization': 'JWT '+ token
-        }, 
-        body:JSON.stringify({
-          theSelectionClass: selectClass
-        })
-      })
-
-      const resData = await response.json()
+      const resData = await professions.getAllProfessionOfClass(selectClass)
 
       setData(resData.profession)
 
@@ -48,22 +33,7 @@ export const RemoveProfessionClass = (props) => {
 
     try{
 
-      let response = await fetch("http://localhost:3000/deleteProfessionFromClass",
-      {
-        method:"POST",
-        headers:{
-          'Content-Type':'application/json',
-          'authorization': 'JWT '+ token
-        },
-        body:JSON.stringify({
-            selectClass: selectClass,
-            professionListToDeleate: professionListToDeleate,
-        })
-      })   
-
-
-      const resData = await response.json()
-
+      const resData = await professions.deleteProfessionFromClass(selectClass, professionListToDeleate)
     
       Alert.alert(
         resData.message,

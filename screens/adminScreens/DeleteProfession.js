@@ -3,34 +3,20 @@ import style from '../../styles/GlobalStyle'
 import { View, Alert } from 'react-native';
 import { BodyText } from '../../components/BodyText'
 import { ProfessionList } from '../ProfessionList'
-import { useSelector } from 'react-redux';
 import { MainButton } from '../../components/MainButton'
+import * as professions from '../../store/actions/professions';
 
 export const DeleteProfession = (props) => {
 
-  const token = useSelector(state => state.authReducer.token);
   const[professionListToDeleate, setProfessionListToDeleate] = useState([]);
 
   const submitData = async () => {
 
     try{
 
-      let response = await fetch("http://localhost:3000/deleteProfession",
-      {
-        method:"POST",
-        headers:{
-          'Content-Type':'application/json',
-          'authorization': 'JWT '+ token
-        },
-        body:JSON.stringify({
-            professionListToDeleate: professionListToDeleate,
-        })
-      })   
-
-
-      const resData = await response.json()
-
-    
+      
+      const resData = await professions.deleteProfession(professionListToDeleate)
+      
       Alert.alert(
         resData.message,
         '',

@@ -6,6 +6,7 @@ import { Input } from '../../components/Input'
 import { Card } from '../../components/Card'
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSelector } from 'react-redux';
+import * as auth from '../../store/actions/auth'
 
 
 export const AddUser = (props) => {
@@ -23,20 +24,8 @@ export const AddUser = (props) => {
 
   const submitData = async () => {
     try{
-      
-      let response = await fetch("http://localhost:3000/addUserEmail",
-      {
-        method:"POST",
-        headers:{
-          'Content-Type':'application/json',
-          'authorization': 'JWT '+ token
-        },
-        body:JSON.stringify({
-          email,
-          admin
-        })
-      })
-      const resData = await response.json()
+  
+      const resData = await auth.addUserEmail(email, admin)
 
       Alert.alert(
         resData.message,

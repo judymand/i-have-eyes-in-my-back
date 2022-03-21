@@ -6,7 +6,6 @@ import { Card } from '../../components/Card'
 import { BodyText } from '../../components/BodyText'
 import * as authActions from '../../store/actions/auth';
 import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
 import { LinearGradient } from 'expo-linear-gradient';
 
 
@@ -17,7 +16,7 @@ export const LogIn = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
   const dispatch = useDispatch();
-  const isAdmin = useSelector(state => state.isAdmin);
+
  
 
   const submitData =  async  () => {

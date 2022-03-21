@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { List } from '../components/List'
 import { useSelector } from 'react-redux';
+import * as allClass from '../store/actions/class'
+
 
 export const ClassList = (props) => {
 
@@ -13,18 +15,8 @@ export const ClassList = (props) => {
 const loadClasses = async () => {
     try{
       setIsLoading(true);
-      let response = await fetch('http://localhost:3000/getClasses',
-      {
-        method:"GET",
-        headers:{
-          'Content-Type':'application/json',
-          'authorization': 'JWT '+ token 
-        }
-      })
-     
-      const resData = await response.json()
-      
-      Setdata(resData.classRoom)
+      const resData = await allClass.getAllClasses()
+      Setdata(resData)
       setIsLoading(false);
 
      

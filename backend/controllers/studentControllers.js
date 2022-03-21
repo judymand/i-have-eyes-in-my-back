@@ -18,8 +18,9 @@ exports.getAllStudent = async (req, res) => {
         for(let i = 0; i < lastDocument.students.length; ++i){
             studentList.push({
                 '_id': i,
-                'name': lastDocument.students.name
+                'name': lastDocument.students[i].name
             })
+
         }
         
         return res.status(201).json({

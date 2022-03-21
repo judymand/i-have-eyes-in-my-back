@@ -1,37 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { List } from '../components/List'
 import { useSelector } from 'react-redux';
+import * as students from '../store/actions/student'
 
 
 
 export const StudentList = (props) => {
 
-  const [data, Setdata] = useState([])
+  const [data, setData] = useState([])
   const token = useSelector(state => state.authReducer.token);
 
   useEffect(() => {
-    async function fetchMyAPI(){
+
+    const getStudent = async () => {
       try{
-
-        let response = await fetch("http://localhost:3000/getAllStudent",
-        {
-          method:"GET",
-          headers:{
-            'Content-Type':'application/json',
-            'authorization': 'JWT '+ token 
-          }
-        })
-
-        const resData = await response.json()
-
-        Setdata(resData.studentList)
-
+        setData(await students.getAllStudents())
 
       }catch(error){
         console.log(error)
       }
     }
-    fetchMyAPI()
+    getStudent()
 
   }, [])
 

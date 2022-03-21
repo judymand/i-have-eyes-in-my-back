@@ -131,6 +131,7 @@ exports.Login = async (req, res, next) => {
                     return res.status(201).json({
                         success: true,
                         token: token,
+                        expiresIn: '1800',
                         user: user,
                         message: "",
                         textButton: "",
@@ -142,6 +143,7 @@ exports.Login = async (req, res, next) => {
                     return res.status(201).json({
                         success: true,
                         token: token,
+                        expiresIn: '1800',
                         user: user,
                         message: "",
                         textButton: "",

@@ -2,16 +2,14 @@ import React, { useState } from 'react';
 import style from '../../styles/GlobalStyle'
 import { View, Alert } from 'react-native';
 import { BodyText } from '../../components/BodyText'
-import { useSelector } from 'react-redux';
 import { MainButton } from '../../components/MainButton'
 import { ClassList } from '../ClassList'
 import { List } from '../../components/List'
+import * as students from '../../store/actions/student';
 
 
 export const RemoveStudentClass = (props) => {
 
-
-  const token = useSelector(state => state.authReducer.token);
   const [isClass, setIsClass] = useState(false);
   const [data, setData] = useState([]);
   const[selectClass, setSelectClass] = useState("");
@@ -21,22 +19,8 @@ export const RemoveStudentClass = (props) => {
 
     try{
 
-      let response = await fetch("http://localhost:3000/getStudentOfClass",
-      {
-        method:"POST",
-        headers:{
-          'Content-Type':'application/json',
-          'authorization': 'JWT '+ token
-        }, 
-        body:JSON.stringify({
-          theSelectionClass: selectClass
-        })
-      })
-
-      const resData = await response.json()
-
-      setData(resData.students)
-
+      setData( await students.getStudentOfClass(selectClass))
+      
     }catch(error){
       console.log(error)
     }
@@ -48,23 +32,8 @@ export const RemoveStudentClass = (props) => {
 
     try{
 
-      let response = await fetch("http://localhost:3000/deleteStudentsFromClass",
-      {
-        method:"POST",
-        headers:{
-          'Content-Type':'application/json',
-          'authorization': 'JWT '+ token
-        },
-        body:JSON.stringify({
-            selectClass: selectClass,
-            studentListToDeleate: studentListToDeleate,
-        })
-      })   
+      const resData =  await students.deleteStudentsFromClass(selectClass, studentListToDeleate)
 
-
-      const resData = await response.json()
-
-    
       Alert.alert(
         resData.message,
         '',
@@ -76,10 +45,10 @@ export const RemoveStudentClass = (props) => {
       ]
       )
       
-
     }catch(error){
       console.log(error)
     }
+
     
   }
 

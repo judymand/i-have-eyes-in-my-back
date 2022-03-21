@@ -1,9 +1,6 @@
 import React from 'react';
 import style from '../../styles/GlobalStyle'
 import { List } from '../../components/List'
-import { Dimensions } from 'react-native';
-
-const windowWidth = Dimensions.get('window').width
 
 export const AdminPanel = (props) => {
 

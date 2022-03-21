@@ -1,69 +1,36 @@
 import React, {useEffect, useState} from 'react';
 import style from '../../styles/GlobalStyle'
-import { View, Text, Alert } from 'react-native';
-import { useSelector } from 'react-redux';
+import { View, Alert } from 'react-native';
 import { List } from '../../components/List'
 import { MainButton } from '../../components/MainButton'
+import * as students from '../../store/actions/student';
 
 export const StudentSelection = (props) => {
 
   const theSelectionClass = props.navigation.getParam('theSelectionClass')
   const profession = props.navigation.getParam('profession')
-  const token = useSelector(state => state.authReducer.token);
   const [studentList, setStudentList] = useState([])
   const [studentArrived, setStudentArrived] = useState([])
 
+
   useEffect(() => {
-    async function getStudentOfClass(){
+    const getStudent = async () => {
       try{
-       
-        let response = await fetch("http://localhost:3000/getStudentOfClass",
-        {
-          method:"POST",
-          headers:{
-            'Content-Type':'application/json',
-            'authorization': 'JWT '+ token
-          }, 
-          body:JSON.stringify({
-            theSelectionClass: theSelectionClass
-          })
-        })
-      
-        const resData = await response.json()
-       
-        setStudentList(resData.students)
+        setStudentList(await students.getStudentOfClass(theSelectionClass))
 
       }catch(error){
         console.log(error)
       }
     }
-    getStudentOfClass()
+    getStudent()
   }, [])
 
   const createNewLesson = async () => {
 
     try{
-  
-      let response = await fetch("http://localhost:3000/createNewLesson",
-      {
-        method:"POST",
-        headers:{
-          'Content-Type':'application/json',
-          'authorization': 'JWT '+ token
-        },
-        body:JSON.stringify({
-          theSelectionClass,
-          profession,
-          studentList,
-          studentArrived
 
-        })
-      })   
+      const resData = await students.createLesson(theSelectionClass, profession, studentList, studentArrived)
 
-
-      const resData = await response.json()
-
-    
       Alert.alert(
         resData.message,
         '',

@@ -5,38 +5,30 @@ import { Input } from '../../components/Input'
 import { BodyText } from '../../components/BodyText'
 import { Card } from '../../components/Card'
 import { LinearGradient } from 'expo-linear-gradient';
+import * as auth from '../../store/actions/auth'
  
 export const SignUpByEmail = (props) => {
 
   const [email, SetEmail] = useState('')
   const [ValideEmail, SetValideEmail] = useState(false)
-  const[userType, SetUserType] = useState(false)
+
 
   const submitData = async () => {
     try{
-        let response = await fetch("http://localhost:3000/EmailCheck",
-        {
-        method:"POST",
-        headers:{
-                'Content-Type':'application/json'
-            },
-            body:JSON.stringify({
-                email,
-            })
-        })
-   
-        const resData = await response.json()
+     
+      const response = await auth.checkEmail(email)
+      const resData = await response.json()
 
-        if(response.status == 202){
-          props.navigation.navigate('SignUp', { Email: email, Admin: resData.admin})
-        }
-        else{
-          Alert.alert(
-            resData.message,
-            '',
-           []
-          )
-        }
+      if(response.status == 202){
+        props.navigation.navigate('SignUp', { Email: email, Admin: resData.admin})
+      }
+      else{
+        Alert.alert(
+          resData.message,
+          '',
+          []
+        )
+      }
         
     }catch{
         (err) => {console.log(err)}

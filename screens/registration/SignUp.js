@@ -5,8 +5,8 @@ import { Input } from '../../components/Input'
 import { BodyText } from '../../components/BodyText'
 import { Card } from '../../components/Card'
 import { LinearGradient } from 'expo-linear-gradient';
-// import { computeWindowedRenderLimits } from 'react-native/Libraries/Lists/VirtualizeUtils';
- 
+import * as auth from '../../store/actions/auth'
+
 
 export const SignUp = (props) => {
   
@@ -22,22 +22,7 @@ export const SignUp = (props) => {
   const submitData =  async () => {
     try{
   
-      let response = await fetch("http://localhost:3000/signup",
-      {
-        method:"POST",
-        headers:{
-          'Content-Type':'application/json'
-        },
-        body:JSON.stringify({
-          firstName,
-          lastName,
-          email,
-          admin,
-          password
-        })
-
-      })
-
+      const response = await auth.signup(firstName, lastName, email, admin, password)
       const resData = await response.json()
       
       if(response.status == 201 || response.status == 401 ){

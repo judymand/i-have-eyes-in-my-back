@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { List } from '../components/List'
 import { useSelector } from 'react-redux';
-
-
+import * as profession from '../store/actions/professions'
 
 export const ProfessionList = (props) => {
 
@@ -13,19 +12,7 @@ export const ProfessionList = (props) => {
     async function fetchMyAPI(){
       try{
 
-        let response = await fetch("http://localhost:3000/getProfessions",
-        {
-          method:"GET",
-          headers:{
-            'Content-Type':'application/json',
-            'authorization': 'JWT '+ token 
-          }
-        })
-
-        const resData = await response.json()
-
-        Setdata(resData.profession)
-
+        Setdata( await profession.getAllProfessions())
 
       }catch(error){
         console.log(error)

@@ -5,6 +5,7 @@ import { BodyText } from '../../components/BodyText'
 import { TeacherList } from '../TeacherList'
 import { MainButton } from '../../components/MainButton'
 import { useSelector } from 'react-redux';
+import * as auth from '../../store/actions/auth'
 
 export const DeleteTeacher = (props) => {
 
@@ -18,21 +19,7 @@ export const DeleteTeacher = (props) => {
 
     try{
 
-      let response = await fetch("http://localhost:3000/deleteTeacher",
-      {
-        method:"POST",
-        headers:{
-          'Content-Type':'application/json',
-          'authorization': 'JWT '+ token
-        },
-        body:JSON.stringify({
-          teacherListToDeleate: teacherListToDeleate,
-        })
-      })   
- 
-
-      const resData = await response.json()
-
+      const resData = await auth.deleteTeacher(teacherListToDeleate)
     
       Alert.alert(
         resData.message,

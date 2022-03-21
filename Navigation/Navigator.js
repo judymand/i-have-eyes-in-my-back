@@ -4,6 +4,9 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons'; 
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { Button, Alert, TouchableOpacity, Text} from 'react-native';
+
 
 // import all pages of the app
 
@@ -12,6 +15,9 @@ import { HomePage } from '../screens/HomePage';
 import { SignUpByEmail } from '../screens/registration/SignUpByEmail';
 import { SignUp } from '../screens/registration/SignUp';
 import { LogIn } from '../screens/registration/LogIn';
+
+import { LogOut } from '../screens/LogOut';
+
 
 // admin screens
 import { AdminPanel } from '../screens/adminScreens/AdminPanel';
@@ -34,6 +40,10 @@ import { RemoveProfessionClass } from '../screens/adminScreens/RemoveProfessionC
 
 import { Settings } from '../screens/Settings';
 
+
+// import * as authActions from '../store/actions/auth';
+
+
 const HomePageNavigator = createStackNavigator({
 
     HomePage: {
@@ -47,7 +57,6 @@ const HomePageNavigator = createStackNavigator({
     SignUp: SignUp,
     LogIn: LogIn 
 
-   
 }
     // navigationOptions: {
     //     headerStyle: {
@@ -59,7 +68,7 @@ const HomePageNavigator = createStackNavigator({
 
 const AdminNavigator = createStackNavigator({
     
-    AdminPanel: AdminPanel,
+    HomePage: AdminPanel,
     AddUser: AddUser,
     AddClass: AddClass,
     DeleteClass: DeleteClass,
@@ -76,32 +85,73 @@ const AdminNavigator = createStackNavigator({
             headerTitle: 'שינוי פרטי פרופיל'
         },
     },
+},
+{
+    defaultNavigationOptions : ({navigation}) => ({
+        headerStyle: {
+        //   backgroundColor: '#29434e',
+          shadowColor: 'transparent',
+          elevation: 2
+        },
+        headerRight: () => 
+            <TouchableOpacity activeOpacity={0.6}>
+                <Entypo name="log-out" size={24} coloe="black" 
+                onPress={ () => {
+                    navigation.navigate('LogOut')
+                }
+                }/>
+            </TouchableOpacity>
+                
+        ,
+      })
 });
 
 const TeacherNavigator = createStackNavigator({ 
     
-    classSelection: classSelection,
+    HomePage: classSelection,
     ProfessionsSelection: ProfessionsSelection,
     StudentSelection: StudentSelection,
-
-    
+    LogOut: LogOut,
     Settings: {
         screen: Settings,
         navigationOptions: {
             headerTitle: 'שינוי פרטי פרופיל'
         },
     },
-});
+
+ 
+
+},
+{
+    defaultNavigationOptions : ({navigation}) => ({
+        headerStyle: {
+        //   backgroundColor: '#29434e',
+        //   shadowColor: 'transparent',
+          elevation: 2
+        },
+        headerRight: () => 
+            <TouchableOpacity activeOpacity={0.6}>
+                <Entypo name="log-out" size={24} coloe="black" 
+                onPress={ () => {
+                    navigation.navigate('LogOut')
+                }
+                }/>
+            </TouchableOpacity>
+                
+        ,
+      })
+}
+);
 
 
-const TabNavigator = createBottomTabNavigator({
-    logoff: {
-        screen: HomePageNavigator,
+const TabNavigatorAdmin = createBottomTabNavigator({
+    homePage: {
+        screen: AdminNavigator,
         navigationOptions: {
-            tabBarLabel: 'יציאה',
+            tabBarLabel: 'עמוד בית',
             tabBarIcon: (tabInfo) => {
                 return(
-                    <Entypo name="log-out" size={24} color={tabInfo.tintColor} />
+                    <Ionicons name="ios-home-outline" size={24} color="black" />
                 )
             },
         },
@@ -125,11 +175,58 @@ const TabNavigator = createBottomTabNavigator({
     }
 })
 
+
+
+const TabNavigatorTeacher = createBottomTabNavigator({
+    homePage: {
+        screen: TeacherNavigator,
+        navigationOptions: {
+            tabBarLabel: 'עמוד בית',
+            tabBarIcon: (tabInfo) => {
+                return(
+                    <Ionicons name="ios-home-outline" size={24} color="black" />
+                )
+            },
+        },
+    },
+    // logoff: {
+    //     screen: LogOut,
+    //     navigationOptions: {
+    //         tabBarLabel: 'התנתק',
+    //         tabBarIcon: (tabInfo) => {
+    //             return(
+    //                 <Entypo name="log-out" size={24} color={tabInfo.tintColor} />
+    //             )
+    //         },
+    //     },
+    // },
+    
+    Settings:  {
+        screen: Settings,
+        navigationOptions: {
+            tabBarLabel: 'הגדרות',
+            tabBarIcon: (tabInfo) => {
+                return(
+                    <Ionicons name="settings-outline" size={24} color={tabInfo.tintColor} />
+                )
+            },
+        },
+    },
+   
+        
+}, {
+    tabBarOptions: {
+        activeTintColor: '#4E6D4E'
+    }
+})
+
 const mainNavigator = createSwitchNavigator({
     HomePageNavigator: HomePageNavigator,
-    AdminNavigator: AdminNavigator,
-    TeacherNavigator: TeacherNavigator
+    AdminNavigator: TabNavigatorAdmin,
+    TeacherNavigator: TabNavigatorTeacher
     
 })
 
 export default createAppContainer(mainNavigator)
+
+

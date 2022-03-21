@@ -10,7 +10,6 @@ const router = express.Router();
 
 require('dotenv').config()
 
-
 // conect database
 require('./db');
 
@@ -27,9 +26,6 @@ const professionControllers = require('./controllers/professionControllers')
 const studentControllers = require('./controllers/studentControllers')
 
 const auth = require('./controllers/auth')
-
-const Adm = false;
-
 
 app.use(bodyParser.json())
 
@@ -265,62 +261,3 @@ app.listen(3000,()=>{
 })
 
 
-
-
-
-// get students
-
-app.post("/getStudents", (req, res, next) => {
-    let fetchedStudents;
-    let classessArr = [];
-    let u;
-    // '_id': { '$nin': [req.body.id] }
-    ClassRoom.find({})
-        .then(classRoom => {
-            if (!classRoom) {
-                return res.status(401).json({
-                    message: "Auth failed"
-                });
-            }
-
-            fetchedClasses = classRoom;
-
-            for (let i = 0; i < fetchedClasses.length; i++) {
-                u = {
-                    "_id": fetchedClasses[i]._id,
-                    "className": fetchedClasses[i].className,
-                }
-
-                classessArr.push(u)
-            }
-
-            console.log(classessArr)
-        })
-        .then(result => {
-            res.status(200).json({
-                classRoom: classessArr
-            });
-        })
-        .catch(err => {
-            return res.status(401).json({
-                message: "Auth failed"
-            });
-        });
-
-});
-
-
-app.post('/deleteCTeacher',(req,res, next)=>{
-    let email 
-    Teacher.findByIdAndRemove(req.body.id)
-    .then(data => {
-        // res.send("deleted")
-        // res.redirect(req.get('referer')); 
-    })
-    .catch(err=>{
-        console.log(err)
-    })
-    Users.deleteOne({ email: req.body.email })
-
-    
-})

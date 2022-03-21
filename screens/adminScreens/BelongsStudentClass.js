@@ -6,6 +6,7 @@ import { BodyText } from '../../components/BodyText'
 import { MainButton } from '../../components/MainButton'
 import { ClassList } from '../ClassList'
 import { useSelector } from 'react-redux';
+import * as students from '../../store/actions/student';
 
 
 export const BelongsStudentClass = (props) => {
@@ -19,20 +20,7 @@ export const BelongsStudentClass = (props) => {
 
     try{
 
-      let response = await fetch("http://localhost:3000/addStudentsToClass",
-      {
-        method:"POST",
-        headers:{
-          'Content-Type':'application/json',
-          'authorization': 'JWT '+ token
-        },
-        body:JSON.stringify({
-          studentsList,
-          classList
-        })
-      })
-  
-      const resData = await response.json()
+      const resData = await students.addStudentsToClass(studentsList, classList)
 
       Alert.alert(
         resData.message,
