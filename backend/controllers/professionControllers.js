@@ -1,7 +1,7 @@
 const Profession = require('../models/Profession');
 const ClassRoom = require('../models/ClassRoom');
 
-let list = { textButton:'חזרה לעמוד הראשי',  pageName: 'AdminPanel'}
+let list = { textButton:'חזרה לעמוד הראשי',  pageName: 'HomePage'}
 
 //add Profession
 exports.addNewProfession = async (req, res) => {

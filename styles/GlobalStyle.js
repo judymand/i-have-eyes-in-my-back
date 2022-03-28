@@ -147,6 +147,9 @@ export default StyleSheet.create({
     notSelected:{
       backgroundColor:  "#4E6D4E",
       color: 'black'
+    },
+    logOutPage: {
+      backgroundColor: '#696969'
     }
 
   });

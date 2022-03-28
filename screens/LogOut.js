@@ -42,7 +42,7 @@ export const LogOut = (props) => {
  
 
   return(
-  <View style={style.container}>
+  <View style={[style.container, style.logOutPage]}>
 
   </View> 
  );

@@ -2,7 +2,15 @@ export const AUTHENTICATE = 'AUTHENTICATE';
 export const LOGOUT = 'LOGOUT';
 import { Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { NetworkInfo } from "react-native-network-info";
 
+let x
+
+NetworkInfo.getIPAddress().then((ipAddress) => {
+  x = ipAddress
+  console.log(ipAddress);
+});
+const baseUrl = Platform.OS === 'android' ? x : 'localhost';
 
 let timer;
 
@@ -43,19 +51,12 @@ const saveDataToStorage = async (userId, token, isAdmin, expirationDate) => {
 
 };
 
-const device =  Platform.OS === 'ios'
-
-let api = "10.0.0.10"
-
-if(device){
-  api = "localhost"
-}
 
 export const login = (email, password) => {
 
     try{
       return async dispatch => {
-      let response = await fetch(`http://${api}:3000/login`,
+      let response = await fetch(`http://${baseUrl}:3000/login`,
       {
         method:"POST",
         headers:{
@@ -116,7 +117,7 @@ const setLogoutTimer = expirationTime => {
 export const checkEmail = async (email) => {
   try{
    
-    let response = await fetch(`http://${api}:3000/EmailCheck`,
+    let response = await fetch(`http://${baseUrl}:3000/EmailCheck`,
     {
     method:"POST",
     headers:{
@@ -138,7 +139,7 @@ export const checkEmail = async (email) => {
 export const signup = async (firstName, lastName, email, admin, password) => {
   try{
    
-    let response = await fetch(`http://${api}:3000/signup`,
+    let response = await fetch(`http://${baseUrl}:3000/signup`,
       {
         method:"POST",
         headers:{
@@ -164,7 +165,7 @@ export const signup = async (firstName, lastName, email, admin, password) => {
 export const getAllTeacher = async () => {
   try{
 
-    let response = await fetch(`http://${api}:3000/getAllTeacher`,
+    let response = await fetch(`http://${baseUrl}:3000/getAllTeacher`,
     {
       method:"GET",
       headers:{
@@ -186,7 +187,7 @@ export const getAllTeacher = async () => {
 export const deleteTeacher = async (teacherListToDeleate) => {
   try{
 
-    let response = await fetch(`http://${api}:3000/deleteTeacher`,
+    let response = await fetch(`http://${baseUrl}:3000/deleteTeacher`,
     {
       method:"POST",
       headers:{
@@ -208,7 +209,7 @@ export const deleteTeacher = async (teacherListToDeleate) => {
 export const addUserEmail = async (email, admin) => {
   try{
       
-    let response = await fetch(`http://${api}:3000/addUserEmail`,
+    let response = await fetch(`http://${baseUrl}:3000/addUserEmail`,
     {
       method:"POST",
       headers:{
@@ -221,6 +222,27 @@ export const addUserEmail = async (email, admin) => {
       })
     })
     return await response.json()
+    
+  }catch(error){
+    console.log(error)
+  }
+}
+
+
+export const getUser = async (email, admin) => {
+  try{
+      
+    let response = await fetch(`http://${baseUrl}:3000/getUser`,
+    {
+      method:"GET",
+      headers:{
+        'Content-Type':'application/json',
+        'authorization': 'JWT '+ await getToken(),
+      }
+    })
+
+    const resData = await response.json()
+    return resData.user
     
   }catch(error){
     console.log(error)

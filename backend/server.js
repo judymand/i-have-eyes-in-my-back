@@ -45,6 +45,8 @@ app.post('/signup', userController.CreateAuser)
 
 app.post('/login', userController.Login)
 
+app.get("/getUser", auth.isAuth, userController.getUser)
+
 
 
 app.get("/getClasses", auth.isAuth, classController.getAllClass)

@@ -4,8 +4,7 @@ import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Ionicons } from '@expo/vector-icons';
 import { Entypo } from '@expo/vector-icons'; 
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { Button, Alert, TouchableOpacity, Text} from 'react-native';
+import { TouchableOpacity } from 'react-native';
 
 
 // import all pages of the app
@@ -192,7 +191,7 @@ const TabNavigatorTeacher = createBottomTabNavigator({
             tabBarLabel: 'הגדרות',
             tabBarIcon: (tabInfo) => {
                 return(
-                    <Ionicons name="settings-outline" size={24} color={tabInfo.tintColor} />
+                    <Ionicons name="settings-outline" size={24} color={tabInfo.tintColor}  />
                 )
             },
         },

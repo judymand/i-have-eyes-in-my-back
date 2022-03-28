@@ -1,7 +1,7 @@
 
 let MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://iHaveEyes:quzdeb-zeSvom-musba9@cluster0-shard-00-00.tobyl.mongodb.net:27017,cluster0-shard-00-01.tobyl.mongodb.net:27017,cluster0-shard-00-02.tobyl.mongodb.net:27017/faceRecognition?ssl=true&replicaSet=atlas-x2w3z3-shard-0&authSource=admin&retryWrites=true&w=majority";
-let list = { textButton:'חזרה לעמוד הראשי',  pageName: 'AdminPanel'}
+let list = { textButton:'חזרה לעמוד הראשי',  pageName: 'HomePage'}
 let StudentDB
 const ClassRoom = require('../models/ClassRoom');
 const Lesson = require('../models/Lesson');

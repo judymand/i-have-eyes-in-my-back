@@ -1,7 +1,7 @@
 const ClassRoom = require('../models/ClassRoom');
 const Profession = require('../models/Profession');
 
-let list = { textButton:'חזרה לעמוד הראשי',  pageName: 'AdminPanel'}
+let list = { textButton:'חזרה לעמוד הראשי',  pageName: 'HomePage'}
 
 
 //AddNewClass
@@ -119,7 +119,7 @@ exports.deleteClass = async (req, res) => {
                 success: false,
                 message: "אופסי, ישנה תקלה.\n בבקשה נסה שנית מאוחר יותר.",
                 textButton:'חזרה לעמוד הראשי',
-                pageName: 'AdminPanel' 
+                pageName: 'HomePage' 
                 })
             }
     
@@ -142,7 +142,7 @@ exports.deleteClass = async (req, res) => {
             error: err,
             message: "אופסי, ישנה תקלה.\n בבקשה נסה שנית מאוחר יותר.",
             textButton:'חזרה לעמוד הראשי',
-            pageName: 'AdminPanel'
+            pageName: 'HomePage'
             
         });
     }

@@ -1,18 +1,11 @@
-import { Platform } from 'react-native';
-import { getToken } from './auth'
+import { getToken, baseUrl } from './auth'
 
-const device =  Platform.OS === 'ios'
 
-let api = "10.0.0.10"
-
-if(device){
-  api = "localhost"
-}
 
 export const getAllProfessions = async () =>{
     try{
     
-      let response = await fetch(`http://${api}:3000/getProfessions`,
+      let response = await fetch(`http://${baseUrl}:3000/getProfessions`,
       {
         method:"GET",
         headers:{
@@ -34,7 +27,7 @@ export const AddProfession = async (profession) => {
   
   try{  
     
-    let response = await fetch(`http://${api}:3000/AddProfession`,
+    let response = await fetch(`http://${baseUrl}:3000/AddProfession`,
     {
       method:"POST",
       headers:{
@@ -59,7 +52,7 @@ export const AddProfession = async (profession) => {
 export const deleteProfession  = async (professionListToDeleate) => {
   try{
     
-    let response = await fetch(`http://${api}:3000/deleteProfession`,
+    let response = await fetch(`http://${baseUrl}:3000/deleteProfession`,
       {
         method:"POST",
         headers:{
@@ -82,7 +75,7 @@ export const deleteProfession  = async (professionListToDeleate) => {
 export const getAllProfessionOfClass  = async (selectClass) => {
   try{
     
-    let response = await fetch(`http://${api}:3000/getProfessionsOfClass`,
+    let response = await fetch(`http://${baseUrl}:3000/getProfessionsOfClass`,
     {
       method:"POST",
       headers:{
@@ -105,7 +98,7 @@ export const getAllProfessionOfClass  = async (selectClass) => {
 export const deleteProfessionFromClass  = async (selectClass, professionListToDeleate) => {
   try{
     
-    let response = await fetch(`http://${api}:3000/deleteProfessionFromClass`,
+    let response = await fetch(`http://${baseUrl}:3000/deleteProfessionFromClass`,
     {
       method:"POST",
       headers:{

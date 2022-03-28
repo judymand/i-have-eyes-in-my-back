@@ -4,7 +4,7 @@ const Admin = require('../models/Admin');
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
-let list = { textButton:'חזרה לעמוד הראשי',  pageName: 'AdminPanel'}
+let list = { textButton:'חזרה לעמוד הראשי',  pageName: 'HomePage'}
 
 
 //Check if the email is in the email list.
@@ -324,4 +324,54 @@ exports.deleteTeacher = async (req, res, next) => {
         });
     }
 }
+
+
+exports.getUser = async (req, res, next) => {
+
+    try{
+
+        let user =  await Users.findOne({ _id: req.user })
+
+        if(!user){
+            return res.status(401).json({
+                success: false,
+                message: "אופסי, ישנה תקלה.\n בבקשה נסה שנית מאוחר יותר.",
+                textButton:'חזרה לעמוד הבית',
+                pageName: 'HomePage'
+        });
+        }
+
+        const userDetails = {
+            firstName: user.firstName,
+            lastName: user.lastName,
+            email: user.email,
+            admin: user.admin,
+            password: user.password,
+            __v: 0
+        }
+
+                
+
+        return res.status(201).json({
+            success: userDetails,
+            user: user,
+            message: 'המשתמש זוהה בהצלחה! ',
+            textButton:'מעבר לעמוד התחברות',
+            pageName: 'LogIn'
+
+        });
+        
+        
+       
+    }catch(err){
+        return res.status(401).json({
+            success: false,
+            message: err,
+            textButton:'חזרה לעמוד הבית',
+            pageName: 'HomePage'
+    });
+    }
+
+}
+
 

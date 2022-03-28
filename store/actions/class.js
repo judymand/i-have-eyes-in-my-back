@@ -1,20 +1,10 @@
-import { Platform } from 'react-native';
-import { getToken } from './auth'
-
-
-const device =  Platform.OS === 'ios'
-
-let api = "10.0.0.10"
-
-if(device){
-  api = "localhost"
-}
+import { getToken, baseUrl } from './auth'
 
 export const getAllClasses = async () => {
     
     try{
 
-      let response = await fetch(`http://${api}:3000/getClasses`,
+      let response = await fetch(`http://${baseUrl}:3000/getClasses`,
       {
         method:"GET",
         headers:{
@@ -36,7 +26,7 @@ export const addClass = async (newClassRoom, newClassNumber) => {
 
   try{
 
-    let response = await fetch(`http://${api}:3000/AddClassRoom`,
+    let response = await fetch(`http://${baseUrl}:3000/AddClassRoom`,
     {
       method:"POST",
       headers:{
@@ -62,7 +52,7 @@ export const deleteClass = async (classListToDeleate) => {
   
   try{
     
-    let response = await fetch(`http://${api}:3000/deleteClassRoom`,
+    let response = await fetch(`http://${baseUrl}:3000/deleteClassRoom`,
     {
       method:"POST",
       headers:{
@@ -85,7 +75,7 @@ export const deleteClass = async (classListToDeleate) => {
 export const AddProfessionToClassList = async (classList, professionList) => {
   try{
     
-    let response = await fetch(`http://${api}:3000/addProfessionsToClasses`,
+    let response = await fetch(`http://${baseUrl}:3000/addProfessionsToClasses`,
     {
       method:"POST",
       headers:{

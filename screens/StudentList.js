@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { List } from '../components/List'
-import { useSelector } from 'react-redux';
 import * as students from '../store/actions/student'
 
 
@@ -8,7 +7,6 @@ import * as students from '../store/actions/student'
 export const StudentList = (props) => {
 
   const [data, setData] = useState([])
-  const token = useSelector(state => state.authReducer.token);
 
   useEffect(() => {
 
