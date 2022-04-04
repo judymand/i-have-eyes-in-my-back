@@ -265,7 +265,7 @@ var server_host = process.env.HOST || "0.0.0.0";
 
 app.listen( process.env.PORT || 3000 ||  8080, server_host,()=>{
     console.log("server runnicng")
-})
+}) 
 
 // app.listen( 3000 ,()=>{
 //     console.log("server runnicng")
