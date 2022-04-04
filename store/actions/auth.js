@@ -2,15 +2,8 @@ export const AUTHENTICATE = 'AUTHENTICATE';
 export const LOGOUT = 'LOGOUT';
 import { Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { NetworkInfo } from "react-native-network-info";
 
-let x
-
-NetworkInfo.getIPAddress().then((ipAddress) => {
-  x = ipAddress
-  console.log(ipAddress);
-});
-const baseUrl = Platform.OS === 'android' ? x : 'localhost';
+export const baseUrl = Platform.OS === 'android' ? '10.0.0.10' : 'localhost';
 
 let timer;
 
@@ -53,28 +46,29 @@ const saveDataToStorage = async (userId, token, isAdmin, expirationDate) => {
 
 
 export const login = (email, password) => {
-
+    
     try{
       return async dispatch => {
-      let response = await fetch(`http://${baseUrl}:3000/login`,
-      {
-        method:"POST",
-        headers:{
-          'Content-Type':'application/json'
-        },
-        body:JSON.stringify({
-          email,
-          password
-        })
-      })  
-  
-      const resData = await response.json()
-      const expirationDate = new Date(
-        new Date().getTime() + parseInt(resData.expiresIn) * 1000
-      );
-     
-      dispatch(authenticate(resData.user._id, resData.token, resData.user.admin, expirationDate));
-      saveDataToStorage(resData.user._id, resData.token, resData.user.admin, expirationDate);
+        console.log("1")
+        let response = await fetch(`https://i-have-eyes-in-my-back.herokuapp.com/login`,
+        {
+          method:"POST",
+          headers:{
+            'Content-Type':'application/json'
+          },
+          body:JSON.stringify({
+            email,
+            password
+          })
+        })  
+        console.log("2")
+        const resData = await response.json()
+        const expirationDate = new Date(
+          new Date().getTime() + parseInt(resData.expiresIn) * 1000
+        );
+      
+        dispatch(authenticate(resData.user._id, resData.token, resData.user.admin, expirationDate));
+        saveDataToStorage(resData.user._id, resData.token, resData.user.admin, expirationDate);
     };
 
     }catch(e){
@@ -117,7 +111,7 @@ const setLogoutTimer = expirationTime => {
 export const checkEmail = async (email) => {
   try{
    
-    let response = await fetch(`http://${baseUrl}:3000/EmailCheck`,
+    let response = await fetch(`https://i-have-eyes-in-my-back.herokuapp.com/EmailCheck`,
     {
     method:"POST",
     headers:{
@@ -139,7 +133,7 @@ export const checkEmail = async (email) => {
 export const signup = async (firstName, lastName, email, admin, password) => {
   try{
    
-    let response = await fetch(`http://${baseUrl}:3000/signup`,
+    let response = await fetch(`https://i-have-eyes-in-my-back.herokuapp.com/signup`,
       {
         method:"POST",
         headers:{
@@ -165,7 +159,7 @@ export const signup = async (firstName, lastName, email, admin, password) => {
 export const getAllTeacher = async () => {
   try{
 
-    let response = await fetch(`http://${baseUrl}:3000/getAllTeacher`,
+    let response = await fetch(`https://i-have-eyes-in-my-back.herokuapp.com/getAllTeacher`,
     {
       method:"GET",
       headers:{
@@ -187,7 +181,7 @@ export const getAllTeacher = async () => {
 export const deleteTeacher = async (teacherListToDeleate) => {
   try{
 
-    let response = await fetch(`http://${baseUrl}:3000/deleteTeacher`,
+    let response = await fetch(`https://i-have-eyes-in-my-back.herokuapp.com/deleteTeacher`,
     {
       method:"POST",
       headers:{
@@ -209,7 +203,7 @@ export const deleteTeacher = async (teacherListToDeleate) => {
 export const addUserEmail = async (email, admin) => {
   try{
       
-    let response = await fetch(`http://${baseUrl}:3000/addUserEmail`,
+    let response = await fetch(`https://i-have-eyes-in-my-back.herokuapp.com/addUserEmail`,
     {
       method:"POST",
       headers:{
@@ -232,7 +226,7 @@ export const addUserEmail = async (email, admin) => {
 export const getUser = async (email, admin) => {
   try{
       
-    let response = await fetch(`http://${baseUrl}:3000/getUser`,
+    let response = await fetch(`https://i-have-eyes-in-my-back.herokuapp.com/getUser`,
     {
       method:"GET",
       headers:{

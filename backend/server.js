@@ -29,13 +29,17 @@ const auth = require('./controllers/auth')
 
 app.use(bodyParser.json())
 
+// app.get('/',(req,res)=>{
+//     Employee.find({}).then(data=>{
+//         res.send(data)
+//     }).catch(err=>{
+//         console.log(err)
+//     })
+//     res.send("welcome to node js")
+// })
+
 app.get('/',(req,res)=>{
-    Employee.find({}).then(data=>{
-        res.send(data)
-    }).catch(err=>{
-        console.log(err)
-    })
-    res.send("welcome to node js")
+    res.send("welcome to I Have eyes in my back")
 })
 
 
@@ -45,9 +49,9 @@ app.post('/signup', userController.CreateAuser)
 
 app.post('/login', userController.Login)
 
-app.get("/getUser", auth.isAuth, userController.getUser)
+//app.get("/getUser", auth.isAuth, userController.getUser)
 
-
+app.get("/getUser", userController.getUser)
 
 app.get("/getClasses", auth.isAuth, classController.getAllClass)
 app.post("/AddClassRoom", auth.isAuth, classController.addNewClass) 
@@ -258,8 +262,14 @@ app.post('/update',(req,res)=>{
 })
 })
 
-app.listen(3000,()=>{
+var server_host = process.env.HOST || "0.0.0.0";
+
+app.listen( process.env.PORT || 3000 ||  8080, server_host,()=>{
     console.log("server runnicng")
 })
+
+// app.listen( 3000 ,()=>{
+//     console.log("server runnicng")
+// })
 
 

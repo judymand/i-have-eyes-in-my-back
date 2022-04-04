@@ -3,7 +3,7 @@ import style from '../../styles/GlobalStyle'
 import { View, Alert } from 'react-native';
 import { BodyText } from '../../components/BodyText'
 import { List } from '../../components/List'
-// import { ProfessionList } from '../ProfessionList'
+import * as professions from '../../store/actions/professions';
 
 export const ProfessionsSelection = (props) => {
 
@@ -16,19 +16,8 @@ export const ProfessionsSelection = (props) => {
     async function fetchMyAPI(){
 
       try{
-
-        let response = await fetch("http://localhost:3000/getProfessionsOfClass",
-        {
-          method:"POST",
-          headers:{
-            'Content-Type':'application/json'
-          }, 
-          body:JSON.stringify({
-            theSelectionClass
-          })
-        })
-
-        const resData = await response.json()
+        
+        const resData = await professions.getAllProfessionOfClass(theSelectionClass)
 
         Setdata(resData.profession)
 

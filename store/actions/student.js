@@ -4,7 +4,7 @@ export const getStudentOfClass = async (theSelectionClass) => {
   
   try{
      
-      let response = await fetch(`http://${baseUrl}:3000/getStudentOfClass`,
+      let response = await fetch(`https://i-have-eyes-in-my-back.herokuapp.com/getStudentOfClass`,
       {
         method:"POST",
         headers:{
@@ -30,7 +30,7 @@ export const getAllStudents = async () => {
  
   try{
     
-    let response = await fetch(`http://${baseUrl}:3000/getAllStudent`,
+    let response = await fetch(`https://i-have-eyes-in-my-back.herokuapp.com/getAllStudent`,
     {
       method:"GET",
       headers:{
@@ -52,7 +52,7 @@ export const deleteStudentsFromClass = async (selectClass, studentListToDeleate)
 
   try{
     
-    let response = await fetch(`http://${baseUrl}:3000/deleteStudentsFromClass`,
+    let response = await fetch(`https://i-have-eyes-in-my-back.herokuapp.com/deleteStudentsFromClass`,
     {
       method:"POST",
       headers:{
@@ -76,7 +76,7 @@ export const deleteStudentsFromClass = async (selectClass, studentListToDeleate)
 export const addStudentsToClass = async (studentsList, classList) => {
   try{
     
-    let response = await fetch(`http://${baseUrl}:3000/addStudentsToClass`,
+    let response = await fetch(`https://i-have-eyes-in-my-back.herokuapp.com/addStudentsToClass`,
     {
       method:"POST",
       headers:{
@@ -102,7 +102,7 @@ export const createLesson = async (theSelectionClass, profession, studentList, s
 
   try{
     
-    let response = await fetch(`http://${baseUrl}:3000/createNewLesson`,
+    let response = await fetch(`https://i-have-eyes-in-my-back.herokuapp.com/createNewLesson`,
     {
       method:"POST",
       headers:{
