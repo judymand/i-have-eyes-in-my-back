@@ -1,6 +1,4 @@
-
-let MongoClient = require('mongodb').MongoClient;
-var url = "mongodb://iHaveEyes:quzdeb-zeSvom-musba9@cluster0-shard-00-00.tobyl.mongodb.net:27017,cluster0-shard-00-01.tobyl.mongodb.net:27017,cluster0-shard-00-02.tobyl.mongodb.net:27017/faceRecognition?ssl=true&replicaSet=atlas-x2w3z3-shard-0&authSource=admin&retryWrites=true&w=majority";
+const studentsListSchema=require("../models/studentList");
 let list = { textButton:'חזרה לעמוד הראשי',  pageName: 'HomePage'}
 let StudentDB
 const ClassRoom = require('../models/ClassRoom');
@@ -8,32 +6,22 @@ const Lesson = require('../models/Lesson');
 
 exports.getAllStudent = async (req, res) => {
 
-    MongoClient.connect(url, async (err, db) => {
-        if (err) throw err;
-        let dbo = db.db("faceRecognition");
-        let StudentDB = dbo.collection("studentsList")
-        let studentList = []
+    const Rresults=await studentsListSchema.findOne({})
 
-        let lastDocument  = await StudentDB.findOne({}, {sort:{$natural:-1}})
-        for(let i = 0; i < lastDocument.students.length; ++i){
-            studentList.push({
-                '_id': i,
-                'name': lastDocument.students[i].name
-            })
-
-        }
-        
-        return res.status(201).json({
-            success: true,
-            studentList: studentList,
-            message: "",
+    let studentList = []
+    for(let i = 0; i < Rresults.students.length; ++i){
+        studentList.push({
+            '_id': i,
+            'name': Rresults.students[i].name
         })
         
-        
-        // db.close();
-
-    });
-
+    }
+    
+    return res.status(201).json({
+        success: true,
+        studentList: studentList,
+        message: "",
+    })
 }
 
 exports.addStudentsToClass = async (req, res) => {
