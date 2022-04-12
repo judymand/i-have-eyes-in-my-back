@@ -49,7 +49,6 @@ export const login = (email, password) => {
     
     try{
       return async dispatch => {
-        console.log("1")
         let response = await fetch(`https://i-have-eyes-in-my-back.herokuapp.com/login`,
         {
           method:"POST",
@@ -61,7 +60,6 @@ export const login = (email, password) => {
             password
           })
         })  
-        console.log("2")
         const resData = await response.json()
         const expirationDate = new Date(
           new Date().getTime() + parseInt(resData.expiresIn) * 1000

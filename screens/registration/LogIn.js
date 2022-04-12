@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Button, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
+import { View, Button, TouchableWithoutFeedback, Keyboard, Alert, Pressable } from 'react-native';
 import style from '../../styles/GlobalStyle'
 import { Input } from '../../components/Input'
 import { Card } from '../../components/Card'
@@ -7,6 +7,8 @@ import { BodyText } from '../../components/BodyText'
 import * as authActions from '../../store/actions/auth';
 import { useDispatch } from 'react-redux';
 import { LinearGradient } from 'expo-linear-gradient';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useTogglePasswordVisibility } from './useTogglePasswordVisibility';
 
 
 export const LogIn = (props) => {
@@ -16,8 +18,11 @@ export const LogIn = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
   const dispatch = useDispatch();
+  const { passwordVisibility, rightIcon, handlePasswordVisibility } = useTogglePasswordVisibility();
+9    
 
- 
+
+
 
   const submitData =  async  () => {
     let action;
@@ -47,11 +52,18 @@ export const LogIn = (props) => {
                   value={email}
                   />
                   <BodyText style={style.Bodytext} > הכנס סיסמא:</BodyText>
-                  <Input 
-                  onChangeText={(text) => {SetPassword(text)}}
-                  value={password}
-                  />
-
+                  <View style={style.inputContainer}>
+                    <Input 
+                    onChangeText={(text) => {SetPassword(text)}}
+                    textContentType='newPassword'
+                    secureTextEntry={passwordVisibility}
+                    value={password}
+                    enablesReturnKeyAutomatically
+                    />
+                    <Pressable onPress={handlePasswordVisibility}>
+                      <MaterialCommunityIcons name={rightIcon} size={22} color="#232323" />
+                    </Pressable>
+                  </View>
                   <View style={style.button}>
                     <Button title="היכנס" onPress={submitData }/>
                   </View>

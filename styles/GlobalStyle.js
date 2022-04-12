@@ -101,6 +101,15 @@ export default StyleSheet.create({
    
         
     },
+    inputContainer: {
+      backgroundColor: 'white',
+      width: '100%',
+      borderRadius: 8,
+      flexDirection: 'row',
+      alignItems: 'center',
+      borderWidth: 4,
+      borderColor: '#d7d7d7'
+    },
     gradient: {
       flex: 1,
       justifyContent: 'center',
