@@ -70,8 +70,7 @@ let SizeOfStudent
 
 // }).save()
 
-//רשימה שהמצלמה עדכנה dailyAttendance
-
+// רשימה שהמצלמה עדכנה dailyAttendance
 
 g()
 async function g(){
@@ -96,18 +95,22 @@ async function g(){
 	}
 
 
-
+	let nameP
+	let nameL
 
 
 	for(let j=0;j<PhoneRresults.students.length;j++)
 	{
-		console.log("j:",j)
+		nameP=PhoneRresults.students[j].name
+		//console.log("j:",j)
 		for(let i=0;i<sum_of_students_who_did_not_attend_class_but_is_in_school;i++)
 		{
+			nameL=List_of_students_who_did_not_attend_class_but_is_in_school[i].name
 			//console.log("in for1",PhoneRresults.students[j].name,List_of_students_who_did_not_attend_class_but_is_in_school[i].name)
-			if(PhoneRresults.students[j].name===List_of_students_who_did_not_attend_class_but_is_in_school[i].name)
+			//console.log(nameP.localeCompare(nameL))
+			if(nameP.localeCompare(nameL)==0)
 			{
-				console.log("in1 i:",i)
+				//console.log("in1 i:",i)
 				List_of_students_who_did_not_attend_class_but_is_in_school[i].setphone(PhoneRresults.students[j].phone)
 				continue;
 			}
@@ -116,10 +119,11 @@ async function g(){
 		}
 		for(let i=0;i<sum_of_students_who_did_not_attend_class_and_not_in_school;i++)
 		{
-		//	console.log("in for2",PhoneRresults.students[j].name,List_of_students_who_did_not_attend_class_and_not_in_school[i].name)
-			if(PhoneRresults.students[j].name===List_of_students_who_did_not_attend_class_and_not_in_school[i].name)
+			nameL=List_of_students_who_did_not_attend_class_and_not_in_school[i].name
+			//console.log("in for2",PhoneRresults.students[j].name,List_of_students_who_did_not_attend_class_and_not_in_school[i].name)
+			if(nameP.localeCompare(nameL)==0)
 			{
-			console.log("in2 i:",i)
+			//console.log("in2 i:",i)
 				List_of_students_who_did_not_attend_class_and_not_in_school[i].setphone(PhoneRresults.students[j].phone)
 				continue;
 			}
@@ -128,19 +132,18 @@ async function g(){
 
 
 	console.log("IN G()")
-	//console.log(List_of_students_who_did_not_attend_class_but_is_in_school,List_of_students_who_did_not_attend_class_and_not_in_school)
+	console.log(List_of_students_who_did_not_attend_class_but_is_in_school,List_of_students_who_did_not_attend_class_and_not_in_school)
 
 }
 
 
 
 
+// let h="י י"
+// let d="י י"
+// let a="ר"
 
-
-
-
-
-
+// console.log (d.localeCompare(h,'he'))
 
 
 
