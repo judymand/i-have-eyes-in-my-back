@@ -102,10 +102,11 @@ async function g(){
 	for(let j=0;j<PhoneRresults.students.length;j++)
 	{
 		nameP=PhoneRresults.students[j].name
-		//console.log("j:",j)
+		nameP.replace(/\-/, ' ')
 		for(let i=0;i<sum_of_students_who_did_not_attend_class_but_is_in_school;i++)
 		{
 			nameL=List_of_students_who_did_not_attend_class_but_is_in_school[i].name
+			nameL.replace(/\-/, ' ')
 			//console.log("in for1",PhoneRresults.students[j].name,List_of_students_who_did_not_attend_class_but_is_in_school[i].name)
 			//console.log(nameP.localeCompare(nameL))
 			if(nameP.localeCompare(nameL)==0)
@@ -120,6 +121,7 @@ async function g(){
 		for(let i=0;i<sum_of_students_who_did_not_attend_class_and_not_in_school;i++)
 		{
 			nameL=List_of_students_who_did_not_attend_class_and_not_in_school[i].name
+			nameL.replace(/\-/, ' ')
 			//console.log("in for2",PhoneRresults.students[j].name,List_of_students_who_did_not_attend_class_and_not_in_school[i].name)
 			if(nameP.localeCompare(nameL)==0)
 			{
@@ -139,11 +141,14 @@ async function g(){
 
 
 
-// let h="י י"
+// let h="י-י"
 // let d="י י"
 // let a="ר"
 
-// console.log (d.localeCompare(h,'he'))
+// a=h.replace(/\-/, ' ')
+// console.log(a);
+
+// //console.log (d.localeCompare(h,'he'))
 
 
 
