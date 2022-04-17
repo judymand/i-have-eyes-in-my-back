@@ -21,13 +21,31 @@ const studentsListSchema=require("./models/studentList");
 //---DATE FORMAT ---//
 
 
-const today='05/04/2022';
+const today='17/04/2022';
 const Ttime='23:40'
 //התחברות מסד נתונים
 require('dotenv').config()
  require('./db');
-
-
+ let List_of_students_in_a_school=[]
+ let List_of_students_not_in_a_school=[]
+ //let List_of_students_who_did_not_attend_class_but_is_in_school=[{ClassName:"",Profession:[],name:"",phone:""}];
+ class Class_of_students{
+	 constructor(ClassName,Profession,name,phone)
+	 {
+		 this.ClassName=ClassName;
+		 this.Profession=Profession;
+		 this.name=name;
+		 this.phone=phone;
+	 }
+	 setphone(phone){
+		 this.phone=phone;
+	 }
+ }
+let SizeOfStudent
+	List_of_students_who_did_not_attend_class_but_is_in_school= new Class_of_students()
+	List_of_students_who_did_not_attend_class_and_not_in_school= new Class_of_students()
+	let sum_of_students_who_did_not_attend_class_but_is_in_school=0
+	let sum_of_students_who_did_not_attend_class_and_not_in_school=0
 
 //  //הוספה של משתנה חדש ללסון
 // new LessonSchema({
@@ -52,57 +70,137 @@ require('dotenv').config()
 
 // }).save()
 
+//רשימה שהמצלמה עדכנה dailyAttendance
 
-// //------ The names of the students in which the teacher entered true (Lesson)-----//
-// let names_True_Lesson=[];
-// let names_False_Lesson=[];
+
+g()
+async function g(){
+
+	let Rresults=await DailyAttendanceSchema.find({'day':today})
+	const PhoneRresults=await studentsListSchema.findOne({})//מספרי טלפון ושמות
+
+	for(let i=0;i<Rresults[0].students.length;i++)
+	{
+		if(Rresults[0].students[i].arrive==true)
+		{
+			List_of_students_in_a_school.push(Rresults[0].students[i].name)
+			List_of_students_who_did_not_attend_class_but_is_in_school[sum_of_students_who_did_not_attend_class_but_is_in_school]= new Class_of_students("","",Rresults[0].students[i].name,"")
+			sum_of_students_who_did_not_attend_class_but_is_in_school++;
+		}
+		else if(Rresults[0].students[i].arrive==false)
+		{
+			List_of_students_not_in_a_school.push(Rresults[0].students[i].name)
+			List_of_students_who_did_not_attend_class_and_not_in_school[sum_of_students_who_did_not_attend_class_and_not_in_school]= new Class_of_students("","",Rresults[0].students[i].name,"")
+			sum_of_students_who_did_not_attend_class_and_not_in_school++;
+		}
+	}
+
+
+
+
+
+	for(let j=0;j<PhoneRresults.students.length;j++)
+	{
+		console.log("j:",j)
+		for(let i=0;i<sum_of_students_who_did_not_attend_class_but_is_in_school;i++)
+		{
+			//console.log("in for1",PhoneRresults.students[j].name,List_of_students_who_did_not_attend_class_but_is_in_school[i].name)
+			if(PhoneRresults.students[j].name===List_of_students_who_did_not_attend_class_but_is_in_school[i].name)
+			{
+				console.log("in1 i:",i)
+				List_of_students_who_did_not_attend_class_but_is_in_school[i].setphone(PhoneRresults.students[j].phone)
+				continue;
+			}
+			
+
+		}
+		for(let i=0;i<sum_of_students_who_did_not_attend_class_and_not_in_school;i++)
+		{
+		//	console.log("in for2",PhoneRresults.students[j].name,List_of_students_who_did_not_attend_class_and_not_in_school[i].name)
+			if(PhoneRresults.students[j].name===List_of_students_who_did_not_attend_class_and_not_in_school[i].name)
+			{
+			console.log("in2 i:",i)
+				List_of_students_who_did_not_attend_class_and_not_in_school[i].setphone(PhoneRresults.students[j].phone)
+				continue;
+			}
+		}
+	}
+
+
+	console.log("IN G()")
+	//console.log(List_of_students_who_did_not_attend_class_but_is_in_school,List_of_students_who_did_not_attend_class_and_not_in_school)
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//------ The names of the students in which the teacher entered true (Lesson)-----//
+// let InfoPer=[
+// 	{
+// 	IDper:"",
+// 	classNamePer:"",
+// 	names_True_Lesson:[],
+// 	names_False_Lesson:[],
+// 	professionPer:"",
+// 	}
+// ]
+//,'id':{$ne:InfoPer[x].IDper}
+
+
+
+
+
 // f()
 // async function f(){
-// 	let Rresults=await LessonSchema.findOne({'day':today})
-// 	const onlytrue=Rresults.students
-// 	for(let i=0;i<onlytrue.length;i++)
-// 	{
-// 		if(onlytrue[i].arrived==false)
-// 		{
-// 			names_True_Lesson.push(onlytrue[i].name)
-// 		}
-// 		else if(onlytrue[i].arrived==true){
-// 			names_False_Lesson.push(onlytrue[i].name)
-// 		}
-
-// 	}
-// 	console.log("TRUE NAMES:",names_True_Lesson)
-// 	console.log("FALSE NAMES:",names_False_Lesson)
-// 	console.log("IN")
-// }
-
-
-
-
-// //רשימה שהמצלמה עדכנה dailyAttendance
-
-// let names_True_Camera=[];
-// let names_False_Camera=[];
-// g()
-// async function g(){
-// 	let Rresults=await DailyAttendanceSchema.findOne({'day':today})
+// 	let Rresults=await LessonSchema.find({'day':today})
 // 	console.log(Rresults)
-// 	const onlytrue=Rresults.students
-// 	for(let i=0;i<onlytrue.length;i++)
-// 	{
-// 		if(onlytrue[i].arrive==true)
-// 		{
-// 			names_True_Camera.push(onlytrue[i].name)
-// 		}
-// 		else if(onlytrue[i].arrive==false)
-// 		{
-// 			names_False_Camera.push(onlytrue[i].name)
-// 		}
 
-// 	}
-// 	console.log("TRUE NAMES:",names_True_Camera)
-// 	console.log("FALSE NAMES:",names_False_Camera)
-// 	console.log("IN")
+
+
+// 	//let size=Rresults.length
+
+
+// //  for(let j=0;j<size;j++)
+// // {
+// // 	console.log("ID:",Rresults[j].id)
+// // 	console.log("profession:",Rresults[j].className)
+// // 	console.log("profession:",Rresults[j].profession)
+// // 	let size2=Rresults[j].students.length
+// // 	//console.log(size2)
+// // 	for(let i=0;i<size2;i++)
+// // 	{
+// // 		InfoPer[j].Name.push(Rresults[j].students[i].name)
+// // 		InfoPer[j].arrived.push(Rresults[j].students[i].arrived)
+// // 	}
+// // 	console.log("j is",j)
+// // 	console.log("NAMES",InfoPer[j].Name)
+// // 	console.log("TRUE OR FALSE:",InfoPer[j].arrived)
+// 	console.log("IN F()")
+
+
+// // }
 // }
 
 
@@ -111,15 +209,8 @@ require('dotenv').config()
 
 
 
-//רשימת תלמידים עם מספרי טלפון
 
 
-// g()
-// async function g(){
-	
-// 	const Rresults=await studentsListSchema.findOne({})
-// 	console.log(Rresults)
-// }
 
 
 
