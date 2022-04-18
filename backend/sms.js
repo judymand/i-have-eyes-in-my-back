@@ -28,118 +28,57 @@ require('dotenv').config()
  require('./db');
  let List_of_students_in_a_school=[]
  let List_of_students_not_in_a_school=[]
- //let List_of_students_who_did_not_attend_class_but_is_in_school=[{ClassName:"",Profession:[],name:"",phone:""}];
+ //let inSchool=[{className:"",profession:[],name:"",phone:""}];
  class Class_of_students{
-	 constructor(ClassName,Profession,name,phone)
+	 constructor(className,profession,name,phone)
 	 {
-		 this.ClassName=ClassName;
-		 this.Profession=Profession;
+		
+		 this.className=className;
+		 this.profession=[];
+		 this.profession[this.profession.length]=profession;
 		 this.name=name;
 		 this.phone=phone;
 	 }
 	 setphone(phone){
 		 this.phone=phone;
 	 }
+	 addProfession(profession)
+	{
+		this.profession[this.profession.length]=profession
+	}
+	 
+
+
  }
-let SizeOfStudent
+	inSchool= new Class_of_students()//done
 	List_of_students_who_did_not_attend_class_but_is_in_school= new Class_of_students()
-	List_of_students_who_did_not_attend_class_and_not_in_school= new Class_of_students()
+	List_of_students_who_did_not_attend_class_and_not_in_school= new Class_of_students() //done
+	not_in_class= new Class_of_students()
 	let sum_of_students_who_did_not_attend_class_but_is_in_school=0
 	let sum_of_students_who_did_not_attend_class_and_not_in_school=0
 
-//  //הוספה של משתנה חדש ללסון
-// new LessonSchema({
-// 	className:"א2",
-// 	profession:"חשבון",
-// 	day:today,
-// 	time:Ttime,
-// 	students:[
-// 		{
-// 		name:"סיטארה אלייב",
-// 		arrived:true
-// 		},
-// 		{
-// 		name:"דודי ביטון",
-// 		arrived:true
-// 		},
-// 		{
-// 		name:"יהודית מנדלבוים",
-// 		arrived:false
-// 		}
-// 	]
+// //  //הוספה של משתנה חדש ללסון
+// // new LessonSchema({
+// // 	className:"א2",
+// // 	profession:"חשבון",
+// // 	day:today,
+// // 	time:Ttime,
+// // 	students:[
+// // 		{
+// // 		name:"סיטארה אלייב",
+// // 		arrived:true
+// // 		},
+// // 		{
+// // 		name:"דודי ביטון",
+// // 		arrived:true
+// // 		},
+// // 		{
+// // 		name:"יהודית מנדלבוים",
+// // 		arrived:false
+// // 		}
+// // 	]
 
-// }).save()
-
-// רשימה שהמצלמה עדכנה dailyAttendance
-
-g()
-async function g(){
-
-	let Rresults=await DailyAttendanceSchema.find({'day':today})
-	const PhoneRresults=await studentsListSchema.findOne({})//מספרי טלפון ושמות
-
-	for(let i=0;i<Rresults[0].students.length;i++)
-	{
-		if(Rresults[0].students[i].arrive==true)
-		{
-			List_of_students_in_a_school.push(Rresults[0].students[i].name)
-			List_of_students_who_did_not_attend_class_but_is_in_school[sum_of_students_who_did_not_attend_class_but_is_in_school]= new Class_of_students("","",Rresults[0].students[i].name,"")
-			sum_of_students_who_did_not_attend_class_but_is_in_school++;
-		}
-		else if(Rresults[0].students[i].arrive==false)
-		{
-			List_of_students_not_in_a_school.push(Rresults[0].students[i].name)
-			List_of_students_who_did_not_attend_class_and_not_in_school[sum_of_students_who_did_not_attend_class_and_not_in_school]= new Class_of_students("","",Rresults[0].students[i].name,"")
-			sum_of_students_who_did_not_attend_class_and_not_in_school++;
-		}
-	}
-
-
-	let nameP
-	let nameL
-
-
-	for(let j=0;j<PhoneRresults.students.length;j++)
-	{
-		nameP=PhoneRresults.students[j].name
-		nameP.replace(/\-/, ' ')
-		for(let i=0;i<sum_of_students_who_did_not_attend_class_but_is_in_school;i++)
-		{
-			nameL=List_of_students_who_did_not_attend_class_but_is_in_school[i].name
-			nameL.replace(/\-/, ' ')
-			//console.log("in for1",PhoneRresults.students[j].name,List_of_students_who_did_not_attend_class_but_is_in_school[i].name)
-			//console.log(nameP.localeCompare(nameL))
-			if(nameP.localeCompare(nameL)==0)
-			{
-				//console.log("in1 i:",i)
-				List_of_students_who_did_not_attend_class_but_is_in_school[i].setphone(PhoneRresults.students[j].phone)
-				continue;
-			}
-			
-
-		}
-		for(let i=0;i<sum_of_students_who_did_not_attend_class_and_not_in_school;i++)
-		{
-			nameL=List_of_students_who_did_not_attend_class_and_not_in_school[i].name
-			nameL.replace(/\-/, ' ')
-			//console.log("in for2",PhoneRresults.students[j].name,List_of_students_who_did_not_attend_class_and_not_in_school[i].name)
-			if(nameP.localeCompare(nameL)==0)
-			{
-			//console.log("in2 i:",i)
-				List_of_students_who_did_not_attend_class_and_not_in_school[i].setphone(PhoneRresults.students[j].phone)
-				continue;
-			}
-		}
-	}
-
-
-	console.log("IN G()")
-	console.log(List_of_students_who_did_not_attend_class_but_is_in_school,List_of_students_who_did_not_attend_class_and_not_in_school)
-
-}
-
-
-
+// // }).save()
 
 // let h="י-י"
 // let d="י י"
@@ -154,67 +93,104 @@ async function g(){
 
 
 
+// רשימה שהמצלמה עדכנה dailyAttendance
+
+g()
+async function g(){
+
+	let Rresults=await DailyAttendanceSchema.find({'day':today})
+	const PhoneRresults=await studentsListSchema.findOne({})//מספרי טלפון ושמות
+	let  Lessonresults=await LessonSchema.find({'day':today})
+	let index=0
+	let Lsize=Lessonresults.length//size->גודל של כמה קולקשנים
+	a=0
+
+	for(let i=0;i<Lsize;i++)
+	{
+	let LsizeStudent=Lessonresults[i].students.length//LsizeStudent->גודל של כמה סטודנטים בכל קולקשן
+	for(let j=0;j<LsizeStudent;j++)
+	{
+		console.log("i:",i,"j:",j)
+	if(Lessonresults[i].students[j].arrived==false)
+		{
+			//בדיקה אם קיים כבר פשוט להוסיף מקצוע
+			for(let x=0;x<index;x++)
+			{
+				if(not_in_class[x].name.localeCompare(Lessonresults[i].students[j].name)==0)
+				{
+					not_in_class[x].addProfession(Lessonresults[i].profession)
+					a++
+				}
+
+
+			}
+			if(a==0){
+			//אם לא נמצא נוסיף את המידע כחדש באינדקס חדש
+			not_in_class[index]=new Class_of_students(Lessonresults[i].className,Lessonresults[i].profession,Lessonresults[i].students[j].name.replace(/\-/, ' '),"")
+			index++;
+			a==0
+			}
+		}	
+	}
+	}
+
+
+
+
+	for(let i=0;i<Rresults[0].students.length;i++)
+	{
+		if(Rresults[0].students[i].arrive==true)
+		{
+			List_of_students_in_a_school.push(Rresults[0].students[i].name)
+			inSchool[sum_of_students_who_did_not_attend_class_but_is_in_school]= new Class_of_students("","",Rresults[0].students[i].name,"")
+			sum_of_students_who_did_not_attend_class_but_is_in_school++;
+		}
+		else if(Rresults[0].students[i].arrive==false)
+		{
+			List_of_students_not_in_a_school.push(Rresults[0].students[i].name)
+			List_of_students_who_did_not_attend_class_and_not_in_school[sum_of_students_who_did_not_attend_class_and_not_in_school]= new Class_of_students("","",Rresults[0].students[i].name,"")
+			sum_of_students_who_did_not_attend_class_and_not_in_school++;
+		}
+	}
+	let nameP
+	let nameL
+	for(let j=0;j<PhoneRresults.students.length;j++)
+	{
+		nameP=PhoneRresults.students[j].name
+		nameP.replace(/\-/, ' ')
+		for(let i=0;i<sum_of_students_who_did_not_attend_class_but_is_in_school;i++)
+		{
+			nameL=inSchool[i].name
+			nameL.replace(/\-/, ' ')
+			if(nameP.localeCompare(nameL)==0)
+			{
+				inSchool[i].setphone(PhoneRresults.students[j].phone)
+				continue;
+			}
+			
+
+		}
+		for(let i=0;i<sum_of_students_who_did_not_attend_class_and_not_in_school;i++)
+		{
+			nameL=List_of_students_who_did_not_attend_class_and_not_in_school[i].name
+			nameL.replace(/\-/, ' ')
+			if(nameP.localeCompare(nameL)==0)
+			{
+				List_of_students_who_did_not_attend_class_and_not_in_school[i].setphone(PhoneRresults.students[j].phone)
+				continue;
+			}
+		}
+	}
+
+	//compare Not in class with in school
 
 
 
 
 
-
-
-
-
-
-//------ The names of the students in which the teacher entered true (Lesson)-----//
-// let InfoPer=[
-// 	{
-// 	IDper:"",
-// 	classNamePer:"",
-// 	names_True_Lesson:[],
-// 	names_False_Lesson:[],
-// 	professionPer:"",
-// 	}
-// ]
-//,'id':{$ne:InfoPer[x].IDper}
-
-
-
-
-
-// f()
-// async function f(){
-// 	let Rresults=await LessonSchema.find({'day':today})
-// 	console.log(Rresults)
-
-
-
-// 	//let size=Rresults.length
-
-
-// //  for(let j=0;j<size;j++)
-// // {
-// // 	console.log("ID:",Rresults[j].id)
-// // 	console.log("profession:",Rresults[j].className)
-// // 	console.log("profession:",Rresults[j].profession)
-// // 	let size2=Rresults[j].students.length
-// // 	//console.log(size2)
-// // 	for(let i=0;i<size2;i++)
-// // 	{
-// // 		InfoPer[j].Name.push(Rresults[j].students[i].name)
-// // 		InfoPer[j].arrived.push(Rresults[j].students[i].arrived)
-// // 	}
-// // 	console.log("j is",j)
-// // 	console.log("NAMES",InfoPer[j].Name)
-// // 	console.log("TRUE OR FALSE:",InfoPer[j].arrived)
-// 	console.log("IN F()")
-
-
-// // }
-// }
-
-
-
-
-
+	console.log("IN G()")
+	console.log(".......",inSchool,".......",List_of_students_who_did_not_attend_class_and_not_in_school,"............",not_in_class,".......")
+}
 
 
 
