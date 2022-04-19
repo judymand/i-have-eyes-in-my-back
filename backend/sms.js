@@ -113,7 +113,7 @@ require('dotenv').config()
 
 // רשימה שהמצלמה עדכנה dailyAttendance
 
-
+g()
 async function g(){
 
 	let Rresults=await DailyAttendanceSchema.find({'day':today})//מצלמה שמזהה את מי הגיע
@@ -212,8 +212,9 @@ async function g(){
 		{
 			if(inSchool[j].name==not_in_class[i].name)
 			{
-				List_of_students_who_did_not_attend_class_but_is_in_school[sum_of_students_who_did_not_attend_class_but_is_in_school]=new Class_of_students (not_in_class[i].className,"",not_in_class[i].name.replace(/\-/, ' '),inSchool[j].phone)//check profession (for)
+				List_of_students_who_did_not_attend_class_but_is_in_school[sum_of_students_who_did_not_attend_class_but_is_in_school]=new Class_of_students (not_in_class[i].className,"",not_in_class[i].name.replace(/\-/, ' '),inSchool[j].phone.replace(/\-/, ''))//check profession (for)
 				List_of_students_who_did_not_attend_class_but_is_in_school[sum_of_students_who_did_not_attend_class_but_is_in_school].addProfessionArray(not_in_class[i].profession)
+				sum_of_students_who_did_not_attend_class_but_is_in_school++
 				continue;
 			}
 
@@ -224,8 +225,11 @@ async function g(){
 
 	console.log("IN G()")
 	console.log(List_of_students_who_did_not_attend_class_but_is_in_school)
+	//SMS_SENDER_Breeze_from_class()
+	//SMS_SENDER_Breeze_from_School()
 	//console.log(".......",inSchool,"####............####",not_in_class,".......")
 	//console.log(".......",inSchool,".......",List_of_students_who_did_not_attend_class_and_not_in_school,"............",not_in_class,".......")
+	console.log(List_of_students_who_did_not_attend_class_and_not_in_school)
 }
 
 
@@ -238,57 +242,127 @@ async function g(){
 
 
 
-g()
 
-// const twilio=require('twilio');
-// let now = new Date(); 
-// //console.log(now)
-// const schedule = require('node-schedule');
 
-// 	const sdate=new Date(now)
-// 	sdate.setHours(17,0,0)//time to send message
-// 	//console.log(sdate)
-// 	schedule.scheduleJob(sdate, ()=>{
-// 		console.log('start');
-// 		mesP()
-// 	console.log('end');
-// 	});
+const twilio=require('twilio');
+let now = new Date(); 
+//console.log(now)
+const schedule = require('node-schedule');
+
+	const sdate=new Date(now)
+	sdate.setHours(17,0,0)//time to send message
+	//console.log(sdate)
+	schedule.scheduleJob(sdate, ()=>{
+		console.log('start');
+		mesP()
+	console.log('end');
+	});
 
  
-// var accountSid = process.env.TWILIO_ACCOUNT_SID; // Your Account SID from www.twilio.com/console
-// var authToken = process.env.TWILIO_AUTH_TOKEN;   // Your Auth Token from www.twilio.com/console
+var accountSid = process.env.TWILIO_ACCOUNT_SID; // Your Account SID from www.twilio.com/console
+var authToken = process.env.TWILIO_AUTH_TOKEN;   // Your Auth Token from www.twilio.com/console
 
-// let Mymessage='judy modi'
-// let Yournumber='+972523190543'
-// let MyNumber='+12184141637'
+let Mymessage='judy modi'
+let Yournumber='+972523190543'
+let MyNumber='+12184141637'
 
 
 
-// function mesP(){
-// 	console.log(".........")
-// 	var client=new twilio(accountSid,authToken)
+function mesP(){
+	console.log(".........")
+	var client=new twilio(accountSid,authToken)
 
-// 	client.messages
-// 	.create({
-// 		from:MyNumber,
-// 		to:Yournumber,
-// 		body:Mymessage
+	client.messages
+	.create({
+		from:MyNumber,
+		to:Yournumber,
+		body:Mymessage
+})
+	.then(message=>console.log(message.sid)).done();
+	console.log(".........")
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function SMS_SENDER_Breeze_from_class(){
+// console.log("in SMS_SENDER_Breeze_from_class()",sum_of_students_who_did_not_attend_class_but_is_in_school)
+// for(let i=0;i<sum_of_students_who_did_not_attend_class_but_is_in_school;i++)
+// {
+// let phone=List_of_students_who_did_not_attend_class_but_is_in_school[i].phone.replace(/0/, "+972")
+// //let name=List_of_students_who_did_not_attend_class_but_is_in_school[i].name
+// //let profession=List_of_students_who_did_not_attend_class_but_is_in_school[i].profession
+// //let size_of_profession=profession.length
+// const Vonage = require('@vonage/server-sdk')
+
+// const vonage = new Vonage({
+//   apiKey: "7ac87cfe",
+//   apiSecret: "Y6TADHof3zj4ODXh"
 // })
-// 	.then(message=>console.log(message.sid)).done();
-// 	console.log(".........")
+
+
+// const from = "School"
+// const to = phone
+// let text="Your kid BREEZEE from the class";
+// vonage.message.sendSms(from, to, text, (err, responseData) => {
+//     if (err) {
+//         console.log(err);
+//     } else {
+//         if(responseData.messages[0]['status'] === "0") {
+//             console.log("Message sent successfully.");
+//         } else {
+//             console.log(`Message failed with error: ${responseData.messages[0]['error-text']}`);
+//         }
+//     }
+// })
+// }
 // }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+// function SMS_SENDER_Breeze_from_School(){
+// 	console.log("in SMS_SENDER_Breeze_from_class()",sum_of_students_who_did_not_attend_class_and_not_in_school)
+// 	for(let i=0;i<sum_of_students_who_did_not_attend_class_and_not_in_school;i++)
+// 	{
+// 	let phone=List_of_students_who_did_not_attend_class_and_not_in_school[i].phone.replace(/0/, "+972")
+// 	//let name=List_of_students_who_did_not_attend_class_but_is_in_school[i].name
+// 	//let profession=List_of_students_who_did_not_attend_class_but_is_in_school[i].profession
+// 	//let size_of_profession=profession.length
+// 	const Vonage = require('@vonage/server-sdk')
+	
+// 	const vonage = new Vonage({
+// 	  apiKey: "7ac87cfe",
+// 	  apiSecret: "Y6TADHof3zj4ODXh"
+// 	})
+	
+	
+// 	const from = "School"
+// 	const to = phone
+// 	let text="Your kid BREEZEE from the school";
+// 	vonage.message.sendSms(from, to, text, (err, responseData) => {
+// 		if (err) {
+// 			console.log(err);
+// 		} else {
+// 			if(responseData.messages[0]['status'] === "0") {
+// 				console.log("Message sent successfully.");
+// 			} else {
+// 				console.log(`Message failed with error: ${responseData.messages[0]['error-text']}`);
+// 			}
+// 		}
+// 	})
+// 	}
+// 	}
+	
