@@ -9,7 +9,8 @@ const mongoose=require('mongoose');
 const studentSchema=mongoose.Schema(
     {
     name:String,
-    arrived:Boolean
+    arrived:Boolean,
+    id:String
 }
 
 )

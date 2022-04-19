@@ -6,23 +6,33 @@
 const LessonSchema = require('./models/Lesson');
 const DailyAttendanceSchema = require('./models/DailyAttendance');
 const studentsListSchema=require("./models/studentList");
+
+
+//add check Classname//
+
 //---DATE FORMAT + DATE=TODAY ---//
-// const Ttoday = new Date();
-// const yyyy = Ttoday.getFullYear();
-// let mm = Ttoday.getMonth() + 1; // Months start at 0!
-// let dd = Ttoday.getDate();
+const Ttoday = new Date();
+const yyyy = Ttoday.getFullYear();
+let mm = Ttoday.getMonth() + 1; // Months start at 0!
+let dd = Ttoday.getDate();
 
-// if (dd < 10) dd = '0' + dd;
-// if (mm < 10) mm = '0' + mm;
+if (dd < 10) dd = '0' + dd;
+if (mm < 10) mm = '0' + mm;
 
-// const today = dd + '/' + mm + '/' + yyyy;
-// console.log(today);
+const today = dd + '/' + mm + '/' + yyyy;
+console.log(today);
 
 //---DATE FORMAT ---//
 
 
-const today='17/04/2022';
+
+//---TIME TO START EVREY DAY ---//
 const Ttime='23:40'
+//---TIME TO START EVREY DAY ---//
+
+
+
+
 //התחברות מסד נתונים
 require('dotenv').config()
  require('./db');
@@ -32,9 +42,8 @@ require('dotenv').config()
  class Class_of_students{
 	 constructor(className,profession,name,phone)
 	 {
-		
-		 this.className=className;
 		 this.profession=[];
+		 this.className=className;
 		 this.profession[this.profession.length]=profession;
 		 this.name=name;
 		 this.phone=phone;
@@ -46,7 +55,15 @@ require('dotenv').config()
 	{
 		this.profession[this.profession.length]=profession
 	}
-	 
+	addProfessionArray(profession)
+	{
+		this.profession=[];
+		let size=profession.length;
+		for(let i=0;i<size;i++)
+		{
+			this.profession[i]=profession[i];
+		}
+	}
 
 
  }
@@ -54,6 +71,7 @@ require('dotenv').config()
 	List_of_students_who_did_not_attend_class_but_is_in_school= new Class_of_students()
 	List_of_students_who_did_not_attend_class_and_not_in_school= new Class_of_students() //done
 	not_in_class= new Class_of_students()
+	let sum_of_student_in_school=0
 	let sum_of_students_who_did_not_attend_class_but_is_in_school=0
 	let sum_of_students_who_did_not_attend_class_and_not_in_school=0
 
@@ -95,12 +113,15 @@ require('dotenv').config()
 
 // רשימה שהמצלמה עדכנה dailyAttendance
 
-g()
+
 async function g(){
 
-	let Rresults=await DailyAttendanceSchema.find({'day':today})
+	let Rresults=await DailyAttendanceSchema.find({'day':today})//מצלמה שמזהה את מי הגיע
 	const PhoneRresults=await studentsListSchema.findOne({})//מספרי טלפון ושמות
-	let  Lessonresults=await LessonSchema.find({'day':today})
+	let  Lessonresults=await LessonSchema.find({'day':today})//המורה הכניסה מי הגיע לשיעור
+    //add check if no one on school or in class //
+
+
 	let index=0
 	let Lsize=Lessonresults.length//size->גודל של כמה קולקשנים
 	a=0
@@ -110,7 +131,6 @@ async function g(){
 	let LsizeStudent=Lessonresults[i].students.length//LsizeStudent->גודל של כמה סטודנטים בכל קולקשן
 	for(let j=0;j<LsizeStudent;j++)
 	{
-		console.log("i:",i,"j:",j)
 	if(Lessonresults[i].students[j].arrived==false)
 		{
 			//בדיקה אם קיים כבר פשוט להוסיף מקצוע
@@ -142,8 +162,8 @@ async function g(){
 		if(Rresults[0].students[i].arrive==true)
 		{
 			List_of_students_in_a_school.push(Rresults[0].students[i].name)
-			inSchool[sum_of_students_who_did_not_attend_class_but_is_in_school]= new Class_of_students("","",Rresults[0].students[i].name,"")
-			sum_of_students_who_did_not_attend_class_but_is_in_school++;
+			inSchool[sum_of_student_in_school]= new Class_of_students("","",Rresults[0].students[i].name,"")
+			sum_of_student_in_school++;
 		}
 		else if(Rresults[0].students[i].arrive==false)
 		{
@@ -158,7 +178,7 @@ async function g(){
 	{
 		nameP=PhoneRresults.students[j].name
 		nameP.replace(/\-/, ' ')
-		for(let i=0;i<sum_of_students_who_did_not_attend_class_but_is_in_school;i++)
+		for(let i=0;i<sum_of_student_in_school;i++)
 		{
 			nameL=inSchool[i].name
 			nameL.replace(/\-/, ' ')
@@ -183,13 +203,29 @@ async function g(){
 	}
 
 	//compare Not in class with in school
+	const size_of_sudent_not_in_class=index;
+	const size_of_student_in_school=sum_of_student_in_school;
 
+	for(let i=0;i<size_of_sudent_not_in_class;i++)
+	{
+		for(let j=0;j<size_of_student_in_school;j++)
+		{
+			if(inSchool[j].name==not_in_class[i].name)
+			{
+				List_of_students_who_did_not_attend_class_but_is_in_school[sum_of_students_who_did_not_attend_class_but_is_in_school]=new Class_of_students (not_in_class[i].className,"",not_in_class[i].name.replace(/\-/, ' '),inSchool[j].phone)//check profession (for)
+				List_of_students_who_did_not_attend_class_but_is_in_school[sum_of_students_who_did_not_attend_class_but_is_in_school].addProfessionArray(not_in_class[i].profession)
+				continue;
+			}
 
+		}
+	}
 
 
 
 	console.log("IN G()")
-	console.log(".......",inSchool,".......",List_of_students_who_did_not_attend_class_and_not_in_school,"............",not_in_class,".......")
+	console.log(List_of_students_who_did_not_attend_class_but_is_in_school)
+	//console.log(".......",inSchool,"####............####",not_in_class,".......")
+	//console.log(".......",inSchool,".......",List_of_students_who_did_not_attend_class_and_not_in_school,"............",not_in_class,".......")
 }
 
 
@@ -200,7 +236,10 @@ async function g(){
 
 
 
-// require('dotenv').config()
+
+
+g()
+
 // const twilio=require('twilio');
 // let now = new Date(); 
 // //console.log(now)
