@@ -25,8 +25,13 @@ console.log(today);
 
 //---DATE FORMAT ---//
 
+
+
 // let today="19/04/2022"
 // g()
+
+
+
 //---TIME TO START EVREY DAY ---//
 const Ttime='23:40'
 //---TIME TO START EVREY DAY ---//
@@ -78,15 +83,15 @@ require('dotenv').config()
 	let sum_of_students_who_did_not_attend_class_and_not_in_school=0
 
 
-    //let now = new Date(); 
-	//const sdate=new Date(now)
-	//sdate.setHours(17,0,0)//time to send message
+    let now = new Date(); 
+	const sdate=new Date(now)
+	sdate.setHours(17,0,0)//time to send message
 
-	// schedule.scheduleJob('00 00 17 * * 0-5', ()=>{
-	// console.log('start');
-	// 	g()
-	// console.log('end');
-	// });
+	schedule.scheduleJob('00 00 17 * * 0-5', ()=>{
+	console.log('start');
+		g()
+	console.log('end');
+	});
 
 
 // רשימה שהמצלמה עדכנה dailyAttendance
@@ -277,6 +282,22 @@ function SMS_SENDER_Breeze_from_School(){
 	}
 	}
 	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
