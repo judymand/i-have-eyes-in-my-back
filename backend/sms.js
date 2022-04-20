@@ -25,8 +25,8 @@ console.log(today);
 
 //---DATE FORMAT ---//
 
-
-
+// let today="19/04/2022"
+// g()
 //---TIME TO START EVREY DAY ---//
 const Ttime='23:40'
 //---TIME TO START EVREY DAY ---//
@@ -41,13 +41,14 @@ require('dotenv').config()
  let List_of_students_not_in_a_school=[]
  //let inSchool=[{className:"",profession:[],name:"",phone:""}];
  class Class_of_students{
-	 constructor(className,profession,name,phone)
+	 constructor(className,profession,name,phone,day)
 	 {
 		 this.profession=[];
 		 this.className=className;
 		 this.profession[this.profession.length]=profession;
 		 this.name=name;
 		 this.phone=phone;
+		 this.day=day
 	 }
 	 setphone(phone){
 		 this.phone=phone;
@@ -81,11 +82,11 @@ require('dotenv').config()
 	//const sdate=new Date(now)
 	//sdate.setHours(17,0,0)//time to send message
 
-	schedule.scheduleJob('00 00 17 * * 0-5', ()=>{
-	console.log('start');
-		g()
-	console.log('end');
-	});
+	// schedule.scheduleJob('00 00 17 * * 0-5', ()=>{
+	// console.log('start');
+	// 	g()
+	// console.log('end');
+	// });
 
 
 // רשימה שהמצלמה עדכנה dailyAttendance
@@ -123,7 +124,7 @@ async function g(){
 			}
 			if(a==0){
 			//אם לא נמצא נוסיף את המידע כחדש באינדקס חדש
-			not_in_class[index]=new Class_of_students(Lessonresults[i].className,Lessonresults[i].profession,Lessonresults[i].students[j].name.replace(/\-/, ' '),"")
+			not_in_class[index]=new Class_of_students(Lessonresults[i].className,Lessonresults[i].profession,Lessonresults[i].students[j].name.replace(/\-/, ' '),"",Lessonresults[i].day)
 			index++;
 			a==0
 			}
@@ -137,13 +138,13 @@ async function g(){
 		if(Rresults[0].students[i].arrive==true)
 		{
 			List_of_students_in_a_school.push(Rresults[0].students[i].name)
-			inSchool[sum_of_student_in_school]= new Class_of_students("","",Rresults[0].students[i].name,"")
+			inSchool[sum_of_student_in_school]= new Class_of_students("","",Rresults[0].students[i].name,"","")
 			sum_of_student_in_school++;
 		}
 		else if(Rresults[0].students[i].arrive==false)
 		{
 			List_of_students_not_in_a_school.push(Rresults[0].students[i].name)
-			List_of_students_who_did_not_attend_class_and_not_in_school[sum_of_students_who_did_not_attend_class_and_not_in_school]= new Class_of_students("","",Rresults[0].students[i].name,"")
+			List_of_students_who_did_not_attend_class_and_not_in_school[sum_of_students_who_did_not_attend_class_and_not_in_school]= new Class_of_students("","",Rresults[0].students[i].name,"",today)
 			sum_of_students_who_did_not_attend_class_and_not_in_school++;
 		}
 	}
@@ -187,7 +188,7 @@ async function g(){
 		{
 			if(inSchool[j].name==not_in_class[i].name)
 			{
-				List_of_students_who_did_not_attend_class_but_is_in_school[sum_of_students_who_did_not_attend_class_but_is_in_school]=new Class_of_students (not_in_class[i].className,"",not_in_class[i].name.replace(/\-/, ' '),inSchool[j].phone.replace(/\-/, ''))//check profession (for)
+				List_of_students_who_did_not_attend_class_but_is_in_school[sum_of_students_who_did_not_attend_class_but_is_in_school]=new Class_of_students (not_in_class[i].className,"",not_in_class[i].name.replace(/\-/, ' '),inSchool[j].phone.replace(/\-/, ''),not_in_class[i].day)//check profession (for)
 				List_of_students_who_did_not_attend_class_but_is_in_school[sum_of_students_who_did_not_attend_class_but_is_in_school].addProfessionArray(not_in_class[i].profession)
 				sum_of_students_who_did_not_attend_class_but_is_in_school++
 				continue;
@@ -197,11 +198,14 @@ async function g(){
 	}
 
 	console.log("IN G()")
-	console.log(List_of_students_who_did_not_attend_class_but_is_in_school)
 	SMS_SENDER_Breeze_from_class()
 	SMS_SENDER_Breeze_from_School()
-	console.log(List_of_students_who_did_not_attend_class_and_not_in_school)
+	// console.log(List_of_students_who_did_not_attend_class_but_is_in_school,"==============",not_in_class)
+	// console.log(List_of_students_who_did_not_attend_class_and_not_in_school)
 }
+
+
+
 
 
 function SMS_SENDER_Breeze_from_class(){
