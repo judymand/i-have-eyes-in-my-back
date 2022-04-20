@@ -8,6 +8,7 @@ const LessonSchema = require('./models/Lesson');
 const DailyAttendanceSchema = require('./models/DailyAttendance');
 const studentsListSchema=require("./models/studentList");
 const schedule = require('node-schedule');
+const BreezeClassSchema=require('./models/breezeClass')
 
 //add check Classname//
 
@@ -25,16 +26,51 @@ console.log(today);
 
 //---DATE FORMAT ---//
 
+//---TIME TO START EVREY DAY ---// //
+
+    let now = new Date(); 
+	const sdate=new Date(now)
+	sdate.setHours(17,0,0)//time to send message
+
+	schedule.scheduleJob('00 00 17 * * 0-5', ()=>{
+	console.log('start');
+		g()
+	console.log('end');
+	});
+
+
+//---TIME TO START EVREY DAY ---// //
+
+
+
+
+
+
+// //---cal in week ---// //
+
+    // let now = new Date(); 
+	// const sdate=new Date(now)
+	// sdate.setHours(17,0,0)//time to send message
+
+	// schedule.scheduleJob('00 00 00 * * 0-5', ()=>{
+	// console.log('start');
+	// 	cal()
+	// console.log('end');
+	// });
+
+
+// //---cal in week ---// //
+
+
+
 
 
 // let today="19/04/2022"
 // g()
+// const Ttime='23:40'
 
 
 
-//---TIME TO START EVREY DAY ---//
-const Ttime='23:40'
-//---TIME TO START EVREY DAY ---//
 
 
 
@@ -81,17 +117,6 @@ require('dotenv').config()
 	let sum_of_student_in_school=0
 	let sum_of_students_who_did_not_attend_class_but_is_in_school=0
 	let sum_of_students_who_did_not_attend_class_and_not_in_school=0
-
-
-    let now = new Date(); 
-	const sdate=new Date(now)
-	sdate.setHours(17,0,0)//time to send message
-
-	schedule.scheduleJob('00 00 17 * * 0-5', ()=>{
-	console.log('start');
-		g()
-	console.log('end');
-	});
 
 
 // רשימה שהמצלמה עדכנה dailyAttendance
@@ -205,6 +230,7 @@ async function g(){
 	console.log("IN G()")
 	SMS_SENDER_Breeze_from_class()
 	SMS_SENDER_Breeze_from_School()
+	ADD_TO_BREEZE()
 	// console.log(List_of_students_who_did_not_attend_class_but_is_in_school,"==============",not_in_class)
 	// console.log(List_of_students_who_did_not_attend_class_and_not_in_school)
 }
@@ -255,8 +281,6 @@ function SMS_SENDER_Breeze_from_School(){
 	
 	console.log(phone)
 	//let name=List_of_students_who_did_not_attend_class_but_is_in_school[i].name
-	//let profession=List_of_students_who_did_not_attend_class_but_is_in_school[i].profession
-	//let size_of_profession=profession.length
 	const Vonage = require('@vonage/server-sdk')
 	
 	const vonage = new Vonage({
@@ -294,38 +318,59 @@ function SMS_SENDER_Breeze_from_School(){
 
 
 
+// // לקחת את כל המידע מאותו שבוע על כל תלמיד ולבדוק כמה הוא החסיר מכל מקצוע ליצור סכמה חדשה עם כל המידע
+// function cal()
+// {
 
 
 
 
-
-
-
-
-
-// const twilio=require('twilio');
-// var accountSid = process.env.TWILIO_ACCOUNT_SID; // Your Account SID from www.twilio.com/console
-// var authToken = process.env.TWILIO_AUTH_TOKEN;   // Your Auth Token from www.twilio.com/console
-
-// let Mymessage='judy modi'
-// let Yournumber='+972523190543'
-// let MyNumber='+12184141637'
-
-
-// mesP()
-// function mesP(){
-// 	console.log(".........")
-// 	var client=new twilio(accountSid,authToken)
-
-// 	client.messages
-// 	.create({
-// 		from:MyNumber,
-// 		to:Yournumber,
-// 		body:Mymessage
-// })
-// 	.then(message=>console.log(message.sid)).done();
-// 	console.log(".........")
 // }
+
+
+
+
+
+
+
+
+
+function ADD_TO_BREEZE()
+{
+	for(let i=0;i<sum_of_students_who_did_not_attend_class_but_is_in_school;i++)
+	{
+ //הוספה של משתנה חדש ללסון
+new BreezeClassSchema({
+
+	className:List_of_students_who_did_not_attend_class_but_is_in_school[i].className,
+	profession:List_of_students_who_did_not_attend_class_but_is_in_school[i].profession,
+	date:List_of_students_who_did_not_attend_class_but_is_in_school[i].day,
+	name:List_of_students_who_did_not_attend_class_but_is_in_school[i].name
+}).save()
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -366,3 +411,26 @@ function SMS_SENDER_Breeze_from_School(){
 
 
 
+// const twilio=require('twilio');
+// var accountSid = process.env.TWILIO_ACCOUNT_SID; // Your Account SID from www.twilio.com/console
+// var authToken = process.env.TWILIO_AUTH_TOKEN;   // Your Auth Token from www.twilio.com/console
+
+// let Mymessage='judy modi'
+// let Yournumber='+972523190543'
+// let MyNumber='+12184141637'
+
+
+// mesP()
+// function mesP(){
+// 	console.log(".........")
+// 	var client=new twilio(accountSid,authToken)
+
+// 	client.messages
+// 	.create({
+// 		from:MyNumber,
+// 		to:Yournumber,
+// 		body:Mymessage
+// })
+// 	.then(message=>console.log(message.sid)).done();
+// 	console.log(".........")
+// }
