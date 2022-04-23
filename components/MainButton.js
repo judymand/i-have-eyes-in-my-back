@@ -8,7 +8,7 @@ export const MainButton = (props) => {
   return (
        <TouchableOpacity 
        activeOpacity={0.6} 
-       style={{...style.mainButton, ...props.style,...props.styleMainButton }} 
+       style={{...style.mainButton, ...props.style,...props.styleMainButtonView, ...props.styleMainButton }} 
        onPress={props.onPress}>
          <View style={{...style.mainButton,...props.styleMainButton}}> 
           <BodyText style={{...style.mainButtonText,...props.styleMainButtonText}}> 

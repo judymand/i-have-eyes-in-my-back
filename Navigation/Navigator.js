@@ -48,9 +48,7 @@ const HomePageNavigator = createStackNavigator({
     HomePage: {
         screen: HomePage,
         navigationOptions: {
-            headerTitle: 'I have eyes in my back',
-            backgroundColor: '#4E6D4E'
-            
+            headerTitle: 'I have eyes in my back',    
         }
     },
     SignUpByEmail: SignUpByEmail,
@@ -62,7 +60,8 @@ const HomePageNavigator = createStackNavigator({
         defaultNavigationOptions: {
             headerTitleAlign: 'center',
             headerStyle: {
-                backgroundColor: '#4E6D4E'
+                backgroundColor: '#435D5E'
+              
             },
         
         }

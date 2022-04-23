@@ -14,26 +14,20 @@ export default StyleSheet.create({
     },
     containerButtonRow: {
       flexDirection: 'row',
-      // flex: 1,
       justifyContent: 'space-evenly',
       width: '100%',
-      // height: '100%'
     },
     homePageBorderButton: {
-      borderRadius: 30,
-      backgroundColor: '#4E6D4E',
-      borderColor: '#4E6D4E',
-      color: '#4E6D4E',
-      borderWidth: 5,
-      width: '45%',
+      borderRadius: 22,
+      backgroundColor: '#8BC2C4',
+      borderColor: '#808080',
+      textAlign: "center",
+      borderWidth: 3,
+      width: "80%",
+      height: windowHeight  / 20,
     },
     homePageButton: {
-      fontSize: 22,
-      flex: 1,
-      width: '100%',
-      height: '100%',
-      alignItems: 'center',
-      justifyContent: 'center'
+      fontSize: windowWidth > 350 ? 22 : 16,
     },
     header: {
       fontSize: windowWidth > 350 ? 26 : 18,
@@ -129,7 +123,7 @@ export default StyleSheet.create({
       marginVertical: windowHeight / 120,
       height: windowHeight  / 25,
       borderRadius: 16,
-      backgroundColor: '#4E6D4E',
+      //backgroundColor: '#4E6D4E',
     },
     smallButton: {
       width: windowWidth  / 3,
