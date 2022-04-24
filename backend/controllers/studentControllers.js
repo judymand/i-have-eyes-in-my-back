@@ -1,8 +1,8 @@
 const studentsListSchema=require("../models/studentList");
 let list = { textButton:'חזרה לעמוד הראשי',  pageName: 'HomePage'}
-let StudentDB
 const ClassRoom = require('../models/ClassRoom');
 const Lesson = require('../models/Lesson');
+const Users = require('../models/Users');
 
 exports.getAllStudent = async (req, res) => {
 
@@ -161,6 +161,7 @@ exports.LessonObject = async (req, res) => {
         let oneProfession = req.body.profession
         let studentsList = req.body.studentList
         let studentArrived = req.body.studentArrived
+        let user = await Users.findById(req.body.getId)
 
         const today = new Date();
         const yyyy = today.getFullYear();
@@ -197,6 +198,7 @@ exports.LessonObject = async (req, res) => {
         })
 
         const newLesson = new Lesson({
+            teacherName: user.firstName + " " + user.lastName,
             className: oneClass,
             profession: oneProfession,
             day: todayFormat, 
@@ -213,7 +215,7 @@ exports.LessonObject = async (req, res) => {
                 oneClass: oneClass.className,
                 message: 'סימון התלמידים נקלט בהצלחה!',
                 textButton:'חזרה לעמוד הראשי',
-                pageName: 'classSelection'
+                pageName: 'HomePage'
             })
         }
     
@@ -221,7 +223,7 @@ exports.LessonObject = async (req, res) => {
             success: false,
             message: "אופסי, ישנה תקלה.\n בבקשה נסה שנית מאוחר יותר.",
             textButton:'חזרה לעמוד הראשי',
-            pageName: 'classSelection'
+            pageName: 'HomePage'
         })
     
     
@@ -231,7 +233,7 @@ exports.LessonObject = async (req, res) => {
             error: err,
             message: "אופסי, ישנה תקלה.\n בבקשה נסה שנית מאוחר יותר.",
             textButton:'חזרה לעמוד הראשי',
-            pageName: 'classSelection'
+            pageName: 'HomePage'
             
         });
     }

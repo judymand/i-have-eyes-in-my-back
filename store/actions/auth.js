@@ -17,6 +17,17 @@ export const getToken = async () => {
   return token
 }
 
+export const getUserId = async () => {
+  const userData = await AsyncStorage.getItem('userData');
+  if (!userData) {
+    return;
+  }
+  const transformedData = JSON.parse(userData);
+  const { userId } = transformedData;
+  return userId
+}
+
+
 export const authenticate = (userId, token, isAdmin, expiryTime) => {
   return dispatch => {
     dispatch({ type: AUTHENTICATE, userId: userId, token: token, isAdmin: isAdmin }, setLogoutTimer(expiryTime));

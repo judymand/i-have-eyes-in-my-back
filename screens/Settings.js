@@ -26,8 +26,7 @@ export const Settings = (props) => {
         setData(await auth.getUser())
         setFirstName(await data.firstName)
         setLastName(await data.lastName)
-        setPassword(await data.password)
-
+       
       }catch(error){
         console.log(error)
       }

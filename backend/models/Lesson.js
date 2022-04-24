@@ -16,6 +16,7 @@ const studentSchema=mongoose.Schema(
 )
 
 const LessonSchema=new mongoose.Schema({
+    teacherName:String,
     className:String,
     profession:String,
     day:String,
