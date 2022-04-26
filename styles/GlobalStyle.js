@@ -17,14 +17,16 @@ export default StyleSheet.create({
       justifyContent: 'space-evenly',
       width: '100%',
     },
-    homePageBorderButton: {
+    myButtonStyle: {
       borderRadius: 22,
       backgroundColor: '#8BC2C4',
       borderColor: '#808080',
       textAlign: "center",
       borderWidth: 3,
-      width: "80%",
       height: windowHeight  / 20,
+    },
+    homePageBorderButton: {
+      width: "80%",
     },
     homePageButton: {
       fontSize: windowWidth > 350 ? 22 : 16,

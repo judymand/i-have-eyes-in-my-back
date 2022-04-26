@@ -16,17 +16,18 @@ export const Settings = (props) => {
   const [password, setPassword] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
-  const [data, setData] = useState();
+  const [data, setData] = useState('');
   const [error, setError] = useState();
+  const [flag, setFlag] = useState(false)
+
 
   useEffect(() => {
 
     const userDetails = async () => {
       try{
+
         setData(await auth.getUser())
-        setFirstName(await data.firstName)
-        setLastName(await data.lastName)
-       
+        setFlag(true)
       }catch(error){
         console.log(error)
       }
@@ -35,6 +36,27 @@ export const Settings = (props) => {
 
   }, [])
 
+  useEffect(() => {
+
+    const userDetails = async () => {
+      try{
+
+        setFirstName(await data.firstName)
+        setLastName(await data.lastName)
+    
+      }catch(error){
+        console.log(error)
+      }
+    }
+    userDetails()
+
+  }, [flag])
+
+  if(!flag){
+    return (
+      <View></View>
+    )
+  }
 
 
   return (
@@ -60,8 +82,11 @@ export const Settings = (props) => {
                   value={password}
                   />
             </View>
-            <View style={style.button}>
-                    <MainButton onPress={() => {} }>
+            <View style={style.button} >
+                    <MainButton 
+                    styleMainButtonView={style.myButtonStyle}
+                    styleMainButtonText={style.homePageButton}
+                    onPress={() => {} }>
                       שמור
                     </MainButton>
             </View>

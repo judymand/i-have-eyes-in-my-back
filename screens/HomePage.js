@@ -44,7 +44,7 @@ export const HomePage = (props) => {
               
               <View style={{...style.container, width: "50%"}}>
                 <MainButton
-                styleMainButtonView={style.homePageBorderButton}
+                styleMainButtonView={{...style.homePageBorderButton, ...style.myButtonStyle}}
                 styleMainButtonText={style.homePageButton}
                 onPress={ () => props.navigation.navigate('LogIn') }
                 >
@@ -53,7 +53,7 @@ export const HomePage = (props) => {
               </View>
               <View style={{...style.container, width: "50%"}}>
                 <MainButton
-                  styleMainButtonView={style.homePageBorderButton}
+                  styleMainButtonView={{...style.homePageBorderButton, ...style.myButtonStyle}}
                   styleMainButtonText={style.homePageButton}
                   onPress={ () => props.navigation.navigate('SignUpByEmail')} 
                   >
