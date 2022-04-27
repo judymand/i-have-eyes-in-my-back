@@ -12,6 +12,8 @@ const BreezeClassSchema=require('./models/breezeClass')
 
 //add check Classname//
 
+
+
 //---DATE FORMAT + DATE=TODAY ---//
 const Ttoday = new Date();
 const yyyy = Ttoday.getFullYear();
@@ -22,12 +24,14 @@ if (dd < 10) dd = '0' + dd;
 if (mm < 10) mm = '0' + mm;
 
 const today = dd + '/' + mm + '/' + yyyy;
-console.log(today);
-
+//console.log(today);
 //---DATE FORMAT ---//
 
-//---TIME TO START EVREY DAY ---// //
 
+
+
+
+//---TIME TO START EVREY DAY ---// //
     let now = new Date(); 
 	const sdate=new Date(now)
 	sdate.setHours(17,0,0)//time to send message
@@ -37,30 +41,22 @@ console.log(today);
 		g()
 	console.log('end');
 	});
-
-
 //---TIME TO START EVREY DAY ---// //
 
 
 
 
-
-
 // //---cal in week ---// //
+//     let now = new Date(); 
+// 	const sdate=new Date(now)
+// 	sdate.setHours(17,0,0)//time to send message
 
-    // let now = new Date(); 
-	// const sdate=new Date(now)
-	// sdate.setHours(17,0,0)//time to send message
-
-	// schedule.scheduleJob('00 00 00 * * 0-5', ()=>{
-	// console.log('start');
-	// 	cal()
-	// console.log('end');
-	// });
-
-
+// 	schedule.scheduleJob('00 00 00 * * 0-5', ()=>{
+// 	console.log('start');
+// 		cal()
+// 	console.log('end');
+// 	});
 // //---cal in week ---// //
-
 
 
 
@@ -72,15 +68,12 @@ console.log(today);
 
 
 
-
-
-
 //התחברות מסד נתונים
 require('dotenv').config()
  require('./db');
  let List_of_students_in_a_school=[]
  let List_of_students_not_in_a_school=[]
- //let inSchool=[{className:"",profession:[],name:"",phone:""}];
+
  class Class_of_students{
 	 constructor(className,profession,name,phone,day)
 	 {
@@ -111,17 +104,15 @@ require('dotenv').config()
 
  }
 	inSchool= new Class_of_students()//done
-	List_of_students_who_did_not_attend_class_but_is_in_school= new Class_of_students()
+	List_of_students_who_did_not_attend_class_but_is_in_school= new Class_of_students() //done
 	List_of_students_who_did_not_attend_class_and_not_in_school= new Class_of_students() //done
-	not_in_class= new Class_of_students()
+	not_in_class= new Class_of_students()//done
 	let sum_of_student_in_school=0
 	let sum_of_students_who_did_not_attend_class_but_is_in_school=0
 	let sum_of_students_who_did_not_attend_class_and_not_in_school=0
 
 
 // רשימה שהמצלמה עדכנה dailyAttendance
-
-
 async function g(){
 
 	let Rresults=await DailyAttendanceSchema.find({'day':today})//מצלמה שמזהה את מי הגיע
@@ -231,9 +222,20 @@ async function g(){
 	SMS_SENDER_Breeze_from_class()
 	SMS_SENDER_Breeze_from_School()
 	ADD_TO_BREEZE()
-	// console.log(List_of_students_who_did_not_attend_class_but_is_in_school,"==============",not_in_class)
-	// console.log(List_of_students_who_did_not_attend_class_and_not_in_school)
+	 //console.log(List_of_students_who_did_not_attend_class_but_is_in_school,"==============")
+	 //console.log(not_in_class,"==============")
+	 //console.log(inSchool,"==============")
+	 //console.log(List_of_students_who_did_not_attend_class_and_not_in_school,"==============")
 }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -244,8 +246,8 @@ console.log("in SMS_SENDER_Breeze_from_class()",sum_of_students_who_did_not_atte
 for(let i=0;i<sum_of_students_who_did_not_attend_class_but_is_in_school;i++)
 {
 let phone=List_of_students_who_did_not_attend_class_but_is_in_school[i].phone.replace(/0/, "+972")
-//let name=List_of_students_who_did_not_attend_class_but_is_in_school[i].name
-//let profession=List_of_students_who_did_not_attend_class_but_is_in_school[i].profession
+let name=List_of_students_who_did_not_attend_class_but_is_in_school[i].name
+let profession=List_of_students_who_did_not_attend_class_but_is_in_school[i].profession
 //let size_of_profession=profession.length
 const Vonage = require('@vonage/server-sdk')
 
@@ -257,7 +259,9 @@ const vonage = new Vonage({
 
 const from = "School"
 const to = phone
-let text="Your kid BREEZEE from the class";
+let text=name+" הבריז מהשיעורים:"+profession;
+console.log(text)
+
 vonage.message.sendSms(from, to, text, (err, responseData) => {
     if (err) {
         console.log(err);
@@ -307,6 +311,35 @@ function SMS_SENDER_Breeze_from_School(){
 	}
 	
 
+function ADD_TO_BREEZE()
+{
+	for(let i=0;i<sum_of_students_who_did_not_attend_class_but_is_in_school;i++)
+	{
+new BreezeClassSchema({
+
+	className:List_of_students_who_did_not_attend_class_but_is_in_school[i].className,
+	profession:List_of_students_who_did_not_attend_class_but_is_in_school[i].profession,
+	date:List_of_students_who_did_not_attend_class_but_is_in_school[i].day,
+	name:List_of_students_who_did_not_attend_class_but_is_in_school[i].name
+}).save()
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -322,37 +355,21 @@ function SMS_SENDER_Breeze_from_School(){
 // function cal()
 // {
 
-
-
-
 // }
 
 
+// function encode_utf8(s) {
+// 	return unescape(encodeURIComponent(s));
+//   }
+  
+//   function decode_utf8(s) {
+// 	return decodeURIComponent(escape(s));
+//   }
 
 
-
-
-
-
-
-function ADD_TO_BREEZE()
-{
-	for(let i=0;i<sum_of_students_who_did_not_attend_class_but_is_in_school;i++)
-	{
- //הוספה של משתנה חדש ללסון
-new BreezeClassSchema({
-
-	className:List_of_students_who_did_not_attend_class_but_is_in_school[i].className,
-	profession:List_of_students_who_did_not_attend_class_but_is_in_school[i].profession,
-	date:List_of_students_who_did_not_attend_class_but_is_in_school[i].day,
-	name:List_of_students_who_did_not_attend_class_but_is_in_school[i].name
-}).save()
-	}
-}
-
-
-
-
+// a="שלום לך"
+// console.log( encode_utf8(a))
+// console.log( decode_utf8(a))
 
 
 
