@@ -39,25 +39,28 @@ export const HomePage = (props) => {
   return (
         <View style={style.container}>
           {/* <ImageBackground source={require("../assets/logo.jpeg")}  style={[style.image,{alignItems:'center', justifyContent: 'center',  opacity: 0.85}]} > */}
-          <LinearGradient colors={['#c8e8ca', '#4E6D4E']} style={style.gradient}>
+          <LinearGradient colors={['#A7E8EB','#435D5E', '#A7E8EB']} style={style.gradient}>
             <View style={style.containerButtonRow}>
-              <View style={style.homePageBorderButton}>
-                {/* <Button title="התחברות" onPress={ () => props.navigation.navigate('LogIn') } color='black' /> */}
+              
+              <View style={{...style.container, width: "50%"}}>
                 <MainButton
+                styleMainButtonView={{...style.homePageBorderButton, ...style.myButtonStyle}}
                 styleMainButtonText={style.homePageButton}
                 onPress={ () => props.navigation.navigate('LogIn') }
                 >
                   התחברות
                 </MainButton>
               </View>
-              <View style={style.homePageBorderButton}>
+              <View style={{...style.container, width: "50%"}}>
                 <MainButton
+                  styleMainButtonView={{...style.homePageBorderButton, ...style.myButtonStyle}}
                   styleMainButtonText={style.homePageButton}
                   onPress={ () => props.navigation.navigate('SignUpByEmail')} 
                   >
                   הרשמה
                   </MainButton>
               </View>
+             
             </View>
           </LinearGradient>
           {/* </ImageBackground> */}

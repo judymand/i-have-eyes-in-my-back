@@ -1,4 +1,4 @@
-import { getToken, baseUrl } from './auth'
+import { getToken, getUserId } from './auth'
 
 export const getStudentOfClass = async (theSelectionClass) => {
   
@@ -102,6 +102,7 @@ export const createLesson = async (theSelectionClass, profession, studentList, s
 
   try{
     
+    let getId = await getUserId()
     let response = await fetch(`https://i-have-eyes-in-my-back.herokuapp.com/createNewLesson`,
     {
       method:"POST",
@@ -113,8 +114,8 @@ export const createLesson = async (theSelectionClass, profession, studentList, s
         theSelectionClass,
         profession,
         studentList,
-        studentArrived
-
+        studentArrived,
+        getId 
       })
     })   
 

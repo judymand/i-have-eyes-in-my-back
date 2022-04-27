@@ -41,7 +41,7 @@ export const LogIn = (props) => {
   
   return (
       <TouchableWithoutFeedback onPress={ () => { Keyboard.dismiss();}} >
-        <LinearGradient colors={['#c8e8ca', '#4E6D4E']} style={style.gradient}>
+        <LinearGradient colors={['#e8e6e6', '#e8e6e6']} style={style.gradient}>
           
             <Card>
               <View style={{textAlign: "center", alignItems: 'center'}}>
