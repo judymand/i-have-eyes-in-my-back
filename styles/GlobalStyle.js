@@ -31,6 +31,9 @@ export default StyleSheet.create({
     homePageButton: {
       fontSize: windowWidth > 350 ? 22 : 16,
     },
+    forgetPasswordButton: {
+      fontSize: windowWidth > 350 ? 16 : 12,
+    },
     header: {
       fontSize: windowWidth > 350 ? 26 : 18,
       paddingBottom: windowHeight / 19,

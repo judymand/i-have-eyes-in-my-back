@@ -70,8 +70,17 @@ export const LogIn = (props) => {
                     >
                       היכנס
                     </MainButton>
-                   
+                
                   </View>
+                  <View style={style.button}>
+                    <MainButton
+                      styleMainButtonView={{...style.homePageBorderButton, ...style.myButtonStyle}}
+                      styleMainButtonText={style.forgetPasswordButton}
+                      onPress={() => {}} 
+                      >
+                        שכחתי סיסמה
+                      </MainButton>
+                    </View>
               </View>
             </Card>
          
