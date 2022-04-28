@@ -341,19 +341,9 @@ exports.getUser = async (req, res, next) => {
         });
         }
 
-        const userDetails = {
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
-            admin: user.admin,
-            password: user.password,
-            __v: 0
-        }
-
-                
-
+     
         return res.status(201).json({
-            success: userDetails,
+            success: true,
             user: user,
             message: 'המשתמש זוהה בהצלחה! ',
             textButton:'מעבר לעמוד התחברות',
@@ -375,3 +365,60 @@ exports.getUser = async (req, res, next) => {
 }
 
 
+exports.UpdateUserDetails = async (req, res, next) => {
+
+    try{
+
+        let user =  await Users.findOne({ _id: req.body.user._id })
+        let firstName = req.body.firstName
+        let lastName = req.body.lastName
+        let password = req.body.password
+        let newPassword = req.body.newPassword
+        let validnewPassword = req.body.validnewPassword
+    
+     
+
+        if(!user){
+            return res.status(401).json({
+                success: false,
+                message: "אופסי, ישנה תקלה.\n בבקשה נסה שנית מאוחר יותר.",
+                list: list
+            });
+        }
+
+        if (firstName != undefined && firstName != '' && firstName != user.firstName) {
+            await Users.findByIdAndUpdate(user._id, { firstName: firstName })
+        }
+        if (lastName != undefined && lastName != '' && lastName != user.lastName) {
+            await Users.findByIdAndUpdate(user._id, { lastName: lastName } )
+        }
+        if(this.validatePassword(password, user.password)){
+            if (validnewPassword) {
+                const hashedPassword = await this.hashPassword(newPassword, 10)
+                await Users.findByIdAndUpdate(user._id, { password: hashedPassword } )
+            }
+    
+        }
+      
+
+                
+
+        return res.status(201).json({
+            success: true,
+            user: user,
+            message: 'פרטי המשתמש שונו בהצלחה ',
+            list: list
+
+        });
+        
+        
+       
+    }catch(err){
+        return res.status(401).json({
+            success: false,
+            message: err,
+            list: list,
+    });
+    }
+
+}

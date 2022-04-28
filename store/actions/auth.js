@@ -251,3 +251,30 @@ export const getUser = async (email, admin) => {
     console.log(error)
   }
 }
+
+
+export const updateUser = async (user, firstName, lastName, password, newPassword) => {
+  try{
+
+    let response = await fetch(`https://i-have-eyes-in-my-back.herokuapp.com/updateUser`,
+    {
+      method:"POST",
+      headers:{
+        'Content-Type':'application/json',
+        'authorization': 'JWT '+ await getToken() 
+      },
+      body:JSON.stringify({
+        user,
+        firstName,
+        lastName,
+        password,
+        newPassword
+      })
+    })
+   
+    return await response.json()
+    
+  }catch(error){
+    console.log(error)
+  }
+}

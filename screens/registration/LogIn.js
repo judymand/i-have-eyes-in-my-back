@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Button, TouchableWithoutFeedback, Keyboard, Alert, Pressable } from 'react-native';
 import style from '../../styles/GlobalStyle'
 import { Input } from '../../components/Input'
+import { MainButton } from '../../components/MainButton'
 import { Card } from '../../components/Card'
 import { BodyText } from '../../components/BodyText'
 import * as authActions from '../../store/actions/auth';
@@ -65,7 +66,14 @@ export const LogIn = (props) => {
                     </Pressable>
                   </View>
                   <View style={style.button}>
-                    <Button title="היכנס" onPress={submitData }/>
+                    <MainButton
+                    styleMainButtonView={{...style.homePageBorderButton, ...style.myButtonStyle}}
+                    styleMainButtonText={style.homePageButton}
+                    onPress={submitData} 
+                    >
+                      היכנס
+                    </MainButton>
+                   
                   </View>
               </View>
             </Card>

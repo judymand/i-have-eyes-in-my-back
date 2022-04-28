@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import style from '../styles/GlobalStyle'
-import { View, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
 import { Input } from '../components/Input'
 import { Card } from '../components/Card'
 import { BodyText } from '../components/BodyText'
 import { MainButton } from '../components/MainButton'
 import { LinearGradient } from 'expo-linear-gradient';
 import * as auth from '../store/actions/auth'
+import { checkPassword } from '../functional/passwordValid'
 
 
 
@@ -14,11 +15,42 @@ export const Settings = (props) => {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [newPassword, setNewPassword] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [data, setData] = useState('');
   const [error, setError] = useState();
   const [flag, setFlag] = useState(false)
+  const [validnewPassword, setValidnewPassword] = useState(false)
+
+
+  const submitData =  async  () => {
+    try{
+
+      const resData = await auth.updateUser(data, firstName, lastName, password, newPassword)
+      Alert.alert(
+        resData.message,
+        '',
+      [
+        { 
+          text: resData.list.textButton, 
+          onPress: () => props.navigation.navigate(resData.list.pageName),     
+        }
+      ]
+      )
+    
+    }catch(error){
+      console.log(error)
+    }
+
+  }
+
+  const checkNewPassword = (text) => {
+    setNewPassword(text)
+    color = checkPassword(text)
+
+  }
+
 
 
   useEffect(() => {
@@ -76,17 +108,22 @@ export const Settings = (props) => {
                   onChangeText={(text) => {setLastName(text)}}
                   value={lastName}
                   />
-              <BodyText style={style.Bodytext} > סיסמא: </BodyText>
+              <BodyText style={style.Bodytext} > הסיסמא שלך: </BodyText>
               <Input
                   onChangeText={(text) => {setPassword(text)}}
                   value={password}
+                  />
+              <BodyText style={style.Bodytext} > הסיסמא החדשה: </BodyText>
+              <Input
+                  onChangeText={(text) => {checkPassword(text)}}
+                  value={newPassword}
                   />
             </View>
             <View style={style.button} >
                     <MainButton 
                     styleMainButtonView={style.myButtonStyle}
                     styleMainButtonText={style.homePageButton}
-                    onPress={() => {} }>
+                    onPress={submitData }>
                       שמור
                     </MainButton>
             </View>

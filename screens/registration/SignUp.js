@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Button, TouchableWithoutFeedback, Keyboard, Alert} from 'react-native';
 import style  from '../../styles/GlobalStyle'
 import { Input } from '../../components/Input'
+import { MainButton } from '../../components/MainButton'
 import { BodyText } from '../../components/BodyText'
 import { Card } from '../../components/Card'
 import { LinearGradient } from 'expo-linear-gradient';
@@ -121,8 +122,13 @@ export const SignUp = (props) => {
               value={verifyPassword}
               />  */}
               <View style={style.button}>
-              <Button 
-                title="הירשם" onPress={ submitData }/>
+                <MainButton
+                styleMainButtonView={{...style.homePageBorderButton, ...style.myButtonStyle}}
+                styleMainButtonText={style.homePageButton}
+                onPress={submitData} 
+                >
+                  היכנס
+                </MainButton>
               </View>
             
           </View>

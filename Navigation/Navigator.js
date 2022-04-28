@@ -1,4 +1,4 @@
-import { createStackNavigator } from 'react-navigation-stack'
+import { createStackNavigator, HeaderBackButton } from 'react-navigation-stack'
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Ionicons } from '@expo/vector-icons';
@@ -42,13 +42,29 @@ import { Settings } from '../screens/Settings';
 
 // import * as authActions from '../store/actions/auth';
 
+const defaultOptions = {
+    headerTitleAlign: 'center',
+    headerBackTitleStyle: {
+        color: '#fff',
+    },
+    headerTintColor: '#fff',
+    headerStyle: {
+        backgroundColor: '#435D5E'
+    },
+
+}
+
 
 const HomePageNavigator = createStackNavigator({
 
     HomePage: {
         screen: HomePage,
         navigationOptions: {
-            headerTitle: 'I have eyes in my back',    
+            headerTitle: 'I have eyes in my back',
+            headerTitleStyle: {
+                color: "#fff",
+                fontWeight: 'bold',
+            }
         }
     },
     SignUpByEmail: SignUpByEmail,
@@ -57,14 +73,7 @@ const HomePageNavigator = createStackNavigator({
 
 },
     {
-        defaultNavigationOptions: {
-            headerTitleAlign: 'center',
-            headerStyle: {
-                backgroundColor: '#435D5E'
-              
-            },
-        
-        }
+        defaultNavigationOptions: defaultOptions
     }
     
 
@@ -73,10 +82,10 @@ const HomePageNavigator = createStackNavigator({
 const logOut = ({navigation}) => ({
     headerTitleAlign: 'center',
     headerStyle: {
-    //   backgroundColor: '#29434e',
       shadowColor: 'transparent',
       elevation: 2
     },
+    
     headerRight: () => 
         <TouchableOpacity activeOpacity={0.6} style={{paddingRight: 15}}>
             <Entypo name="log-out" size={26} coloe="black" 
@@ -111,7 +120,7 @@ const AdminNavigator = createStackNavigator({
     },
 },
 {
-    defaultNavigationOptions : logOut
+    defaultNavigationOptions :  logOut 
 });
 
 
@@ -133,7 +142,7 @@ const TeacherNavigator = createStackNavigator({
 
 },
 {
-    defaultNavigationOptions: logOut
+    defaultNavigationOptions: logOut, defaultOptions
 }
 );
 

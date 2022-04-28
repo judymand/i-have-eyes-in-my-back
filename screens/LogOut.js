@@ -7,18 +7,7 @@ import { useFocusEffect } from '@react-navigation/native';
 
 export const LogOut = (props) => {
 
-
   const dispatch = useDispatch();
-
-  // useEffect( () => {
-
-  //   const unsubscribe = props.navigation.addListener('focus', () => {
- 
-  //     return () => unsubscribe.remove()
-  //   }, [logOff])
-  // });
-
-
 
   useEffect( () => {
    

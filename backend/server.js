@@ -76,7 +76,8 @@ app.post("/deleteStudentsFromClass", auth.isAuth, studentControllers.deleteStude
 
 app.post("/createNewLesson", auth.isAuth, studentControllers.LessonObject)
 
-    
+app.post("/updateUser", auth.isAuth, userController.UpdateUserDetails)
+
 
 
        
