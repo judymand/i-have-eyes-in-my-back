@@ -22,12 +22,13 @@ export const Settings = (props) => {
   const [error, setError] = useState();
   const [flag, setFlag] = useState(false)
   const [validnewPassword, setValidnewPassword] = useState(false)
+  const [checkStrongPassword,setCheckStrongPassword] = useState('')
 
 
   const submitData =  async  () => {
     try{
 
-      const resData = await auth.updateUser(data, firstName, lastName, password, newPassword)
+      const resData = await auth.updateUser(data, firstName, lastName, password, newPassword, validnewPassword)
       Alert.alert(
         resData.message,
         '',
@@ -47,7 +48,13 @@ export const Settings = (props) => {
 
   const checkNewPassword = (text) => {
     setNewPassword(text)
-    color = checkPassword(text)
+    obj = checkPassword(text)
+    setCheckStrongPassword(obj.color)
+    if(obj.isGoodPassword){
+      setValidnewPassword(true)
+    }else{
+      setValidnewPassword(false)
+    }
 
   }
 
@@ -115,7 +122,8 @@ export const Settings = (props) => {
                   />
               <BodyText style={style.Bodytext} > הסיסמא החדשה: </BodyText>
               <Input
-                  onChangeText={(text) => {checkPassword(text)}}
+                  style={ newPassword === '' ? style.input : checkStrongPassword === 'red' ? style.noValid : checkStrongPassword === 'blue' ? style.mediumPasswordStyle : style.Valid }
+                  onChangeText={(text)=>{checkNewPassword(text)}}
                   value={newPassword}
                   />
             </View>

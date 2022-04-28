@@ -375,7 +375,8 @@ exports.UpdateUserDetails = async (req, res, next) => {
         let password = req.body.password
         let newPassword = req.body.newPassword
         let validnewPassword = req.body.validnewPassword
-    
+        let message = ""
+        let flag = false
      
 
         if(!user){
@@ -387,32 +388,57 @@ exports.UpdateUserDetails = async (req, res, next) => {
         }
 
         if (firstName != undefined && firstName != '' && firstName != user.firstName) {
-            await Users.findByIdAndUpdate(user._id, { firstName: firstName })
+            changeName = await Users.findByIdAndUpdate(user._id, { firstName: firstName })
+            if(changeName){
+                message = message.concat("\n השם שונה בהצלחה!") 
+            }
+            else{
+                message = message.concat("\n אופסי, ישנה שגיאה, השם הפרטי לא התעדכן במערכת.")
+            }
+            flag = true
+            
         }
         if (lastName != undefined && lastName != '' && lastName != user.lastName) {
-            await Users.findByIdAndUpdate(user._id, { lastName: lastName } )
-        }
-        if(this.validatePassword(password, user.password)){
-            if (validnewPassword) {
-                const hashedPassword = await this.hashPassword(newPassword, 10)
-                await Users.findByIdAndUpdate(user._id, { password: hashedPassword } )
+            changeLastName = await Users.findByIdAndUpdate(user._id, { lastName: lastName } )
+            if(changeLastName){
+                message = message.concat( " \n שם המשפחה שונה בהצלחה")
             }
-    
+            else{
+                message = message.concat("\n אופסי, ישנה שגיאה, השם המשפחה לא התעדכן במערכת.")
+            }
+            flag = true
+        }if(newPassword != undefined && newPassword != '' ){
+            if(this.validatePassword(password, user.password)){
+                if (validnewPassword) {
+                    const hashedPassword = await this.hashPassword(newPassword, 10)
+                    changePassword = await Users.findByIdAndUpdate(user._id, { password: hashedPassword } )
+                    if(changePassword){
+                        message = message.concat( " \n הסיסמא שונתה בהצלחה")
+                    }
+                    else{
+                        message = message.concat("\n אופסי, ישנה שגיאה, הסיסמא לא התעדכנה במערכת.")
+                    }
+                }
+            }
+            else{
+                message = message.concat( " \n הסיסמא לא שונתה כדי לשנות סיסמא חייב להזין את הסיסמא הנוכחית שלך")
+            }
+            flag = true
         }
-      
 
-                
-
+        if(!flag){
+            message = "פרטי המשתמש לא שונו"
+        }
+     
         return res.status(201).json({
             success: true,
             user: user,
-            message: 'פרטי המשתמש שונו בהצלחה ',
+            message: message,
             list: list
 
         });
         
         
-       
     }catch(err){
         return res.status(401).json({
             success: false,

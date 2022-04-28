@@ -253,7 +253,7 @@ export const getUser = async (email, admin) => {
 }
 
 
-export const updateUser = async (user, firstName, lastName, password, newPassword) => {
+export const updateUser = async (user, firstName, lastName, password, newPassword, validnewPassword) => {
   try{
 
     let response = await fetch(`https://i-have-eyes-in-my-back.herokuapp.com/updateUser`,
@@ -268,7 +268,8 @@ export const updateUser = async (user, firstName, lastName, password, newPasswor
         firstName,
         lastName,
         password,
-        newPassword
+        newPassword,
+        validnewPassword
       })
     })
    
