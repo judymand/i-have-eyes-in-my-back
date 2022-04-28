@@ -20,10 +20,7 @@ export const LogIn = (props) => {
   const [error, setError] = useState();
   const dispatch = useDispatch();
   const { passwordVisibility, rightIcon, handlePasswordVisibility } = useTogglePasswordVisibility();
-9    
-
-
-
+  
 
   const submitData =  async  () => {
     let action;

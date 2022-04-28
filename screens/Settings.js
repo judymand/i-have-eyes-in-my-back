@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import style from '../styles/GlobalStyle'
-import { View, TouchableWithoutFeedback, Keyboard, Alert } from 'react-native';
+import { View, TouchableWithoutFeedback, Keyboard, Alert, Pressable } from 'react-native';
 import { Input } from '../components/Input'
 import { Card } from '../components/Card'
 import { BodyText } from '../components/BodyText'
@@ -8,6 +8,8 @@ import { MainButton } from '../components/MainButton'
 import { LinearGradient } from 'expo-linear-gradient';
 import * as auth from '../store/actions/auth'
 import { checkPassword } from '../functional/passwordValid'
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useTogglePasswordVisibility } from './registration/useTogglePasswordVisibility';
 
 
 
@@ -23,6 +25,8 @@ export const Settings = (props) => {
   const [flag, setFlag] = useState(false)
   const [validnewPassword, setValidnewPassword] = useState(false)
   const [checkStrongPassword,setCheckStrongPassword] = useState('')
+  const passwordVisibility = useTogglePasswordVisibility();
+  const newPasswordVisibility = useTogglePasswordVisibility();
 
 
   const submitData =  async  () => {
@@ -116,16 +120,33 @@ export const Settings = (props) => {
                   value={lastName}
                   />
               <BodyText style={style.Bodytext} > הסיסמא שלך: </BodyText>
-              <Input
-                  onChangeText={(text) => {setPassword(text)}}
-                  value={password}
-                  />
+              <View style={style.inputContainer}>
+                <Input 
+                onChangeText={(text) => {setPassword(text)}}
+                textContentType='newPassword'
+                secureTextEntry={passwordVisibility.passwordVisibility}
+                value={password}
+                enablesReturnKeyAutomatically
+                />
+              <Pressable onPress={passwordVisibility.handlePasswordVisibility}>
+                <MaterialCommunityIcons name={passwordVisibility.rightIcon} size={22} color="#232323" />
+              </Pressable>
+            </View>
               <BodyText style={style.Bodytext} > הסיסמא החדשה: </BodyText>
-              <Input
-                  style={ newPassword === '' ? style.input : checkStrongPassword === 'red' ? style.noValid : checkStrongPassword === 'blue' ? style.mediumPasswordStyle : style.Valid }
-                  onChangeText={(text)=>{checkNewPassword(text)}}
-                  value={newPassword}
-                  />
+              <View style={{...style.inputContainer,  ...newPassword === '' ? style.inputContainer : checkStrongPassword === 'red' ? style.noValid : checkStrongPassword === 'blue' ? style.mediumPasswordStyle : style.Valid}}>
+                <Input 
+                onChangeText={(text) => { 
+                  checkNewPassword(text)
+                }}
+                textContentType='newPassword'
+                secureTextEntry={newPasswordVisibility.passwordVisibility}
+                value={newPassword}
+                enablesReturnKeyAutomatically
+                />
+              <Pressable onPress={newPasswordVisibility.handlePasswordVisibility}>
+                <MaterialCommunityIcons name={newPasswordVisibility.rightIcon} size={22} color="#232323" />
+              </Pressable>
+            </View>
             </View>
             <View style={style.button} >
                     <MainButton 
@@ -135,6 +156,7 @@ export const Settings = (props) => {
                       שמור
                     </MainButton>
             </View>
+         
           </Card>
       
       </ LinearGradient>

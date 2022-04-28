@@ -401,19 +401,19 @@ exports.UpdateUserDetails = async (req, res, next) => {
         if (lastName != undefined && lastName != '' && lastName != user.lastName) {
             changeLastName = await Users.findByIdAndUpdate(user._id, { lastName: lastName } )
             if(changeLastName){
-                message = message.concat( " \n שם המשפחה שונה בהצלחה")
+                message = message.concat( "\nשם המשפחה שונה בהצלחה!")
             }
             else{
-                message = message.concat("\n אופסי, ישנה שגיאה, השם המשפחה לא התעדכן במערכת.")
+                message = message.concat("\nאופסי, ישנה שגיאה, השם המשפחה לא התעדכן במערכת.")
             }
             flag = true
         }if(newPassword != undefined && newPassword != '' ){
-            if(this.validatePassword(password, user.password)){
+            if(await this.validatePassword(password, user.password)){
                 if (validnewPassword) {
                     const hashedPassword = await this.hashPassword(newPassword, 10)
                     changePassword = await Users.findByIdAndUpdate(user._id, { password: hashedPassword } )
                     if(changePassword){
-                        message = message.concat( " \n הסיסמא שונתה בהצלחה")
+                        message = message.concat( " \n !הסיסמא שונתה בהצלחה")
                     }
                     else{
                         message = message.concat("\n אופסי, ישנה שגיאה, הסיסמא לא התעדכנה במערכת.")
@@ -421,13 +421,13 @@ exports.UpdateUserDetails = async (req, res, next) => {
                 }
             }
             else{
-                message = message.concat( " \n הסיסמא לא שונתה כדי לשנות סיסמא חייב להזין את הסיסמא הנוכחית שלך")
+                message = message.concat( " \n הסיסמא לא שונתה, כדי לשנות את הסיסמא חייב להזין את הסיסמא הנוכחית שלך")
             }
             flag = true
         }
 
         if(!flag){
-            message = "פרטי המשתמש לא שונו"
+            message = "פרטי המשתמש לא התעדכנו במערכת."
         }
      
         return res.status(201).json({
