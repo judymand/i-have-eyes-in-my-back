@@ -36,7 +36,7 @@ export const AddProfession = (props) => {
 
   return (
     <TouchableWithoutFeedback onPress={ () => { Keyboard.dismiss();}}>
-      <LinearGradient colors={['#c8e8ca', '#4E6D4E']} style={style.gradient}>
+      <LinearGradient colors={['#c8e8ca', '#8BC2C4']} style={style.gradient}>
         <Card>
           <BodyText style={style.header} > הוסף מקצוע </BodyText>
           <BodyText style={style.Bodytext} >  הוסף מקצוע חדש למקצועות הלימוד הנלמדים בבית הספר </BodyText>

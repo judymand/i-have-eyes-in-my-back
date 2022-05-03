@@ -43,7 +43,7 @@ export const AddClass = (props) => {
   return (
 
     <TouchableWithoutFeedback onPress={ () => { Keyboard.dismiss();}}>
-      <LinearGradient colors={['#c8e8ca', '#4E6D4E']} style={style.gradient}>
+      <LinearGradient colors={['#c8e8ca', '#8BC2C4']} style={style.gradient}>
       {/* <ImageBackground source={require("../../assets/logo.jpeg")}  style={[style.image,{alignItems:'center', justifyContent: 'center',  opacity: 0.8}]} > */}
         <Card style={ {backgroundColor: '#d9e6f2'}}>
           <BodyText style={style.header} > הוסף כיתה חדשה </BodyText>

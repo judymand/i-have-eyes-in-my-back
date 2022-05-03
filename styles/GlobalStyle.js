@@ -150,11 +150,18 @@ export default StyleSheet.create({
     },
     selected:{
       backgroundColor: 'black',
-      color: '#fff'
+      color: '#fff',
+      fontWeight: 'bold',
     },
     notSelected:{
-      backgroundColor:  "#4E6D4E",
-      color: 'black'
+      // backgroundColor:  "#4E6D4E",
+      //color: 'black',
+      backgroundColor: '#8BC2C4',
+      borderColor: '#808080',
+      color: '#2f5a5c',
+      borderWidth: 3,
+      fontWeight: 'bold',
+      
     },
     logOutPage: {
       backgroundColor: '#696969'

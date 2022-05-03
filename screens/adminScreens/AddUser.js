@@ -61,7 +61,7 @@ export const AddUser = (props) => {
   return (
 
     <TouchableWithoutFeedback onPress={ () => { Keyboard.dismiss();}}>
-      <LinearGradient colors={['#c8e8ca', '#4E6D4E']} style={style.gradient}>
+      <LinearGradient colors={['#c8e8ca', '#8BC2C4']} style={style.gradient}>
         <Card>
           <BodyText style={style.header} > הוספת משתמש {name} חדש למערכת</BodyText>
           <BodyText style={style.BodyText} > 
