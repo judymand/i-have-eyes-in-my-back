@@ -17,7 +17,6 @@ export const LogIn = (props) => {
   const [email, SetEmail] = useState('')
   const [password, SetPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState();
   const dispatch = useDispatch();
   const { passwordVisibility, rightIcon, handlePasswordVisibility } = useTogglePasswordVisibility();
   
@@ -25,16 +24,28 @@ export const LogIn = (props) => {
   const submitData =  async  () => {
     let action;
     action = authActions.login( email, password);
-    setError(null);
     setIsLoading(true);
     try {
       await dispatch(action);
     } catch (err) {
-      setError(err.message);
+      const error =  await err.message
       setIsLoading(false);
+      printError(error);
+      
     }
 
   }
+
+  const printError = (error) => {
+    if(error){
+      Alert.alert(
+        error,
+       '',
+       []
+     )
+    }
+   
+  };
 
   
   return (

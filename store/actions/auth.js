@@ -72,6 +72,9 @@ export const login = (email, password) => {
           })
         })  
         const resData = await response.json()
+        if(response.status != 201){
+          throw await resData 
+        }
         const expirationDate = new Date(
           new Date().getTime() + parseInt(resData.expiresIn) * 1000
         );
