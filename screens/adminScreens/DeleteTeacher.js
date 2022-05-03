@@ -89,6 +89,8 @@ export const DeleteTeacher = (props) => {
       />
 
         <MainButton 
+        styleMainButtonView={{...style.homePageBorderButton, ...style.myButtonStyle}}
+        styleMainButtonText={style.forgetPasswordButton}
         onPress={ () => deleteTeacher() } 
         >
           אישור

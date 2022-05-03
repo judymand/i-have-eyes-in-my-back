@@ -80,13 +80,14 @@ export const DeleteProfession = (props) => {
       MultipleSelection={true} 
     
       />
+      <MainButton 
+      styleMainButtonView={{...style.homePageBorderButton, ...style.myButtonStyle}}
+      styleMainButtonText={style.forgetPasswordButton}
+      onPress={ () => deleteprofession() } 
+      >
+        אישור
+      </MainButton>
 
-        <MainButton 
-        onPress={ () => deleteprofession() } 
-        >
-          אישור
-        </MainButton>
-      
     </View>
 
    

@@ -55,7 +55,7 @@ export const SignUpByEmail = (props) => {
 
   return (
     <TouchableWithoutFeedback onPress={ () => { Keyboard.dismiss();}}>
-     <LinearGradient colors={['#c8e8ca', '#4E6D4E']} style={style.gradient}>
+     <LinearGradient colors={['#c8e8ca', '#8BC2C4']} style={style.gradient}>
           
       <Card > 
         <View style={{textAlign: "center", alignItems: 'center'}}>

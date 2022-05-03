@@ -7,6 +7,7 @@ import { Card } from '../../components/Card'
 import { LinearGradient } from 'expo-linear-gradient';
 import { useSelector } from 'react-redux';
 import * as auth from '../../store/actions/auth'
+import { MainButton } from '../../components/MainButton';
 
 
 export const AddUser = (props) => {
@@ -78,7 +79,12 @@ export const AddUser = (props) => {
             value={email}
             /> 
             <View style={style.button}>
-              <Button title="הוסף" onPress={submitData}/>
+              <MainButton
+              styleMainButtonView={{...style.homePageBorderButton, ...style.myButtonStyle}}
+              styleMainButtonText={style.forgetPasswordButton}
+              onPress={submitData}>
+                הוסף  
+              </MainButton>
             </View>
           </View>
         </Card>

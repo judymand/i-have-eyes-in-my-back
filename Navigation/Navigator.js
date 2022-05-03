@@ -45,11 +45,11 @@ import { Settings } from '../screens/Settings';
 const defaultOptions = {
     headerTitleAlign: 'center',
     headerBackTitleStyle: {
-        color: '#fff',
+        color: '#284e4f',
     },
-    headerTintColor: '#fff',
+    headerTintColor: '#284e4f',
     headerStyle: {
-        backgroundColor: '#435D5E'
+        backgroundColor: '#8BC2C4'
     },
 
 }
@@ -62,7 +62,7 @@ const HomePageNavigator = createStackNavigator({
         navigationOptions: {
             headerTitle: 'I have eyes in my back',
             headerTitleStyle: {
-                color: "#fff",
+                color: '#284e4f',
                 fontWeight: 'bold',
             }
         }
@@ -120,7 +120,7 @@ const AdminNavigator = createStackNavigator({
     },
 },
 {
-    defaultNavigationOptions :  logOut 
+    defaultNavigationOptions :  logOut, defaultOptions
 });
 
 
@@ -142,7 +142,7 @@ const TeacherNavigator = createStackNavigator({
 
 },
 {
-    defaultNavigationOptions: logOut, defaultOptions
+    defaultNavigationOptions: logOut
 }
 );
 
@@ -174,7 +174,7 @@ const TabNavigatorAdmin = createBottomTabNavigator({
         
 }, {
     tabBarOptions: {
-        activeTintColor: '#4E6D4E'
+        activeTintColor: '#435D5E'
     }
 })
 
@@ -208,7 +208,7 @@ const TabNavigatorTeacher = createBottomTabNavigator({
         
 }, {
     tabBarOptions: {
-        activeTintColor: '#4E6D4E'
+        activeTintColor: '#435D5E'
     }
 })
 

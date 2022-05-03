@@ -39,7 +39,7 @@ export const HomePage = (props) => {
   return (
         <View style={style.container}>
           {/* <ImageBackground source={require("../assets/logo.jpeg")}  style={[style.image,{alignItems:'center', justifyContent: 'center',  opacity: 0.85}]} > */}
-          <LinearGradient colors={['#A7E8EB','#435D5E', '#A7E8EB']} style={style.gradient}>
+          <LinearGradient colors={['#bfddde','#A7E8EB','#435D5E', '#A7E8EB','#bfddde']} style={style.gradient}>
             <View style={style.containerButtonRow}>
               
               <View style={{...style.container, width: "50%"}}>

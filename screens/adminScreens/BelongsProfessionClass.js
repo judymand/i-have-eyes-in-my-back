@@ -121,6 +121,8 @@ export const BelongsProfessionClass = (props) => {
         } } 
         />
           <MainButton 
+          styleMainButtonView={{...style.homePageBorderButton, ...style.myButtonStyle}}
+          styleMainButtonText={style.forgetPasswordButton}
             onPress={ () => Selected(true) }            
            >
              בחר
@@ -142,8 +144,11 @@ export const BelongsProfessionClass = (props) => {
       />
 
       <View style={style.containerButtonRow}>
+        
     
         <MainButton 
+        styleMainButtonView={style.myButtonStyle}
+        styleMainButtonText={style.forgetPasswordButton}
         onPress={ () => Selected(false) } 
         >
           בחר
@@ -151,6 +156,8 @@ export const BelongsProfessionClass = (props) => {
       
     
         <MainButton 
+        styleMainButtonView={ style.myButtonStyle}
+        styleMainButtonText={style.forgetPasswordButton}
           onPress={ () => setClassSelected(false) } 
           >
             חזור

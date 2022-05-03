@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import style from '../../styles/GlobalStyle'
 import { View, TouchableWithoutFeedback, Keyboard, Button, Alert, ImageBackground } from 'react-native';
 import { BodyText } from '../../components/BodyText'
+import { MainButton } from '../../components/MainButton'
 import { Input } from '../../components/Input'
 import { Card } from '../../components/Card'
 import { LinearGradient } from 'expo-linear-gradient';
@@ -44,7 +45,6 @@ export const AddClass = (props) => {
 
     <TouchableWithoutFeedback onPress={ () => { Keyboard.dismiss();}}>
       <LinearGradient colors={['#c8e8ca', '#8BC2C4']} style={style.gradient}>
-      {/* <ImageBackground source={require("../../assets/logo.jpeg")}  style={[style.image,{alignItems:'center', justifyContent: 'center',  opacity: 0.8}]} > */}
         <Card style={ {backgroundColor: '#d9e6f2'}}>
           <BodyText style={style.header} > הוסף כיתה חדשה </BodyText>
           <View style={{textAlign: "center", alignItems: 'center'}}>
@@ -61,12 +61,16 @@ export const AddClass = (props) => {
             value={newClassNumber}
             /> 
             <View style={style.button}>
-              <Button 
-                title="הוסף" onPress={ submitData}/>
+            <MainButton
+              styleMainButtonView={{...style.homePageBorderButton, ...style.myButtonStyle}}
+              styleMainButtonText={style.forgetPasswordButton}
+              onPress={submitData}>
+                הוסף  
+              </MainButton>
             </View>
           </View>
         </Card>
-        {/* </ImageBackground> */}
+   
       </LinearGradient>
     </ TouchableWithoutFeedback>
        

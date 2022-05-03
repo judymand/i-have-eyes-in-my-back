@@ -66,6 +66,8 @@ export const RemoveStudentClass = (props) => {
         item !== null ? setSelectClass(item): null } } 
       />
              <MainButton 
+             styleMainButtonView={{...style.homePageBorderButton, ...style.myButtonStyle}}
+             styleMainButtonText={style.forgetPasswordButton}
             onPress={ () => {
               getStudentOfClass()
               setIsClass(true)} 
@@ -93,6 +95,9 @@ export const RemoveStudentClass = (props) => {
       } }
       />
       <MainButton 
+      styleMainButtonView={{...style.homePageBorderButton, ...style.myButtonStyle}}
+      styleMainButtonText={style.forgetPasswordButton}
+
           onPress={ () => 
             submitData()
           }            

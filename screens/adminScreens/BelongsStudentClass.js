@@ -123,6 +123,8 @@ export const BelongsStudentClass = (props) => {
         onPress={ (items) => setStudentsList(items) } 
         />  
         <MainButton 
+        styleMainButtonView={{...style.homePageBorderButton, ...style.myButtonStyle}}
+        styleMainButtonText={style.forgetPasswordButton}
         onPress={ () => Selected(true) } 
         >
           בחר
@@ -141,6 +143,8 @@ export const BelongsStudentClass = (props) => {
       onPress={ (items) => {setClassList(items)} } 
       />
         <MainButton 
+        styleMainButtonView={{...style.homePageBorderButton, ...style.myButtonStyle}}
+        styleMainButtonText={style.forgetPasswordButton}
           onPress={ () => Selected(false) }            
         >
           בחר

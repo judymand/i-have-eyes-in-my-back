@@ -67,6 +67,8 @@ export const RemoveProfessionClass = (props) => {
         item !== null ? setSelectClass(item): null } } 
       />
              <MainButton 
+             styleMainButtonView={{...style.homePageBorderButton, ...style.myButtonStyle}}
+             styleMainButtonText={style.forgetPasswordButton}
             onPress={ () => {
               getProfessionOfClass()
               setIsClass(true)} 
@@ -95,6 +97,8 @@ export const RemoveProfessionClass = (props) => {
       } }
       />
       <MainButton 
+      styleMainButtonView={{...style.homePageBorderButton, ...style.myButtonStyle}}
+      styleMainButtonText={style.forgetPasswordButton}
           onPress={ () => 
             submitData()
            

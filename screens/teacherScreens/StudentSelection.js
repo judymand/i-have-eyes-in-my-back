@@ -61,6 +61,8 @@ export const StudentSelection = (props) => {
       />
 
       <MainButton 
+      styleMainButtonView={{...style.homePageBorderButton, ...style.myButtonStyle}}
+      styleMainButtonText={style.forgetPasswordButton}
         onPress={ () => {createNewLesson()} } 
         >
           אישור
