@@ -50,8 +50,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    // backgroundColor: '#fff',
-    backgroundColor: '#4E6D4E',
+    backgroundColor: '#8BC2C4',
     alignItems: 'center',
     justifyContent: 'center',
     textAlign: "center",
