@@ -20,9 +20,12 @@ export default StyleSheet.create({
     myButtonStyle: {
       borderRadius: 22,
       backgroundColor: '#8BC2C4',
-      borderColor: '#808080',
+      borderColor: '#509a9d',
+      shadowColor: "#A9A9A9",
+      shadowRadius: 7,
+      shadowOpacity: 0.7,
       textAlign: "center",
-      borderWidth: 3,
+      borderWidth: 2,
       height: windowHeight  / 20,
     },
     homePageBorderButton: {
@@ -154,8 +157,6 @@ export default StyleSheet.create({
       fontWeight: 'bold',
     },
     notSelected:{
-      // backgroundColor:  "#4E6D4E",
-      //color: 'black',
       backgroundColor: '#8BC2C4',
       borderColor: '#808080',
       color: '#2f5a5c',

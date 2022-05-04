@@ -95,4 +95,8 @@ export const DeleteClass = (props) => {
     
   );
 }
+
+DeleteClass.navigationOptions = {
+  headerTitle: 'מחיקת כיתה מהמערכת'
+};
   export default DeleteClass

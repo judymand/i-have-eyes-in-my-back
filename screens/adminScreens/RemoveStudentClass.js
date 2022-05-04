@@ -109,4 +109,8 @@ export const RemoveStudentClass = (props) => {
       
   );
 }
+
+RemoveStudentClass.navigationOptions = {
+  headerTitle: 'מחיקת  תלמיד מכיתה'
+};
   export default RemoveStudentClass

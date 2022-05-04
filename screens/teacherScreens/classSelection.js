@@ -34,4 +34,8 @@ export const classSelection = (props) => {
   </View>
   );
 }
+
+classSelection.navigationOptions = {
+  headerTitle: 'בחירת כיתת לימוד'
+};
   export default classSelection

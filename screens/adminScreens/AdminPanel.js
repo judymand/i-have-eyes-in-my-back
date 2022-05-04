@@ -46,4 +46,8 @@ export const AdminPanel = (props) => {
        
   );
 }
+
+AdminPanel.navigationOptions = {
+  headerTitle: 'I have eyes in my back'
+};
   export default AdminPanel

@@ -1,4 +1,4 @@
-import { createStackNavigator, HeaderBackButton } from 'react-navigation-stack'
+import { createStackNavigator } from 'react-navigation-stack'
 import { createAppContainer, createSwitchNavigator } from "react-navigation";
 import { createBottomTabNavigator } from 'react-navigation-tabs';
 import { Ionicons } from '@expo/vector-icons';
@@ -39,19 +39,12 @@ import { RemoveProfessionClass } from '../screens/adminScreens/RemoveProfessionC
 
 import { Settings } from '../screens/Settings';
 
-
-// import * as authActions from '../store/actions/auth';
-
 const defaultOptions = {
     headerTitleAlign: 'center',
     headerBackTitleStyle: {
         color: '#284e4f',
     },
     headerTintColor: '#284e4f',
-    headerStyle: {
-        backgroundColor: '#8BC2C4'
-    },
-
 }
 
 
@@ -85,10 +78,15 @@ const logOut = ({navigation}) => ({
       shadowColor: 'transparent',
       elevation: 2
     },
+    headerBackTitleStyle: {
+        color: '#284e4f',
+    },
+    headerTintColor: '#284e4f',
+    
     
     headerRight: () => 
         <TouchableOpacity activeOpacity={0.6} style={{paddingRight: 15}}>
-            <Entypo name="log-out" size={26} coloe="black" 
+            <Entypo name="log-out" size={26} coloe='#284e4f' 
             onPress={ () => {
                 navigation.navigate('LogOut')
             }
@@ -99,8 +97,9 @@ const logOut = ({navigation}) => ({
 })
 
 const AdminNavigator = createStackNavigator({
+
     
-    HomePage: AdminPanel,
+    HomePage: AdminPanel,   
     AddUser: AddUser,
     AddClass: AddClass,
     DeleteClass: DeleteClass,
@@ -120,7 +119,7 @@ const AdminNavigator = createStackNavigator({
     },
 },
 {
-    defaultNavigationOptions :  logOut, defaultOptions
+    defaultNavigationOptions :  logOut
 });
 
 

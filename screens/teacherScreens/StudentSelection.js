@@ -72,4 +72,8 @@ export const StudentSelection = (props) => {
   
   );
 }
+
+StudentSelection.navigationOptions = {
+  headerTitle: 'סימון נוכחות'
+};
   export default StudentSelection

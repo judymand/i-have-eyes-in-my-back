@@ -110,5 +110,10 @@ export const RemoveProfessionClass = (props) => {
     </View>
       
   );
+  
 }
+
+RemoveProfessionClass.navigationOptions = {
+  headerTitle: 'מחיקת מקצוע לימוד מכיתה'
+};
   export default RemoveProfessionClass

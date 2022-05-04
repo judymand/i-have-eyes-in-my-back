@@ -63,4 +63,8 @@ export const AddProfession = (props) => {
     </ TouchableWithoutFeedback>
   );
 }
+
+AddProfession.navigationOptions = {
+  headerTitle: 'הוספת מקצוע לימוד'
+};
   export default AddProfession

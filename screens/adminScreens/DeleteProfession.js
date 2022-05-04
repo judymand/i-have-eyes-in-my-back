@@ -95,4 +95,8 @@ export const DeleteProfession = (props) => {
     
   );
 }
+
+DeleteProfession.navigationOptions = {
+  headerTitle: 'מחיקת מקצוע מהמערכת'
+};
   export default DeleteProfession

@@ -157,4 +157,8 @@ export const BelongsStudentClass = (props) => {
 
 
 }
+
+BelongsStudentClass.navigationOptions = {
+  headerTitle: 'הוספת תלמיד לכיתה '
+};
   export default BelongsStudentClass

@@ -93,5 +93,10 @@ export const AddUser = (props) => {
   
     
   );
+
 }
+
+AddUser.navigationOptions = {
+  headerTitle: 'הוספת משתמש למערכת'
+};
   export default AddUser

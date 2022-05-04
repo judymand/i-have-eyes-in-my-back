@@ -100,4 +100,8 @@ export const DeleteTeacher = (props) => {
     
   );
 }
+
+DeleteTeacher.navigationOptions = {
+  headerTitle: 'מחיקת מורה מהמערכת'
+};
   export default DeleteTeacher

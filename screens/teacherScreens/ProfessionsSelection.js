@@ -63,4 +63,8 @@ export const ProfessionsSelection = (props) => {
        
   );
 }
+
+ProfessionsSelection.navigationOptions = {
+  headerTitle: 'בחירת מקצוע לימוד'
+};
   export default ProfessionsSelection

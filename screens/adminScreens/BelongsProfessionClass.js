@@ -171,4 +171,8 @@ export const BelongsProfessionClass = (props) => {
     
   );
 }
+
+BelongsProfessionClass.navigationOptions = {
+  headerTitle: 'הוספת מקצוע לימוד לכיתה'
+};
   export default BelongsProfessionClass

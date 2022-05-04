@@ -76,4 +76,8 @@ export const AddClass = (props) => {
        
   );
 }
+
+AddClass.navigationOptions = {
+  headerTitle: 'הוספת כיתה'
+};
   export default AddClass
