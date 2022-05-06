@@ -41,7 +41,12 @@ export const LogIn = (props) => {
       Alert.alert(
         error,
        '',
-       []
+       [
+        { 
+          text:'הבנתי', 
+          onPress: () =>  {}, 
+        }
+       ]
      )
     }
    

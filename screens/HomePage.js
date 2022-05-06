@@ -38,7 +38,7 @@ export const HomePage = (props) => {
 
   return (
         <View style={style.container}>
-          <LinearGradient colors={['#c7f0f2','#A7E8EB','#435D5E', '#A7E8EB','#c7f0f2']} style={style.gradient}>
+          <LinearGradient colors={['#A7E8EB','#c8e8ca', '#A7E8EB']} style={style.gradient}>
             <View style={style.containerButtonRow}>
               
               <View style={{...style.container, width: "50%"}}>
