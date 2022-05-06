@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
-import { View, Button, TouchableWithoutFeedback, Keyboard, Alert} from 'react-native';
+import { View, Button, TouchableWithoutFeedback, Keyboard, Alert, Pressable } from 'react-native';
 import style  from '../../styles/GlobalStyle'
 import { Input } from '../../components/Input'
 import { MainButton } from '../../components/MainButton'
 import { BodyText } from '../../components/BodyText'
 import { Card } from '../../components/Card'
 import { LinearGradient } from 'expo-linear-gradient';
-import * as auth from '../../store/actions/auth'
-
+import * as auth from '../../store/actions/auth';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useTogglePasswordVisibility } from './useTogglePasswordVisibility';
 
 export const SignUp = (props) => {
   
@@ -19,6 +20,8 @@ export const SignUp = (props) => {
   const [checkSamePassword,setCheckSamePassword] = useState(false)
   const email = props.navigation.getParam('Email')
   const admin = props.navigation.getParam('Admin')
+  const { passwordVisibility, rightIcon, handlePasswordVisibility } = useTogglePasswordVisibility();
+  
 
   const submitData =  async () => {
     try{
@@ -110,11 +113,21 @@ export const SignUp = (props) => {
                 value={lastName}
                 />
               <BodyText style={style.Bodytext} > סיסמא:</BodyText>
-              <Input 
-              style={ password === '' ? style.input : checkStrongPassword === 'red' ? style.noValid : checkStrongPassword === 'blue' ? style.mediumPasswordStyle : style.Valid } 
-              onChangeText={checkPassword}
-              value={password}
-              />
+              <View style={{...style.inputContainer, ...password === '' ? style.inputContainer : checkStrongPassword === 'red' ? style.noValid : checkStrongPassword === 'blue' ? style.mediumPasswordStyle : style.Valid }}>
+                  <Input 
+                  style={ style.input } 
+                  onChangeText={checkPassword}
+                  textContentType='newPassword'
+                  secureTextEntry={passwordVisibility}
+                  value={password}
+                  enablesReturnKeyAutomatically
+                  />
+                  <Pressable onPress={handlePasswordVisibility}
+                  style={style.inputContainerPassword}
+                  >
+                    <MaterialCommunityIcons name={rightIcon} size={22} color="#232323" />
+                  </Pressable>
+                </View>
               {/* <BodyText style={style.Bodytext} > וידוי סיסמא:</BodyText>
               <Input 
               style={ verifyPassword === '' ? style.input : checkSamePassword ? style.Valid : style.noValid} 

@@ -128,7 +128,9 @@ export const Settings = (props) => {
                 value={password}
                 enablesReturnKeyAutomatically
                 />
-              <Pressable onPress={passwordVisibility.handlePasswordVisibility}>
+              <Pressable onPress={passwordVisibility.handlePasswordVisibility}
+              style={style.inputContainerPassword}
+              >
                 <MaterialCommunityIcons name={passwordVisibility.rightIcon} size={22} color="#232323" />
               </Pressable>
             </View>
@@ -143,7 +145,9 @@ export const Settings = (props) => {
                 value={newPassword}
                 enablesReturnKeyAutomatically
                 />
-              <Pressable onPress={newPasswordVisibility.handlePasswordVisibility}>
+              <Pressable onPress={newPasswordVisibility.handlePasswordVisibility}
+              style={style.inputContainerPassword}
+              >
                 <MaterialCommunityIcons name={newPasswordVisibility.rightIcon} size={22} color="#232323" />
               </Pressable>
             </View>

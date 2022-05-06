@@ -69,7 +69,9 @@ export const LogIn = (props) => {
                     value={password}
                     enablesReturnKeyAutomatically
                     />
-                    <Pressable onPress={handlePasswordVisibility}>
+                    <Pressable onPress={handlePasswordVisibility}
+                    style={style.inputContainerPassword}
+                    >
                       <MaterialCommunityIcons name={rightIcon} size={22} color="#232323" />
                     </Pressable>
                   </View>

@@ -51,6 +51,7 @@ export default StyleSheet.create({
     },
     input: {
       borderWidth: 1,
+      borderRadius: 8,
       width: windowWidth / 2,
       height: windowHeight / 30,
       alignItems: 'baseline',
@@ -104,13 +105,17 @@ export default StyleSheet.create({
         
     },
     inputContainer: {
-      backgroundColor: 'white',
-      width: '100%',
       borderRadius: 8,
+      padding: 2,
+      justifyContent: 'space-between',
       flexDirection: 'row',
       alignItems: 'center',
-      borderWidth: 4,
+      borderWidth: 2,
       borderColor: '#d7d7d7'
+    },
+    inputContainerPassword: {
+      paddingHorizontal: 5,
+       paddingVertical: 5
     },
     gradient: {
       flex: 1,
