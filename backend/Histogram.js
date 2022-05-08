@@ -9,8 +9,10 @@
 
 	//---TIME TO START EVREY DAY ---// //
     let now = new Date(); 
-	const sdate=new Date(now)
-	sdate.setHours(17,0,0)//time to send message
+	//{Sunday:1,Monday:2,........,Saturday:7}
+	let wichDay=now.getDay()+1;
+	//const sdate=new Date(now)
+	//sdate.setHours(17,0,0)//time to send message
 
 	schedule.scheduleJob('00 10 17 * * 0-5', ()=>{
 	console.log('start');
@@ -33,11 +35,16 @@ const today = dd + '/' + mm + '/' + yyyy;
 //---DATE FORMAT ---//
 
 
-//	let today="19/04/2022"
+	// let today="19/04/2022"
+	// let now = new Date(); 
+	// let wichDay=now.getDay()+1;
+	// console.log(wichDay)
+	// start_at_end_of_day()
 
-	
+
+
 	class Info_per_student{
-		constructor(className,profession,name,day,time,teacher,status)
+		constructor(className,profession,name,day,time,teacher,status,wday)
 		{
 			this.profession=profession;
 			this.className=className;
@@ -46,6 +53,7 @@ const today = dd + '/' + mm + '/' + yyyy;
 			this.time=time
 			this.teacher=teacher
 			this.status=status
+			this.wday=wday
 		}
 	 }
 	 allStudentsInfo=new Info_per_student();
@@ -69,12 +77,12 @@ async function start_at_end_of_day(){
 			if(ResDaily[i].students[j].arrive===true)
 			{
 				//(className,profession,name,day,time,teacher,status)
-				allStudentsInfo[sizeOfNew]=new Info_per_student("","",ResDaily[i].students[j].name,ResDaily[i].day,ResDaily[i].students[j].time,"","in")
+				allStudentsInfo[sizeOfNew]=new Info_per_student("","",ResDaily[i].students[j].name,ResDaily[i].day,ResDaily[i].students[j].time,"","in",wichDay)
 				sizeOfNew++;
 			}
 			else if(ResDaily[i].students[j].arrive===false)
 			{
-				allStudentsInfo[sizeOfNew]=new Info_per_student("","",ResDaily[i].students[j].name,ResDaily[i].day,"","","notin")
+				allStudentsInfo[sizeOfNew]=new Info_per_student("","",ResDaily[i].students[j].name,ResDaily[i].day,"","","notin",wichDay)
 				sizeOfNew++;
 			}
 		}
@@ -92,12 +100,12 @@ async function start_at_end_of_day(){
 			
 			if(ResLesson[i].students[j].arrived===true)
 			{
-				allStudentsInfo2[sizeOfNew2]=new Info_per_student(ResLesson[i].className,ResLesson[i].profession,ResLesson[i].students[j].name,ResLesson[i].day,ResLesson[i].time,ResLesson[i].teacherName,"present");
+				allStudentsInfo2[sizeOfNew2]=new Info_per_student(ResLesson[i].className,ResLesson[i].profession,ResLesson[i].students[j].name,ResLesson[i].day,ResLesson[i].time,ResLesson[i].teacherName,"present",wichDay);
 				sizeOfNew2++;
 			}
 			else if(ResLesson[i].students[j].arrived===false)
 			{
-				allStudentsInfo2[sizeOfNew2]=new Info_per_student(ResLesson[i].className,ResLesson[i].profession,ResLesson[i].students[j].name,ResLesson[i].day,ResLesson[i].time,ResLesson[i].teacherName,"Not present");
+				allStudentsInfo2[sizeOfNew2]=new Info_per_student(ResLesson[i].className,ResLesson[i].profession,ResLesson[i].students[j].name,ResLesson[i].day,ResLesson[i].time,ResLesson[i].teacherName,"Not present",wichDay);
 				sizeOfNew2++;
 			}
 
@@ -139,7 +147,8 @@ async function start_at_end_of_day(){
 			day:allStudentsInfo2[i].day,
 			time:allStudentsInfo2[i].time,
 			teacher:allStudentsInfo2[i].teacher,
-			status:allStudentsInfo2[i].status
+			status:allStudentsInfo2[i].status,
+			wday:allStudentsInfo2[i].wday
 		}).save()
 	}
 

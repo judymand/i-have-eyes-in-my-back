@@ -9,7 +9,8 @@ const InfoPerStudentsSchema=new mongoose.Schema({
     day:String,
     time:String,
 	teacher:String,
-	status:String
+	status:String,
+    wday:String
 
 
 })
