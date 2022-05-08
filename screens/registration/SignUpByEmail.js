@@ -27,7 +27,12 @@ export const SignUpByEmail = (props) => {
         Alert.alert(
           resData.message,
           '',
-          []
+          [
+            { 
+              text:'הבנתי', 
+              onPress: () =>  {}, 
+            }
+          ]
         )
       }
         
