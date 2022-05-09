@@ -87,6 +87,8 @@ exports.getAllProfession = async (req, res) => {
             ProfessionsArr.push(oneProfession)
         }
 
+        ProfessionsArr.sort((a, b) => a.profession.localeCompare(b.profession))
+
         res.status(200).json({
             profession: ProfessionsArr
         });
@@ -129,9 +131,10 @@ exports.getAllProfessionOfClass = async (req, res) => {
                 }
                 ProfessionsArr.push(oneProfession)
             }
-
                 
         }
+
+        ProfessionsArr.sort((a, b) => a.profession.localeCompare(b.profession))
      
         res.status(200).json({
             profession: ProfessionsArr

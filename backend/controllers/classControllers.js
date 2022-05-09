@@ -87,6 +87,8 @@ exports.getAllClass = async (req, res, next) => {
             classessArr.push(oneClass)
         }
 
+        classessArr.sort((a, b) => a.className.localeCompare(b.className))
+
         res.status(200).json({
             classRoom: classessArr
         });

@@ -102,7 +102,6 @@ export default StyleSheet.create({
       borderRadius:12,
       backgroundColor: 'white',
    
-        
     },
     inputContainer: {
       borderRadius: 8,
@@ -139,7 +138,7 @@ export default StyleSheet.create({
       //backgroundColor: '#4E6D4E',
     },
     smallButton: {
-      width: windowWidth  / 3,
+      width: windowWidth  / 2.7,
     },
     mainButtonText: {
       alignItems: 'center',
