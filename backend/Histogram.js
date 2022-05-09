@@ -8,24 +8,6 @@
 	const schedule = require('node-schedule');
 	
 
-		// //****--Random id---****//
-	// const ran_id = (length) =>  {
-    //     var result           = '';
-    //     var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    //     var charactersLength = characters.length;
-    //     for ( var i = 0; i < length; i++ ) {
-    //       result += characters.charAt(Math.floor(Math.random() * 
-    //  charactersLength));
-    //    }
-    //    return result;
-    // }
-	// console.log(ran_id(60))
-	// //****--Random id---****//
-
-
-
-
-
 
 	//---TIME TO START EVREY DAY ---// //
     let now = new Date(); 
@@ -78,8 +60,8 @@ const today = dd + '/' + mm + '/' + yyyy;
 
 
 
-	//{Sunday:1,Monday:2,Tuesday:3,Wednesday:4,Thursday:5........,Saturday:7}
-	// let today="07/04/2022"
+	// //{Sunday:1,Monday:2,Tuesday:3,Wednesday:4,Thursday:5........,Saturday:7}
+	// let today="28/04/2022"
 	// let wichDay="Thursday"
 	// console.log(wichDay)
 	// start_at_end_of_day()
