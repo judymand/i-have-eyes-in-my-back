@@ -270,6 +270,8 @@ exports.getAllTeacher = async (req, res, next) => {
             teacherArr.push(allTeachers[i])
         }
 
+        teacherArr.sort((a, b) => a.email.localeCompare(b.email))
+
         res.status(200).json({
             teacherArr: teacherArr
         });

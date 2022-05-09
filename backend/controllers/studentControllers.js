@@ -16,6 +16,8 @@ exports.getAllStudent = async (req, res) => {
         })
         
     }
+
+    studentList.sort((a, b) => a.name.localeCompare(b.name))
     
     return res.status(201).json({
         success: true,
@@ -89,6 +91,7 @@ exports.getAllStudentsOfClass = async (req, res) => {
             'name': theClass.student[i]
         })
         }
+        studentList.sort((a, b) => a.name.localeCompare(b.name))
    
       res.status(200).json({
         students: studentList
