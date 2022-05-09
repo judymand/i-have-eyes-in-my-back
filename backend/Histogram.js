@@ -14,7 +14,7 @@
 	//const sdate=new Date(now)
 	//sdate.setHours(17,0,0)//time to send message
 
-	schedule.scheduleJob('00 10 17 * * 0-5', ()=>{
+	schedule.scheduleJob('00 10 17 * * 0-4', ()=>{
 	console.log('start');
 	start_at_end_of_day()
 	console.log('end');

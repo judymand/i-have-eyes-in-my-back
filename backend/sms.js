@@ -36,7 +36,7 @@ const today = dd + '/' + mm + '/' + yyyy;
 	const sdate=new Date(now)
 	sdate.setHours(17,0,0)//time to send message
 
-	schedule.scheduleJob('00 00 17 * * 0-5', ()=>{
+	schedule.scheduleJob('00 00 17 * * 0-4', ()=>{
 	console.log('start');
 		g()
 	console.log('end');
