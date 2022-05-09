@@ -1,16 +1,57 @@
 	
 	require('dotenv').config()
 	require('./db');
+
 	const LessonSchema = require('./models/Lesson');// שם המורמה, כיתה,מקצוע, זמן, הבריז או לא
 	const DailyAttendanceSchema = require('./models/DailyAttendance');//מצלמה אם הגיע או לא
 	const InfoPerStudentsSchema=require("./models/InfoPerStudent");
 	const schedule = require('node-schedule');
 	
 
+		// //****--Random id---****//
+	// const ran_id = (length) =>  {
+    //     var result           = '';
+    //     var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    //     var charactersLength = characters.length;
+    //     for ( var i = 0; i < length; i++ ) {
+    //       result += characters.charAt(Math.floor(Math.random() * 
+    //  charactersLength));
+    //    }
+    //    return result;
+    // }
+	// console.log(ran_id(60))
+	// //****--Random id---****//
+
+
+
+
+
+
 	//---TIME TO START EVREY DAY ---// //
     let now = new Date(); 
 	//{Sunday:1,Monday:2,........,Saturday:7}
 	let wichDay=now.getDay()+1;
+if(wichDay===1)
+{
+	wichDay="Sunday"
+}
+if(wichDay===2)
+{
+	wichDay="Monday"
+
+}	
+if(wichDay===3)
+{
+	wichDay="Tuesday"
+}
+if(wichDay===4)
+{
+	wichDay="Wednesday"
+}
+if(wichDay===5)
+{
+	wichDay="Thursday"
+}
 	//const sdate=new Date(now)
 	//sdate.setHours(17,0,0)//time to send message
 
@@ -35,9 +76,11 @@ const today = dd + '/' + mm + '/' + yyyy;
 //---DATE FORMAT ---//
 
 
-	// let today="19/04/2022"
-	// let now = new Date(); 
-	// let wichDay=now.getDay()+1;
+
+
+	//{Sunday:1,Monday:2,Tuesday:3,Wednesday:4,Thursday:5........,Saturday:7}
+	// let today="07/04/2022"
+	// let wichDay="Thursday"
 	// console.log(wichDay)
 	// start_at_end_of_day()
 
@@ -76,13 +119,17 @@ async function start_at_end_of_day(){
 		{
 			if(ResDaily[i].students[j].arrive===true)
 			{
+				let nameL=ResDaily[i].students[j].name.replace(/\-/, ' ')
+				nameL=nameL.replace(/\-/, ' ')
 				//(className,profession,name,day,time,teacher,status)
-				allStudentsInfo[sizeOfNew]=new Info_per_student("","",ResDaily[i].students[j].name,ResDaily[i].day,ResDaily[i].students[j].time,"","in",wichDay)
+				allStudentsInfo[sizeOfNew]=new Info_per_student("","",nameL,ResDaily[i].day,ResDaily[i].students[j].time,"","in",wichDay)
 				sizeOfNew++;
 			}
 			else if(ResDaily[i].students[j].arrive===false)
 			{
-				allStudentsInfo[sizeOfNew]=new Info_per_student("","",ResDaily[i].students[j].name,ResDaily[i].day,"","","notin",wichDay)
+				let nameL=ResDaily[i].students[j].name.replace(/\-/, ' ')
+				nameL=nameL.replace(/\-/, ' ')
+				allStudentsInfo[sizeOfNew]=new Info_per_student("","",nameL,ResDaily[i].day,"","","notin",wichDay)
 				sizeOfNew++;
 			}
 		}
@@ -100,17 +147,31 @@ async function start_at_end_of_day(){
 			
 			if(ResLesson[i].students[j].arrived===true)
 			{
-				allStudentsInfo2[sizeOfNew2]=new Info_per_student(ResLesson[i].className,ResLesson[i].profession,ResLesson[i].students[j].name,ResLesson[i].day,ResLesson[i].time,ResLesson[i].teacherName,"present",wichDay);
+				  let nameL=ResLesson[i].students[j].name.replace(/\-/, ' ')
+				  nameL=nameL.replace(/\-/, ' ')
+				allStudentsInfo2[sizeOfNew2]=new Info_per_student(ResLesson[i].className,ResLesson[i].profession,nameL,ResLesson[i].day,ResLesson[i].time,ResLesson[i].teacherName,"present",wichDay);
 				sizeOfNew2++;
 			}
 			else if(ResLesson[i].students[j].arrived===false)
 			{
-				allStudentsInfo2[sizeOfNew2]=new Info_per_student(ResLesson[i].className,ResLesson[i].profession,ResLesson[i].students[j].name,ResLesson[i].day,ResLesson[i].time,ResLesson[i].teacherName,"Not present",wichDay);
+				let nameL=ResLesson[i].students[j].name.replace(/\-/, ' ')
+				nameL=nameL.replace(/\-/, ' ')
+				allStudentsInfo2[sizeOfNew2]=new Info_per_student(ResLesson[i].className,ResLesson[i].profession,nameL,ResLesson[i].day,ResLesson[i].time,ResLesson[i].teacherName,"Not present",wichDay);
 				sizeOfNew2++;
 			}
 
 		}
 	}
+	//console.log("-----",allStudentsInfo2,"-------")
+	//console.log(allStudentsInfo)
+
+	//נוהח בבית ספר
+	//allStudentsInfo
+
+	//נוכי בשיעור
+	//allStudentsInfo2
+
+
 	//בדיקה אם לא בכיתה ובבית ספר הבריז
 	//אם לא בכיתה לא בבית ספר בבית
 
@@ -118,8 +179,10 @@ async function start_at_end_of_day(){
 	{
 		for(let j=0;j<sizeOfNew2;j++)
 		{
-			if(allStudentsInfo[i].name===allStudentsInfo2[j].name)
+			//console.log("i: ",allStudentsInfo[i].name,"j: ",allStudentsInfo2[j].name)
+			if(allStudentsInfo[i].name==allStudentsInfo2[j].name)
 			{
+				//console.log("in")
 				//console.log("one i:",i,allStudentsInfo[i].name,"two j:",j,allStudentsInfo2[j].name)
 				if(allStudentsInfo[i].status==="in"&&allStudentsInfo2[j].status==="Not present")
 				{
