@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Button, TouchableWithoutFeedback, Keyboard, Alert, Pressable } from 'react-native';
+import { View, TouchableWithoutFeedback, Keyboard, Alert, Pressable } from 'react-native';
 import style  from '../../styles/GlobalStyle'
 import { Input } from '../../components/Input'
 import { MainButton } from '../../components/MainButton'
@@ -16,8 +16,6 @@ export const ResetPassword = (props) => {
 
   const [password, SetPassword] = useState('')
   const [verifyPassword, SetVerifyPassword] = useState('')
-  const [checkStrongPassword,setCheckStrongPassword] = useState('')
-  const [passwordLevel,setPasswordLevel] = useState('')
   const email = props.navigation.getParam('Email')
   const passwordVisibility = useTogglePasswordVisibility();
   const verifyPasswordVisibility = useTogglePasswordVisibility();

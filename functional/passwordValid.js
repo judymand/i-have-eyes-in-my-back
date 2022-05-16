@@ -22,18 +22,18 @@
       return {color: color, isGoodPassword: isGoodPassword, passwordLevel: passwordLevel}
   }
 
-
-  const samePassword = (text) => {
-    SetVerifyPassword(text) 
-     console.log(verifyPassword)
-    if(checkStrongPassword === "green"){
+  export const samePassword = (password, verifyPassword) => {
+    let color = "red"
+    let checkSamePassword = false
+  
     if(password === verifyPassword){
-      setCheckSamePassword(true)
+      checkSamePassword = true
+      color = "green"
     }else{
-      setCheckSamePassword(false)
+      checkSamePassword = false
+      color = "red"
     }
+    return {color: color, checkSamePassword: checkSamePassword}
   }
-    else{
-      setCheckSamePassword(false)
-    }
-  }
+
+
