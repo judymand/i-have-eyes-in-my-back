@@ -23,16 +23,16 @@ export const Settings = (props) => {
   const [data, setData] = useState('');
   const [error, setError] = useState();
   const [flag, setFlag] = useState(false)
-  const [validnewPassword, setValidnewPassword] = useState(false)
-  const [checkStrongPassword,setCheckStrongPassword] = useState('')
   const passwordVisibility = useTogglePasswordVisibility();
   const newPasswordVisibility = useTogglePasswordVisibility();
+  const checknewPassword = checkPassword(newPassword) 
 
 
   const submitData =  async  () => {
     try{
+      
+      const resData = await auth.updateUser(data, firstName, lastName, password, newPassword, checknewPassword.isGoodPassword)
 
-      const resData = await auth.updateUser(data, firstName, lastName, password, newPassword, validnewPassword)
       Alert.alert(
         resData.message,
         '',
@@ -49,20 +49,6 @@ export const Settings = (props) => {
     }
 
   }
-
-  const checkNewPassword = (text) => {
-    setNewPassword(text)
-    obj = checkPassword(text)
-    setCheckStrongPassword(obj.color)
-    if(obj.isGoodPassword){
-      setValidnewPassword(true)
-    }else{
-      setValidnewPassword(false)
-    }
-
-  }
-
-
 
   useEffect(() => {
 
@@ -135,11 +121,9 @@ export const Settings = (props) => {
               </Pressable>
             </View>
               <BodyText style={style.Bodytext} > הסיסמא החדשה: </BodyText>
-              <View style={{...style.inputContainer,  ...newPassword === '' ? style.inputContainer : checkStrongPassword === 'red' ? style.noValid : checkStrongPassword === 'blue' ? style.mediumPasswordStyle : style.Valid}}>
+              <View style={{...style.inputContainer,  ...newPassword === '' ? style.inputContainer : checknewPassword.color === 'red' ? style.noValid : checknewPassword.color === 'blue' ? style.mediumPasswordStyle : style.Valid}}>
                 <Input 
-                onChangeText={(text) => { 
-                  checkNewPassword(text)
-                }}
+                onChangeText={(text) => setNewPassword(text)}
                 textContentType='newPassword'
                 secureTextEntry={newPasswordVisibility.passwordVisibility}
                 value={newPassword}
@@ -151,7 +135,9 @@ export const Settings = (props) => {
                 <MaterialCommunityIcons name={newPasswordVisibility.rightIcon} size={22} color="#232323" />
               </Pressable>
             </View>
+            <BodyText  style={{color: "red",fontSize: 12}}>  { newPassword === ""  ? "" : checknewPassword.passwordLevel} </BodyText>
             </View>
+            
             <View style={style.button} >
                     <MainButton 
                     styleMainButtonView={style.myButtonStyle}

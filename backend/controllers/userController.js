@@ -413,9 +413,8 @@ exports.UpdateUserDetails = async (req, res, next) => {
                 message = message.concat("\nאופסי, ישנה שגיאה, השם המשפחה לא התעדכן במערכת.")
             }
             flag = true
-        }if(newPassword != undefined && newPassword != '' ){
+        }if(newPassword != undefined && newPassword != '' && validnewPassword){
             if(await this.validatePassword(password, user.password)){
-                if (validnewPassword) {
                     const hashedPassword = await this.hashPassword(newPassword, 10)
                     changePassword = await Users.findByIdAndUpdate(user._id, { password: hashedPassword } )
                     if(changePassword){
@@ -424,7 +423,6 @@ exports.UpdateUserDetails = async (req, res, next) => {
                     else{
                         message = message.concat("\n אופסי, ישנה שגיאה, הסיסמא לא התעדכנה במערכת.")
                     }
-                }
             }
             else{
                 message = message.concat( " \n הסיסמא לא שונתה, כדי לשנות את הסיסמא חייב להזין את הסיסמא הנוכחית שלך")

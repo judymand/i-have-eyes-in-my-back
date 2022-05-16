@@ -9,6 +9,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 import * as auth from '../../store/actions/auth';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTogglePasswordVisibility } from './useTogglePasswordVisibility';
+import { checkPassword } from '../../functional/passwordValid'
 
 export const ResetPassword = (props) => {
   
@@ -21,6 +22,8 @@ export const ResetPassword = (props) => {
   const passwordVisibility = useTogglePasswordVisibility();
   const verifyPasswordVisibility = useTogglePasswordVisibility();
   const errorText = "הסיסמא שהכנסת לא זהה"
+  const checkPassword1 = checkPassword(password) 
+  const checkPasswordVerify = checkPassword(verifyPassword) 
 
   const submitData =  async () => {
     try{
@@ -46,21 +49,8 @@ export const ResetPassword = (props) => {
   }
    
   }
-  const checkPassword = (Password) => {
-    let strongPassword = new RegExp('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})')
-    let mediumPassword = new RegExp('((?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{6,}))|((?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9])(?=.{8,}))')
-    SetPassword(Password)
-      if(strongPassword.test(password)  === true) {
-        setCheckStrongPassword("green")
-        setPasswordLevel('סיסמה חזקה')
-      } else if(mediumPassword.test(password)  === true){
-        setCheckStrongPassword('blue')
-        setPasswordLevel('סיסמה בינונית')
-      } else{
-        setCheckStrongPassword('red')
-        setPasswordLevel('סיסמה חלשה')
-      }
-  }
+
+  
 
   return (
     <TouchableWithoutFeedback onPress={ () => { Keyboard.dismiss();}}>
@@ -71,10 +61,10 @@ export const ResetPassword = (props) => {
               <BodyText  style={{fontWeight: 'bold',fontSize: 22}}> איפוס סיסמה  </BodyText>
            
               <BodyText style={style.Bodytext} > סיסמא:</BodyText>
-              <View style={{...style.inputContainer, ...password === '' ? style.inputContainer : checkStrongPassword === 'red' ? style.noValid : checkStrongPassword === 'blue' ? style.mediumPasswordStyle : style.Valid }}>
+              <View style={{...style.inputContainer, ...password === '' ? style.inputContainer : checkPassword1.color === 'red' ? style.noValid : checkPassword1.color === 'blue' ? style.mediumPasswordStyle : style.Valid }}>
                   <Input 
                   style={ style.input } 
-                  onChangeText={checkPassword}
+                  onChangeText={ SetPassword }
                   textContentType='newPassword'
                   secureTextEntry={passwordVisibility.passwordVisibility}
                   value={password}
@@ -86,12 +76,12 @@ export const ResetPassword = (props) => {
                     <MaterialCommunityIcons name={passwordVisibility.rightIcon} size={22} color="#232323" />
                   </Pressable>
                 </View>
-                <BodyText  style={{color: "red",fontSize: 12}}>  {password === ""  ? "" : passwordLevel} </BodyText>
+                <BodyText  style={{color: "red",fontSize: 12}}>  {password === ""  ? "" : checkPassword1.passwordLevel} </BodyText>
               <BodyText style={style.Bodytext} > וידוי סיסמא:</BodyText>
-              <View style={{...style.inputContainer, ...verifyPassword === '' ? style.inputContainer : checkStrongPassword === 'red' ? style.noValid : checkStrongPassword === 'blue' ? style.mediumPasswordStyle : style.Valid }}>
+              <View style={{...style.inputContainer, ...verifyPassword === '' ? style.inputContainer : checkPasswordVerify.color === 'red' ? style.noValid : checkPasswordVerify.color === 'blue' ? style.mediumPasswordStyle : style.Valid }}>
                   <Input 
                   style={ style.input } 
-                  onChangeText={SetVerifyPassword}
+                  onChangeText={ SetVerifyPassword }
                   textContentType='newPassword'
                   secureTextEntry={verifyPasswordVisibility.passwordVisibility}
                   value={verifyPassword}
