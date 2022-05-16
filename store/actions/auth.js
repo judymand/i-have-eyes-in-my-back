@@ -305,3 +305,26 @@ export const verifyEmailUser = async (email) => {
     console.log(error)
   }
 }
+
+export const ResetPassword = async (email, password) => {
+  try{
+
+    let response = await fetch(`https://i-have-eyes-in-my-back.herokuapp.com/reset-password`,
+    {
+      method:"POST",
+      headers:{
+        'Content-Type':'application/json',
+        'authorization': 'JWT '+ await getToken() 
+      },
+      body:JSON.stringify({
+        email,
+        password
+      })
+    })
+
+    return await response.json()
+    
+  }catch(error){
+    console.log(error)
+  }
+}

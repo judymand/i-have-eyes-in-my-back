@@ -16,41 +16,30 @@ export const ResetPassword = (props) => {
   const [password, SetPassword] = useState('')
   const [verifyPassword, SetVerifyPassword] = useState('')
   const [checkStrongPassword,setCheckStrongPassword] = useState('')
-  const [checkSamePassword,setCheckSamePassword] = useState(false)
+  const [passwordLevel,setPasswordLevel] = useState('')
   const email = props.navigation.getParam('Email')
-  const { passwordVisibility, rightIcon, handlePasswordVisibility } = useTogglePasswordVisibility();
-  
+  const passwordVisibility = useTogglePasswordVisibility();
+  const verifyPasswordVisibility = useTogglePasswordVisibility();
+  const errorText = "הסיסמא שהכנסת לא זהה"
 
   const submitData =  async () => {
     try{
   
-      const response = await auth.signup(firstName, lastName, email, admin, password)
-      const resData = await response.json()
-      
-      if(response.status == 201 || response.status == 401 ){
+      if(password === verifyPassword){
+        const resData = await auth.ResetPassword(email, password)
         Alert.alert(
           resData.message,
           '',
         [
           { 
-            text: resData.textButton, 
-            onPress: () => props.navigation.navigate(resData.pageName),     
+            text: resData.list.textButton, 
+            onPress: () => props.navigation.navigate(resData.list.pageName),     
           }
         ]
         )
-      }else{
-        Alert.alert(
-          'משהו השתבש, נסה שנית מאוחר יותר.',
-          '',
-        [
-          { 
-            text: 'חזרה לעמוד הבית', 
-            onPress: () => props.navigation.navigate('HomePage'), 
-          }
-        ]  
-        )
       }
-
+   
+      
     }catch{
       (err) => {console.log(err)}
 
@@ -63,32 +52,15 @@ export const ResetPassword = (props) => {
     SetPassword(Password)
       if(strongPassword.test(password)  === true) {
         setCheckStrongPassword("green")
+        setPasswordLevel('סיסמה חזקה')
       } else if(mediumPassword.test(password)  === true){
         setCheckStrongPassword('blue')
+        setPasswordLevel('סיסמה בינונית')
       } else{
         setCheckStrongPassword('red')
+        setPasswordLevel('סיסמה חלשה')
       }
   }
-
-
-  const samePassword = (text) => {
-    SetVerifyPassword(text) 
-    //  console.log(password)
-     console.log(verifyPassword)
-    //  console.log(checkStrongPassword)
-    if(checkStrongPassword === "green"){
-    if(password === verifyPassword){
-      setCheckSamePassword(true)
-    }else{
-      setCheckSamePassword(false)
-    }
-  }
-    else{
-      setCheckSamePassword(false)
-    }
-  }
-
-
 
   return (
     <TouchableWithoutFeedback onPress={ () => { Keyboard.dismiss();}}>
@@ -104,22 +76,36 @@ export const ResetPassword = (props) => {
                   style={ style.input } 
                   onChangeText={checkPassword}
                   textContentType='newPassword'
-                  secureTextEntry={passwordVisibility}
+                  secureTextEntry={passwordVisibility.passwordVisibility}
                   value={password}
                   enablesReturnKeyAutomatically
                   />
-                  <Pressable onPress={handlePasswordVisibility}
+                  <Pressable onPress={passwordVisibility.handlePasswordVisibility}
                   style={style.inputContainerPassword}
                   >
-                    <MaterialCommunityIcons name={rightIcon} size={22} color="#232323" />
+                    <MaterialCommunityIcons name={passwordVisibility.rightIcon} size={22} color="#232323" />
                   </Pressable>
                 </View>
+                <BodyText  style={{color: "red",fontSize: 12}}>  {password === ""  ? "" : passwordLevel} </BodyText>
               <BodyText style={style.Bodytext} > וידוי סיסמא:</BodyText>
-              <Input 
-              style={ verifyPassword === '' ? style.input : checkSamePassword ? style.Valid : style.noValid} 
-              onChangeText={samePassword}
-              value={verifyPassword}
-              /> 
+              <View style={{...style.inputContainer, ...verifyPassword === '' ? style.inputContainer : checkStrongPassword === 'red' ? style.noValid : checkStrongPassword === 'blue' ? style.mediumPasswordStyle : style.Valid }}>
+                  <Input 
+                  style={ style.input } 
+                  onChangeText={SetVerifyPassword}
+                  textContentType='newPassword'
+                  secureTextEntry={verifyPasswordVisibility.passwordVisibility}
+                  value={verifyPassword}
+                  enablesReturnKeyAutomatically
+                  />
+                  <Pressable onPress={verifyPasswordVisibility.handlePasswordVisibility}
+                  style={style.inputContainerPassword}
+                  >
+                    <MaterialCommunityIcons name={verifyPasswordVisibility.rightIcon} size={22} color="#232323" />
+                  </Pressable>
+                </View>
+                <BodyText  style={{color: "red",fontSize: 12}}>  {password === verifyPassword || verifyPassword === "" ? "" : errorText} </BodyText>
+
+              
               <View style={style.button}>
                 <MainButton
                 styleMainButtonView={{...style.homePageBorderButton, ...style.myButtonStyle}}

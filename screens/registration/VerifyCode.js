@@ -19,7 +19,6 @@ export const VerifyCode = (props) => {
       try{
 
        const resData = await auth.verifyEmailUser(email)
-       console.log(await resData)
       
         SetCode(await resData.code)
    

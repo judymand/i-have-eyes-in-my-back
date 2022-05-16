@@ -536,11 +536,9 @@ exports.resetPassword = async (req, res, next) => {
 
     try{
 
-        let email =  await Users.findOne({ _id: req.body.email })
-        let code =  req.body.code
-       
-
-        if(!email){
+        let user =  await Users.findOne({ email: req.body.email })
+   
+        if(!user){
             return res.status(401).json({
                 success: false,
                 message: "אופסי, ישנה תקלה.\n בבקשה נסה שנית מאוחר יותר.",
@@ -548,13 +546,24 @@ exports.resetPassword = async (req, res, next) => {
                 list: list
             });
         }
+        const hashedPassword = await this.hashPassword(req.body.password, 10)
+        changePassword = await Users.findByIdAndUpdate(user._id, { password: hashedPassword } )
 
-
-
+       
+        if(changePassword){
+            return res.status(201).json({
+                success: true,
+                message: " \n !הסיסמא שונתה בהצלחה",
+                textButton:'מעבר לעמוד התחברות',
+                list: list
+    
+            });
+        }
+       
      
-        return res.status(201).json({
-            success: true,
-            message: 'המשתמש זוהה בהצלחה! ',
+        return res.status(401).json({
+            success: false,
+            message:  "\n אופסי, ישנה שגיאה, הסיסמא לא התעדכנה במערכת.",
             textButton:'מעבר לעמוד התחברות',
             list: list
 
@@ -566,8 +575,7 @@ exports.resetPassword = async (req, res, next) => {
         return res.status(401).json({
             success: false,
             message: err,
-            textButton:'חזרה לעמוד הבית',
-            pageName: 'HomePage'
+            list: list
     });
     }
 
