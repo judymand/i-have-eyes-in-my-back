@@ -94,7 +94,7 @@ export const LogIn = (props) => {
                     <MainButton
                       styleMainButtonView={{...style.homePageBorderButton, ...style.myButtonStyle}}
                       styleMainButtonText={style.forgetPasswordButton}
-                      onPress={() => {}} 
+                      onPress={() => { props.navigation.navigate('ForgetPassword') }} 
                       >
                         שכחתי סיסמה
                       </MainButton>

@@ -49,7 +49,12 @@ app.post('/signup', userController.CreateAuser)
 
 app.post('/login', userController.Login)
 
+app.post('/password-reset-request', userController.verifyEmailUser)
+// app.post('/password-reset-request', userController.resetPassword)
+
 app.get("/getUser", auth.isAuth, userController.getUser)
+
+
 
 
 app.get("/getClasses", auth.isAuth, classController.getAllClass)

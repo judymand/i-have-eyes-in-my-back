@@ -16,7 +16,9 @@ import { SignUp } from '../screens/registration/SignUp';
 import { LogIn } from '../screens/registration/LogIn';
 
 import { LogOut } from '../screens/LogOut';
-
+import { ForgetPassword } from '../screens/registration/ForgetPassword';
+import { ResetPassword } from '../screens/registration/ResetPassword';
+import { VerifyCode } from '../screens/registration/VerifyCode';
 
 // admin screens
 import { AdminPanel } from '../screens/adminScreens/AdminPanel';
@@ -62,7 +64,10 @@ const HomePageNavigator = createStackNavigator({
     },
     SignUpByEmail: SignUpByEmail,
     SignUp: SignUp,
-    LogIn: LogIn 
+    LogIn: LogIn,
+    ForgetPassword: ForgetPassword,
+    ResetPassword: ResetPassword,
+    VerifyCode: VerifyCode
 
 },
     {

@@ -17,23 +17,27 @@ exports.emailCheck = async (req, res, next) => {
      
         if(user){
             return res.status(409).json({
-                message: "המשתמש כבר רשום למערכת!"
+                message: "המשתמש כבר רשום למערכת!",
+                registered: "yes"
             });
         }
         else if(teacher){
             return res.status(202).json({
                 message: "The email is on the teacher list.",
-                admin: false
+                admin: false,
+                registered: "no"
             });
         }
         else if(admin){
             return res.status(202).json({
                 message: "The email is on the admin list.",
-                admin: true
+                admin: true,
+                registered: "no"
             });
         }
        return res.status(401).json({
-        message: "מייל זה לא נמצא במערכת."
+        message: "מייל זה לא נמצא במערכת.",
+        registered: "not exist"
         });
     }catch(err){
         this.next(err);
@@ -450,3 +454,122 @@ exports.UpdateUserDetails = async (req, res, next) => {
     }
 
 }
+
+
+exports.verifyEmailUser = async (req, res, next) => {
+
+    try{
+
+        let email = req.body.email
+       
+
+        if(!email){
+            return res.status(401).json({
+                success: false,
+                message: "אופסי, משהו השתבש, אנא נסה שנית מאוחר יותר.",
+                textButton:'חזרה לעמוד הבית',
+                pageName: 'HomePage'
+            });
+        }
+
+        const code = (Math.random()).toString().substring(3, 9);
+
+        
+
+        // your registered domain
+        const mailgunDomain = 'i-have-eyes-in-my-back.herokuapp.com';
+        // address you are sending emails from
+        const fromEmail = 'no-reply@myapp.com';
+        // address to copy the email to
+        const copyEmail = email;
+
+        const nodemailer = require("nodemailer");
+      
+        userEmail = "ihaveeyesonmyback@gmail.com"
+
+        // create reusable transporter object using the default SMTP transport
+        var transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: userEmail,
+                pass: "22Eyes!?",
+            },
+          });
+
+
+        // send mail with defined transport object
+        let info = await transporter.sendMail({
+          from: userEmail, // sender address
+          to: email, // list of receivers
+          subject: "איפוס סיסמה", // Subject line
+          text: `Code: ${code}`, // plain text body
+          html: `<b>הקוד לצורך איפוס סיסמה: ${code}</b>`, // html body
+        });
+      
+
+     
+        return res.status(201).json({
+            success: true,
+            code: code,
+            message: 'נשלח לך קוד למייל.',
+            textButton:'מעבר לעמוד התחברות',
+            pageName: 'LogIn'
+
+        });
+        
+        
+       
+    }catch(err){
+        return res.status(401).json({
+            success: false,
+            message: err,
+            textButton:'חזרה לעמוד הבית',
+            pageName: 'HomePage'
+    });
+    }
+
+}
+
+
+
+exports.resetPassword = async (req, res, next) => {
+
+    try{
+
+        let email =  await Users.findOne({ _id: req.body.email })
+        let code =  req.body.code
+       
+
+        if(!email){
+            return res.status(401).json({
+                success: false,
+                message: "אופסי, ישנה תקלה.\n בבקשה נסה שנית מאוחר יותר.",
+                textButton:'מעבר לעמוד התחברות',
+                list: list
+            });
+        }
+
+
+
+     
+        return res.status(201).json({
+            success: true,
+            message: 'המשתמש זוהה בהצלחה! ',
+            textButton:'מעבר לעמוד התחברות',
+            list: list
+
+        });
+        
+        
+       
+    }catch(err){
+        return res.status(401).json({
+            success: false,
+            message: err,
+            textButton:'חזרה לעמוד הבית',
+            pageName: 'HomePage'
+    });
+    }
+
+}
+

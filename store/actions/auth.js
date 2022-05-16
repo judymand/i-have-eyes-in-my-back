@@ -3,7 +3,7 @@ export const LOGOUT = 'LOGOUT';
 import { Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const baseUrl = Platform.OS === 'android' ? '10.0.0.10' : 'localhost';
+//export const baseUrl = Platform.OS === 'android' ? '10.0.0.10' : 'localhost';
 
 let timer;
 
@@ -273,6 +273,29 @@ export const updateUser = async (user, firstName, lastName, password, newPasswor
         password,
         newPassword,
         validnewPassword
+      })
+    })
+   
+    return await response.json()
+    
+  }catch(error){
+    console.log(error)
+  }
+}
+
+
+export const verifyEmailUser = async (email) => {
+  try{
+
+    let response = await fetch(`https://i-have-eyes-in-my-back.herokuapp.com/password-reset-request`,
+    {
+      method:"POST",
+      headers:{
+        'Content-Type':'application/json',
+        'authorization': 'JWT '+ await getToken() 
+      },
+      body:JSON.stringify({
+        email
       })
     })
    
