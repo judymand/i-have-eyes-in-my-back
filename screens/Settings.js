@@ -21,7 +21,7 @@ export const Settings = (props) => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [data, setData] = useState('');
-  const [error, setError] = useState();
+  //const [error, setError] = useState();
   const [flag, setFlag] = useState(false)
   const passwordVisibility = useTogglePasswordVisibility();
   const newPasswordVisibility = useTogglePasswordVisibility();

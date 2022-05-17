@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Button, ImageBackground} from 'react-native';
+import { View } from 'react-native';
 import style from '../styles/GlobalStyle'
 import { LinearGradient } from 'expo-linear-gradient';
 import { useDispatch } from 'react-redux';

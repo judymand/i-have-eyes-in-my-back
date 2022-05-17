@@ -3,7 +3,6 @@ import { View, Alert } from 'react-native';
 import style from '../styles/GlobalStyle';
 import { useDispatch } from 'react-redux';
 import * as authActions from '../store/actions/auth';
-import { useFocusEffect } from '@react-navigation/native';
 
 export const LogOut = (props) => {
 

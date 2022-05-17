@@ -74,7 +74,7 @@ export const ResetPassword = (props) => {
                     <MaterialCommunityIcons name={passwordVisibility.rightIcon} size={22} color="#232323" />
                   </Pressable>
                 </View>
-                <BodyText  style={{color: "red",fontSize: 12}}>  {password === ""  ? "" : checkPassword1.passwordLevel} </BodyText>
+                <BodyText  style={{color: checkPassword1.color,fontSize: 12}}>  {password === ""  ? "" : checkPassword1.passwordLevel} </BodyText>
               <BodyText style={style.Bodytext} > וידוי סיסמא:</BodyText>
               <View style={{...style.inputContainer, ...verifyPassword === '' ? style.inputContainer : checkPasswordVerify.color === 'red' ? style.noValid : checkPasswordVerify.color === 'blue' ? style.mediumPasswordStyle : style.Valid }}>
                   <Input 
