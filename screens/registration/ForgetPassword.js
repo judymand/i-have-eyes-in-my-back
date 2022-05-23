@@ -23,7 +23,7 @@ export const ForgetPassword = (props) => {
       let message = "המשתמש לא קיים במערכת."
       let text = ""
       if(resData.registered == "yes"){
-        message = "אנא בדוק את המייל,"
+        message = "אנא בדוק את המייל"
         text = "נשלח קוד אימות לצורך אימות סיסמה."
 
       }
