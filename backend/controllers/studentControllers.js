@@ -246,18 +246,3 @@ exports.LessonObject = async (req, res) => {
 
 
 
-
-
- // let today = new Date()
-    // let dayOfMonth = d.getDate();
-    // let year = d.getFullYear()
-    // let month = d.getMonth();
-    // var date = new Date();
-    // let yesterday  = date.setDate(date.getDate() - 1)
-
-    // for(let i=0; i<allDocuments.length; ++i){
-
-    // }
-
-
-

@@ -499,9 +499,10 @@ exports.verifyEmailUser = async (req, res, next) => {
         let info = await transporter.sendMail({
           from: userEmail, // sender address
           to: email, // list of receivers
-          subject: "איפוס סיסמה", // Subject line
+          subject: "איפוס סיסמה לאפליקציית i have eyes in my back", // Subject line
           text: `Code: ${code}`, // plain text body
-          html: `<b>הקוד לצורך איפוס סיסמה: ${code}</b>`, // html body
+          html: `<h2>I have eyes in my back</h2>
+          <p>הקוד לצורך איפוס סיסמה: ${code}</p>`, // html body
         });
       
 
