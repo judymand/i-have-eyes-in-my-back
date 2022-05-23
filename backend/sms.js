@@ -245,24 +245,27 @@ function SMS_SENDER_Breeze_from_class(){
 console.log("in SMS_SENDER_Breeze_from_class()",sum_of_students_who_did_not_attend_class_but_is_in_school)
 for(let i=0;i<sum_of_students_who_did_not_attend_class_but_is_in_school;i++)
 {
-let phone=List_of_students_who_did_not_attend_class_but_is_in_school[i].phone.replace(/0/, "+972")
+let phone=List_of_students_who_did_not_attend_class_but_is_in_school[i].phone.replace(/0/, "972")
 let name=List_of_students_who_did_not_attend_class_but_is_in_school[i].name
 let profession=List_of_students_who_did_not_attend_class_but_is_in_school[i].profession
 //let size_of_profession=profession.length
 const Vonage = require('@vonage/server-sdk')
 
 const vonage = new Vonage({
-  apiKey: "7ac87cfe",
-  apiSecret: "Y6TADHof3zj4ODXh"
+  apiKey: "cfd0e127",
+  apiSecret: "bQiCGuhjAcXl1tm3"
 })
 
 
 const from = "School"
 const to = phone
-let text=name+" הבריז מהשיעורים:"+profession;
+let text=name+" הבריז מהשיעורים: "+profession+"\n";
+const opts={
+	"type":"unicode"
+}
 console.log(text)
 
-vonage.message.sendSms(from, to, text, (err, responseData) => {
+vonage.message.sendSms(from, to, text,opts, (err, responseData) => {
     if (err) {
         console.log(err);
     } else {
@@ -281,22 +284,25 @@ function SMS_SENDER_Breeze_from_School(){
 	console.log("in SMS_SENDER_Breeze_from_class()",sum_of_students_who_did_not_attend_class_and_not_in_school)
 	for(let i=0;i<sum_of_students_who_did_not_attend_class_and_not_in_school;i++)
 	{
-	let phone=List_of_students_who_did_not_attend_class_and_not_in_school[i].phone.replace(/0/, "+972")
+	let phone=List_of_students_who_did_not_attend_class_and_not_in_school[i].phone.replace(/0/, "972")
 	
 	console.log(phone)
-	//let name=List_of_students_who_did_not_attend_class_but_is_in_school[i].name
+	let name=List_of_students_who_did_not_attend_class_but_is_in_school[i].name
 	const Vonage = require('@vonage/server-sdk')
-	
+
 	const vonage = new Vonage({
-	  apiKey: "7ac87cfe",
-	  apiSecret: "Y6TADHof3zj4ODXh"
+	  apiKey: "cfd0e127",
+	  apiSecret: "bQiCGuhjAcXl1tm3"
 	})
 	
 	
 	const from = "School"
 	const to = phone
-	let text="Your kid BREEZEE from the school";
-	vonage.message.sendSms(from, to, text, (err, responseData) => {
+	let text=name+" נעדר מבית ספר "+"\n";
+	const opts={
+		"type":"unicode"
+	}
+	vonage.message.sendSms(from, to, text,opts, (err, responseData) => {
 		if (err) {
 			console.log(err);
 		} else {
@@ -345,109 +351,48 @@ new BreezeClassSchema({
 
 
 
+// ab()
+// function ab(){
 
+// 	const Vonage = require('@vonage/server-sdk')
 
+// 	const vonage = new Vonage({
+// 	  apiKey: "cfd0e127",
+// 	  apiSecret: "bQiCGuhjAcXl1tm3"
+// 	})
 
-
-
-
-// // לקחת את כל המידע מאותו שבוע על כל תלמיד ולבדוק כמה הוא החסיר מכל מקצוע ליצור סכמה חדשה עם כל המידע
-// function cal()
-// {
-
+// let name="אבי"
+// let prof=[" אנגלת "," תנך "]
+// const from = "School"
+// const to = "972543315931"
+// const text =name+" הבריז מהשעורים: "+prof+"\n" 
+// const opts={
+// 	"type":"unicode"
 // }
 
-
-// function encode_utf8(s) {
-// 	return unescape(encodeURIComponent(s));
-//   }
-  
-//   function decode_utf8(s) {
-// 	return decodeURIComponent(escape(s));
-//   }
-
-
-// a="שלום לך"
-// console.log( encode_utf8(a))
-// console.log( decode_utf8(a))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// //  //הוספה של משתנה חדש ללסון
-// // new LessonSchema({
-// // 	className:"א2",
-// // 	profession:"חשבון",
-// // 	day:today,
-// // 	time:Ttime,
-// // 	students:[
-// // 		{
-// // 		name:"סיטארה אלייב",
-// // 		arrived:true
-// // 		},
-// // 		{
-// // 		name:"דודי ביטון",
-// // 		arrived:true
-// // 		},
-// // 		{
-// // 		name:"יהודית מנדלבוים",
-// // 		arrived:false
-// // 		}
-// // 	]
-
-// // }).save()
-
-// let h="י-י"
-// let d="י י"
-// let a="ר"
-
-// a=h.replace(/\-/, ' ')
-// console.log(a);
-
-// //console.log (d.localeCompare(h,'he'))
-
-
-
-
-// const twilio=require('twilio');
-// var accountSid = process.env.TWILIO_ACCOUNT_SID; // Your Account SID from www.twilio.com/console
-// var authToken = process.env.TWILIO_AUTH_TOKEN;   // Your Auth Token from www.twilio.com/console
-
-// let Mymessage='judy modi'
-// let Yournumber='+972523190543'
-// let MyNumber='+12184141637'
-
-
-// mesP()
-// function mesP(){
-// 	console.log(".........")
-// 	var client=new twilio(accountSid,authToken)
-
-// 	client.messages
-// 	.create({
-// 		from:MyNumber,
-// 		to:Yournumber,
-// 		body:Mymessage
+// vonage.message.sendSms(from, to, text,opts, (err, responseData) => {
+//     if (err) {
+//         console.log(err);
+//     } else {
+//         if(responseData.messages[0]['status'] === "0") {
+//             console.log("Message sent successfully.");
+//         } else {
+//             console.log(`Message failed with error: ${responseData.messages[0]['error-text']}`);
+//         }
+//     }
 // })
-// 	.then(message=>console.log(message.sid)).done();
-// 	console.log(".........")
+
 // }
+
+
+
+
+
+
+
+
+
+
+
+
+
