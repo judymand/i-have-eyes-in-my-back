@@ -9,15 +9,15 @@ export const Card = (props) => {
 
   return (
     <View style={style.viewContainerCard}>
-       {/* <ScrollView style={style.card}> */}
-      <View style={[style.card, device ? style.cardIOS : style.cardAndroid]}>
       
+      <View style={[style.card, device ? style.cardIOS : style.cardAndroid]}>
+      <ScrollView style={{flexGrow: 0}}>
          <KeyboardAvoidingView  behavior={Behavior} keyboardVerticalOffset={30}> 
             {props.children}
          </KeyboardAvoidingView>
-        
+         </ScrollView>
        </View>
-       {/* </ScrollView> */}
+       
     </View>
        
   );
