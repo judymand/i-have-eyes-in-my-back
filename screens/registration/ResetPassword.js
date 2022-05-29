@@ -62,7 +62,8 @@ export const ResetPassword = (props) => {
               <View style={{...style.inputContainer, ...password === '' ? style.inputContainer : checkPassword1.color === 'red' ? style.noValid : checkPassword1.color === 'blue' ? style.mediumPasswordStyle : style.Valid }}>
                   <Input 
                   style={ style.input } 
-                  onChangeText={ SetPassword }
+                  onChangeText={ (text) => 
+                    text.charAt(text.length -1) === " " ? {} : SetPassword(text) }
                   textContentType='newPassword'
                   secureTextEntry={passwordVisibility.passwordVisibility}
                   value={password}
@@ -79,7 +80,9 @@ export const ResetPassword = (props) => {
               <View style={{...style.inputContainer, ...verifyPassword === '' ? style.inputContainer : checkPasswordVerify.color === 'red' ? style.noValid : checkPasswordVerify.color === 'blue' ? style.mediumPasswordStyle : style.Valid }}>
                   <Input 
                   style={ style.input } 
-                  onChangeText={ SetVerifyPassword }
+                  onChangeText={ (text) => 
+                    text.charAt(text.length -1) === " " ? {} : SetVerifyPassword(text)
+                   }
                   textContentType='newPassword'
                   secureTextEntry={verifyPasswordVisibility.passwordVisibility}
                   value={verifyPassword}

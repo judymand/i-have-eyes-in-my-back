@@ -70,7 +70,8 @@ export const SignUpByEmail = (props) => {
               <BodyText  style={style.Bodytext}> דוא״ל: </BodyText>
               <Input 
               style={ email === '' ? style.input : ValideEmail ? style.Valid : style.noValid} 
-              onChangeText={validateEmail}
+              onChangeText={ (text) =>
+                text.charAt(text.length -1) === " " ? {} : validateEmail(text)}
               value={email}
               />
               

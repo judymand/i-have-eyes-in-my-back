@@ -62,13 +62,17 @@ export const LogIn = (props) => {
                   <BodyText style={style.header} > כניסה למערכת</BodyText>
                   <BodyText style={style.Bodytext} > הכנס מייל:</BodyText>
                   <Input
-                  onChangeText={(text) => {SetEmail(text)}}
+                  onChangeText={(text) => 
+                    text.charAt(text.length -1) === " " ? {} : SetEmail(text)
+                  }
                   value={email}
                   />
                   <BodyText style={style.Bodytext} > הכנס סיסמא:</BodyText>
                   <View style={style.inputContainer}>
                     <Input 
-                    onChangeText={(text) => {SetPassword(text)}}
+                    onChangeText={(text) => 
+                      text.charAt(text.length -1) === " " ? {} : SetPassword(text)
+                    }
                     textContentType='newPassword'
                     secureTextEntry={passwordVisibility}
                     value={password}
@@ -80,7 +84,7 @@ export const LogIn = (props) => {
                       <MaterialCommunityIcons name={rightIcon} size={22} color="#232323" />
                     </Pressable>
                   </View>
-                  <View style={style.button}>
+                  <View style={{...style.buttonLogin,...{paddingTop:40}}}>
                     <MainButton
                     styleMainButtonView={{...style.homePageBorderButton, ...style.myButtonStyle}}
                     styleMainButtonText={style.homePageButton}
@@ -90,11 +94,11 @@ export const LogIn = (props) => {
                     </MainButton>
                 
                   </View>
-                  <View style={style.button}>
+                  <View style={style.buttonLogin}>
                     <MainButton
                       styleMainButtonView={{...style.homePageBorderButton, ...style.myButtonStyle}}
                       styleMainButtonText={style.forgetPasswordButton}
-                      onPress={() => { props.navigation.navigate('ForgetPassword') }} 
+                      onPress={() =>  props.navigation.navigate('ForgetPassword') } 
                       >
                         שכחתי סיסמה
                       </MainButton>

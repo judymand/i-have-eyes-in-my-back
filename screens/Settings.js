@@ -97,18 +97,24 @@ export const Settings = (props) => {
 
               <BodyText style={style.Bodytext} >  שם פרטי: </BodyText>
               <Input
-                  onChangeText={(text) => {setFirstName(text)}}
+                  onChangeText={(text) => {
+                    text.charAt(text.length -1) === " " ? {} : setFirstName(text)}
+                  }
                   value={firstName}
                   />
               <BodyText style={style.Bodytext} > שם משפחה: </BodyText>
               <Input
-                  onChangeText={(text) => {setLastName(text)}}
+                  onChangeText={(text) => {
+                    text.charAt(text.length -1) === " " ? {} : setLastName(text)}
+                  }
                   value={lastName}
                   />
               <BodyText style={style.Bodytext} > הסיסמא שלך: </BodyText>
               <View style={style.inputContainer}>
                 <Input 
-                onChangeText={(text) => {setPassword(text)}}
+                onChangeText={(text) => {
+                  text.charAt(text.length -1) === " " ? {} : setPassword(text)}
+                }
                 textContentType='newPassword'
                 secureTextEntry={passwordVisibility.passwordVisibility}
                 value={password}
@@ -123,7 +129,8 @@ export const Settings = (props) => {
               <BodyText style={style.Bodytext} > הסיסמא החדשה: </BodyText>
               <View style={{...style.inputContainer,  ...newPassword === '' ? style.inputContainer : checknewPassword.color === 'red' ? style.noValid : checknewPassword.color === 'blue' ? style.mediumPasswordStyle : style.Valid}}>
                 <Input 
-                onChangeText={(text) => setNewPassword(text)}
+                onChangeText={(text) => 
+                  text.charAt(text.length -1) === " " ? {} : setNewPassword(text)}
                 textContentType='newPassword'
                 secureTextEntry={newPasswordVisibility.passwordVisibility}
                 value={newPassword}

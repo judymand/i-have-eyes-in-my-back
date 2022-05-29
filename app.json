@@ -1,12 +1,12 @@
 {
   "expo": {
-    "name": "i-have-eyes-in-my-back",
+    "name": "i have eyes in my back",
     "slug": "i-have-eyes-in-my-back",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -24,7 +24,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.judymand.ihaveeyesinmyback"
     },
     "web": {
       "favicon": "./assets/favicon.png"

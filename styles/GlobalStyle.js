@@ -72,17 +72,23 @@ export default StyleSheet.create({
     button: {
       padding: windowHeight / 30,
     },
+    buttonLogin: {
+      padding: 10,
+    },
     viewContainerCard:{
+
       alignItems: 'center',
       justifyContent: 'center',
-      textAlign: 'right'
+      alignContent: 'center',
+      textAlign: 'center',
+    
     },
     card:{
       borderRadius: 12,
-      width: '80%',
-      height: '50%',
-      maxWidth: windowWidth / 1.2,
-      maxHeight: windowHeight / 1.4,
+      //width: '80%',
+      // height: '50%',
+      //maxWidth: windowWidth / 1.2,
+      //maxHeight: windowHeight / 1.4,
       padding: windowHeight / 25,
    
     },
@@ -90,7 +96,7 @@ export default StyleSheet.create({
     cardIOS: {
      
       shadowColor: 'black',
-      shadowOffset: { width: 0, height: 2},
+       shadowOffset: { width: 1, height: 1},
       shadowRadius: 6,
       shadowOpacity: 0.26,
       backgroundColor: 'white',

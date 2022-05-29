@@ -88,21 +88,27 @@ export const SignUp = (props) => {
               <BodyText  style={style.Bodytext}> שם פרטי: </BodyText>
               <Input 
               style={style.input} 
-              onChangeText={(text) => {SetfirstName(text)}}
+              onChangeText={(text) => {
+                text.charAt(text.length -1) === " " ? {} : SetfirstName(text)}
+              }
               value={firstName}
               />
 
               <BodyText  style={style.Bodytext}> שם משפחה: </BodyText>
                 <Input 
                 style={style.input} 
-                onChangeText={(text) => {SetLastName(text)}}
+                onChangeText={(text) => {
+                  text.charAt(text.length -1) === " " ? {} : SetLastName(text)}
+                }
                 value={lastName}
                 />
               <BodyText style={style.Bodytext} > סיסמא:</BodyText>
               <View style={{...style.inputContainer, ...password === '' ? style.inputContainer : checkPassword1.color === 'red' ? style.noValid : checkPassword1.color === 'blue' ? style.mediumPasswordStyle : style.Valid }}>
                   <Input 
                   style={ style.input } 
-                  onChangeText={SetPassword}
+                  onChangeText={(text) => {
+                    text.charAt(text.length -1) === " " ? {} : SetPassword(text)}
+                  }
                   textContentType='newPassword'
                   secureTextEntry={passwordVisibility.passwordVisibility}
                   value={password}
@@ -120,7 +126,8 @@ export const SignUp = (props) => {
                 style={ {...style.inputContainer, ...verifyPassword === '' ? style.inputContainer : checkSamePassword.checkSamePassword ? style.Valid : style.noValid}} >
                 <Input 
                 style={ style.input } 
-                onChangeText={(text) => SetVerifyPassword(text)}
+                onChangeText={(text) => 
+                  text.charAt(text.length -1) === " " ? {} : SetVerifyPassword(text)}
                 secureTextEntry={verifyPasswordVisibility.passwordVisibility}
                 value={verifyPassword}
                 /> 

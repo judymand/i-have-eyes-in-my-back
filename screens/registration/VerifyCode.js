@@ -72,7 +72,8 @@ export const VerifyCode = (props) => {
               <BodyText  style={style.Bodytext}> קוד זיהוי: </BodyText>
               <Input 
               style={ style.input} 
-              onChangeText={SetCodeInput}
+              onChangeText={ (text) => 
+                text.charAt(text.length -1) === " " ? {} : SetCodeInput(text) }
               value={codeInput}
               />
               
