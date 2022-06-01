@@ -111,6 +111,11 @@ export const Settings = (props) => {
                   />
               <BodyText style={style.Bodytext} > הסיסמא שלך: </BodyText>
               <View style={style.inputContainer}>
+                <Pressable onPress={passwordVisibility.handlePasswordVisibility}
+                style={style.inputContainerPassword}
+                >
+                  <MaterialCommunityIcons name={passwordVisibility.rightIcon} size={22} color="#232323" />
+                </Pressable>
                 <Input 
                 onChangeText={(text) => {
                   text.charAt(text.length -1) === " " ? {} : setPassword(text)}
@@ -120,14 +125,14 @@ export const Settings = (props) => {
                 value={password}
                 enablesReturnKeyAutomatically
                 />
-              <Pressable onPress={passwordVisibility.handlePasswordVisibility}
-              style={style.inputContainerPassword}
-              >
-                <MaterialCommunityIcons name={passwordVisibility.rightIcon} size={22} color="#232323" />
-              </Pressable>
             </View>
               <BodyText style={style.Bodytext} > הסיסמא החדשה: </BodyText>
               <View style={{...style.inputContainer,  ...newPassword === '' ? style.inputContainer : checknewPassword.color === 'red' ? style.noValid : checknewPassword.color === 'blue' ? style.mediumPasswordStyle : style.Valid}}>
+                <Pressable onPress={newPasswordVisibility.handlePasswordVisibility}
+                style={style.inputContainerPassword}
+                >
+                  <MaterialCommunityIcons name={newPasswordVisibility.rightIcon} size={22} color="#232323" />
+                </Pressable>
                 <Input 
                 onChangeText={(text) => 
                   text.charAt(text.length -1) === " " ? {} : setNewPassword(text)}
@@ -136,11 +141,6 @@ export const Settings = (props) => {
                 value={newPassword}
                 enablesReturnKeyAutomatically
                 />
-              <Pressable onPress={newPasswordVisibility.handlePasswordVisibility}
-              style={style.inputContainerPassword}
-              >
-                <MaterialCommunityIcons name={newPasswordVisibility.rightIcon} size={22} color="#232323" />
-              </Pressable>
             </View>
             <BodyText  style={{color: "red",fontSize: 12}}>  { newPassword === ""  ? "" : checknewPassword.passwordLevel} </BodyText>
             </View>

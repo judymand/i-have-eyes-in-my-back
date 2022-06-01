@@ -69,6 +69,11 @@ export const LogIn = (props) => {
                   />
                   <BodyText style={style.Bodytext} > הכנס סיסמא:</BodyText>
                   <View style={style.inputContainer}>
+                    <Pressable onPress={handlePasswordVisibility}
+                    style={style.inputContainerPassword}
+                    >
+                      <MaterialCommunityIcons name={rightIcon} size={22} color="#232323" />
+                    </Pressable>
                     <Input 
                     onChangeText={(text) => 
                       text.charAt(text.length -1) === " " ? {} : SetPassword(text)
@@ -78,11 +83,7 @@ export const LogIn = (props) => {
                     value={password}
                     enablesReturnKeyAutomatically
                     />
-                    <Pressable onPress={handlePasswordVisibility}
-                    style={style.inputContainerPassword}
-                    >
-                      <MaterialCommunityIcons name={rightIcon} size={22} color="#232323" />
-                    </Pressable>
+        
                   </View>
                   <View style={{...style.buttonLogin,...{paddingTop:40}}}>
                     <MainButton
