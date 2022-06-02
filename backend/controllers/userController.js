@@ -9,11 +9,13 @@ let list = { textButton:'חזרה לעמוד הראשי',  pageName: 'HomePage'}
 
 //Check if the email is in the email list.
 exports.emailCheck = async (req, res, next) => {
+
+    const lowerCasedEmail = await this.lowerCaseEmail(req.body.email)
     
     try{
-        let user = await Users.findOne({ email: req.body.email })
-        let teacher = await Teacher.findOne({ email: req.body.email })
-        let admin = await Admin.findOne({ email: req.body.email })
+        let user = await Users.findOne({ email: lowerCasedEmail })
+        let teacher = await Teacher.findOne({ email: lowerCasedEmail })
+        let admin = await Admin.findOne({ email: lowerCasedEmail })
      
         if(user){
             return res.status(409).json({
@@ -188,6 +190,8 @@ exports.addNewUserEmail = async (req, res, next) => {
 
     try{
 
+        const lowerCasedEmail = await this.lowerCaseEmail(req.body.email)
+
         let admin = req.body.admin
 
         let newUserEmail
@@ -197,10 +201,10 @@ exports.addNewUserEmail = async (req, res, next) => {
         if(admin){
             type =  "מנהל"
             listName = "מנהלים"
-            newUserEmail =  await Admin.findOne({ email: req.body.email })
+            newUserEmail =  await Admin.findOne({ email: lowerCasedEmail })
         }
         else{
-            newUserEmail =  await Teacher.findOne({ email: req.body.email })
+            newUserEmail =  await Teacher.findOne({ email: lowerCasedEmail })
         }
 
         if(newUserEmail){
@@ -215,13 +219,13 @@ exports.addNewUserEmail = async (req, res, next) => {
 
         if(admin){
             newUser = new Admin(
-                { email: req.body.email, },
+                { email: lowerCasedEmail, },
                 { versionKey: false }
             );
         }
         else{
             newUser = new Teacher(
-                { email: req.body.email, },
+                { email: lowerCasedEmail, },
                 { versionKey: false }
             );
         }
