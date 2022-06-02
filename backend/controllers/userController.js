@@ -4,7 +4,7 @@ const Admin = require('../models/Admin');
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 
-let list = { textButton:'חזרה לעמוד הראשי',  pageName: 'HomePage'}
+let list = { textButton:'חזרה לעמוד הראשי',  pageName: 'HomePage', text: ""}
 
 
 //Check if the email is in the email list.
@@ -20,12 +20,14 @@ exports.emailCheck = async (req, res, next) => {
         if(user){
             return res.status(409).json({
                 message: "המשתמש כבר רשום למערכת!",
+                text: '',
                 registered: "yes"
             });
         }
         else if(teacher){
             return res.status(202).json({
                 message: "The email is on the teacher list.",
+                text: '',
                 admin: false,
                 registered: "no"
             });
@@ -33,12 +35,14 @@ exports.emailCheck = async (req, res, next) => {
         else if(admin){
             return res.status(202).json({
                 message: "The email is on the admin list.",
+                text: '',
                 admin: true,
                 registered: "no"
             });
         }
        return res.status(401).json({
         message: "מייל זה לא נמצא במערכת.",
+        text: '',
         registered: "not exist"
         });
     }catch(err){
@@ -86,6 +90,7 @@ exports.CreateAuser = async (req, res, next) => {
                 success: true,
                 user: user,
                 message: 'ההרשמה נקלטה בהצלחה!',
+                text: '',
                 textButton:'מעבר לעמוד התחברות',
                 pageName: 'LogIn'
 
@@ -94,6 +99,7 @@ exports.CreateAuser = async (req, res, next) => {
                 return res.status(401).json({
                     success: false,
                     message: "אופסי, ישנה תקלה.\n בבקשה נסה שנית מאוחר יותר.",
+                    text: '',
                     textButton:'חזרה לעמוד הבית',
                     pageName: 'HomePage'
             });
@@ -103,7 +109,9 @@ exports.CreateAuser = async (req, res, next) => {
     }catch(err){
         return res.status(401).json({
             success: false,
-            message: err,
+            error: err,
+            message: 'משהו השתבש, נסה שנית מאוחר יותר.',
+            text: '',
             textButton:'חזרה לעמוד הבית',
             pageName: 'HomePage'
     });

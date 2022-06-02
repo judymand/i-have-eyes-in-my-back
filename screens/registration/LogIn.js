@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import { View, TouchableWithoutFeedback, Keyboard, Alert, Pressable } from 'react-native';
+import { View, TouchableWithoutFeedback, Keyboard, Pressable } from 'react-native';
 import style from '../../styles/GlobalStyle'
 import { Input } from '../../components/Input'
 import { MainButton } from '../../components/MainButton'
 import { Card } from '../../components/Card'
-import { BodyText } from '../../components/BodyText'
+import { BodyText } from '../../components/BodyText';
+import { ShowAlert } from '../../components/ShowAlert';
 import * as authActions from '../../store/actions/auth';
 import { useDispatch } from 'react-redux';
 import { LinearGradient } from 'expo-linear-gradient';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTogglePasswordVisibility } from './useTogglePasswordVisibility';
-
+import { NoInput } from '../../alertData.json/alert.json'
 
 export const LogIn = (props) => {
  
@@ -22,6 +23,10 @@ export const LogIn = (props) => {
   
 
   const submitData =  async  () => {
+    if(email === ""){
+      ShowAlert(props, NoInput)
+      return;
+    }
     let action;
     action = authActions.login( email, password);
     setIsLoading(true);
@@ -38,16 +43,13 @@ export const LogIn = (props) => {
 
   const printError = (error) => {
     if(error){
-      Alert.alert(
-        error,
-       '',
-       [
-        { 
-          text:'הבנתי', 
-          onPress: () =>  {}, 
-        }
-       ]
-     )
+      let data = {
+        message: error,
+        text: '',
+        textButton:'הבנתי',
+        pageName: ""
+      }
+      ShowAlert(props, data)
     }
    
   };

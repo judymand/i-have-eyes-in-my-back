@@ -5,17 +5,29 @@ import { Input } from '../../components/Input'
 import { MainButton } from '../../components/MainButton'
 import { BodyText } from '../../components/BodyText'
 import { Card } from '../../components/Card'
+import { ShowAlert } from '../../components/ShowAlert';
 import { LinearGradient } from 'expo-linear-gradient';
-import * as auth from '../../store/actions/auth'
+import * as auth from '../../store/actions/auth';
+import { checkValidEmail } from '../../functional/emailValid'
+import { NoInput, NoValidInput } from '../../alertData.json/alert.json'
  
 export const ForgetPassword = (props) => {
 
   const [email, SetEmail] = useState('')
-  const [ValideEmail, SetValideEmail] = useState(false)
+  const checkEmailInput = checkValidEmail(email) 
 
 
   const submitData = async () => {
     try{
+
+      if(email === ""){
+        ShowAlert(props, NoInput)
+        return;
+      }
+      if(!checkEmailInput.valideEmail){
+        ShowAlert(props, NoValidInput)
+        return;
+      }
 
       const response = await auth.checkEmail(email)
       const resData = await response.json()
@@ -56,20 +68,6 @@ export const ForgetPassword = (props) => {
   }
 
 
-  const validateEmail  = (text) => {
-
-    let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w\w+)+$/;
-    if (reg.test(text) === false) {
-      SetValideEmail(false)
-      SetEmail(text)
-    }
-    else {
-      SetValideEmail(true)
-      SetEmail(text)
-    }
-  }
-
-
 
   return (
     <TouchableWithoutFeedback onPress={ () => { Keyboard.dismiss();}}>
@@ -82,9 +80,9 @@ export const ForgetPassword = (props) => {
 
               <BodyText  style={style.Bodytext}> דוא״ל: </BodyText>
               <Input 
-              style={ email === '' ? style.input : ValideEmail ? style.Valid : style.noValid} 
+              style={ email === '' ? style.input : checkEmailInput.valideEmail ? style.Valid : style.noValid} 
               onChangeText={(text) => 
-                text.charAt(text.length -1) === " " ? {} : validateEmail(text)
+                text.charAt(text.length -1) === " " ? {} : SetEmail(text)
                 }
               value={email}
               />

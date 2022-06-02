@@ -1,0 +1,34 @@
+{
+    "PasswordNotTheSame": {
+       "message": "הסיסמאות שהזנת לא זהות.",
+       "text": "",
+       "textButton": "הבנתי",
+       "pageName": ""
+    },
+    "errorMessage": {
+        "message": "משהו השתבש, נסה שנית מאוחר יותר.",
+        "text": "",
+        "textButton":"חזרה לעמוד הבית",
+        "pageName": "HomePage"
+    },
+    "NotStrongPassword": {
+        "message": "הסיסמה שהכנסת לא מספיק חזקה.",
+        "text":" אנא וודא שהסיסמא מכילה לפות 8 תווים. \nמספר, אות גדולה, אות קטנה ותו מיוחד",
+        "textButton":"הבנתי",
+        "pageName": ""
+    },
+    "NoInput": {
+        "message": "לא הוכנס מייל",
+        "text":"",
+        "textButton":"הבנתי",
+        "pageName": ""
+    },   
+    "NoValidInput": {
+        "message": "המייל שהוכנס לא תקין",
+        "text":"",
+        "textButton":"הבנתי",
+        "pageName": ""
+    }
+
+
+}

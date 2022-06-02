@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import { View, TouchableWithoutFeedback, Keyboard, Alert, Pressable } from 'react-native';
+import { View, TouchableWithoutFeedback, Keyboard, Pressable } from 'react-native';
 import style  from '../../styles/GlobalStyle'
 import { Input } from '../../components/Input'
 import { MainButton } from '../../components/MainButton'
 import { BodyText } from '../../components/BodyText'
 import { Card } from '../../components/Card'
+import { ShowAlert } from '../../components/ShowAlert';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as auth from '../../store/actions/auth';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTogglePasswordVisibility } from './useTogglePasswordVisibility';
 import { checkPassword, samePassword } from '../../functional/passwordValid'
-
+import {PasswordNotTheSame, errorMessage, NotStrongPassword} from '../../alertData.json/alert.json'
 export const SignUp = (props) => {
   
   const [firstName, SetfirstName] = useState('')
@@ -24,53 +25,42 @@ export const SignUp = (props) => {
 
   const checkPassword1 = checkPassword(password) 
   const checkSamePassword = samePassword(password, verifyPassword)
+  let MustInput = '* שדה חובה'
+  const [hasFirstName, SetHasFirstName] = useState(false)
+  const [hasLastName, SetHasLastName] = useState(false)
+  const [hasPassword, SetHasPassword] = useState(false)
 
   const submitData =  async () => {
     try{
 
-      if(checkSamePassword.checkSamePassword){
+      if(!firstName || !lastName || !password){
+
+        if(!firstName){
+          SetHasFirstName(true)
+        }
+        if(!lastName ){
+          SetHasLastName(true)
+        }
+        if(!password){
+          SetHasPassword(true)
+        }
+      } 
+      else if(!checkPassword1.isGoodPassword){
+        ShowAlert(props, NotStrongPassword)
+      }
+      else if(checkSamePassword.checkSamePassword){
         const response = await auth.signup(firstName, lastName, email, admin, password)
         const resData = await response.json()
         
         if(response.status == 201 || response.status == 401 ){
-          Alert.alert(
-            resData.message,
-            '',
-          [
-            { 
-              text: resData.textButton, 
-              onPress: () => props.navigation.navigate(resData.pageName),     
-            }
-          ]
-          )
-        }else{
-          Alert.alert(
-            'משהו השתבש, נסה שנית מאוחר יותר.',
-            '',
-          [
-            { 
-              text: 'חזרה לעמוד הבית', 
-              onPress: () => props.navigation.navigate('HomePage'), 
-            }
-          ]  
-          )
+          ShowAlert(props, resData)
+        }else{ 
+          ShowAlert(props, errorMessage)
         }
       }else{
-        Alert.alert(
-          'הסיסמאות שהזנת לא זהות.',
-          '',
-        [
-          { 
-            text: 'הבנתי', 
-           
-          }
-        ]  
-        )
+        ShowAlert(props, PasswordNotTheSame)
       }
-      
-  
-  
-
+ 
     }catch{
       (err) => {console.log(err)}
 
@@ -93,7 +83,7 @@ export const SignUp = (props) => {
               }
               value={firstName}
               />
-
+              <BodyText  style={{color: 'red',fontSize: 12}}>  {firstName === "" && hasFirstName ? MustInput : "" } </BodyText>
               <BodyText  style={style.Bodytext}> שם משפחה: </BodyText>
                 <Input 
                 style={style.input} 
@@ -102,6 +92,7 @@ export const SignUp = (props) => {
                 }
                 value={lastName}
                 />
+                <BodyText  style={{color: 'red',fontSize: 12}}>  {lastName === "" && hasLastName ? MustInput : "" } </BodyText>
               <BodyText style={style.Bodytext} > סיסמא:</BodyText>
               <View style={{...style.inputContainer, ...password === '' ? style.inputContainer : checkPassword1.color === 'red' ? style.noValid : checkPassword1.color === 'blue' ? style.mediumPasswordStyle : style.Valid }}>
                  <Pressable onPress={passwordVisibility.handlePasswordVisibility}
@@ -120,14 +111,14 @@ export const SignUp = (props) => {
                   enablesReturnKeyAutomatically
                   />
                 </View>
-                <BodyText  style={{color: checkPassword1.color,fontSize: 12}}>  {password === ""  ? "" : checkPassword1.passwordLevel} </BodyText>
+                <BodyText  style={{color: checkPassword1.color,fontSize: 12}}>  {password === ""  && hasPassword ? MustInput : password === "" ? "" : checkPassword1.passwordLevel} </BodyText>
               <BodyText style={style.Bodytext} > וידוי סיסמא:</BodyText>
               <View
                 style={ {...style.inputContainer, ...verifyPassword === '' ? style.inputContainer : checkSamePassword.checkSamePassword ? style.Valid : style.noValid}} >
                 <Pressable onPress={verifyPasswordVisibility.handlePasswordVisibility}
                 style={style.inputContainerPassword}
                 >
-                  <MaterialCommunityIcons name={passwordVisibility.rightIcon} size={22} color="#232323" />
+                  <MaterialCommunityIcons name={verifyPasswordVisibility.rightIcon} size={22} color="#232323" />
                 </Pressable>
                 <Input 
                 style={ style.input } 
