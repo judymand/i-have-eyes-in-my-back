@@ -36,7 +36,7 @@ export const ForgetPassword = (props) => {
       let text = ""
       if(resData.registered == "yes"){
         message = "אנא בדוק את המייל"
-        text = "נשלח קוד אימות לצורך אימות סיסמה."
+        text = "נשלח קוד אימות לצורך אימות מייל המשתמש."
 
       }
       else if(resData.registered == "no"){
