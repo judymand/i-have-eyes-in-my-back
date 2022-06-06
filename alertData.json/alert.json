@@ -28,6 +28,29 @@
         "text":"",
         "textButton":"הבנתי",
         "pageName": ""
+    },
+    "forgetPasswordMessageValidEmail": {
+        "message": "אנא בדוק את המייל",
+        "text": "נשלח קוד אימות לצורך אימות מייל המשתמש.",
+        "textButton":"הבנתי",
+        "pageName": "VerifyCode"
+
+
+    },
+    "forgetPasswordMessageNotValidEmail": {
+        "message": "עדיין לא נרשמת למערכת",
+        "text": "",
+        "textButton":"הבנתי",
+        "pageName": "HomePage"
+
+
+    },
+    "UserNotExist": {
+      "message": "המשתמש לא קיים במערכת.",
+      "text": "",
+      "textButton":"הבנתי",
+      "pageName": "HomePage"
+
     }
 
 

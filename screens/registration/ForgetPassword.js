@@ -9,7 +9,7 @@ import { ShowAlert } from '../../components/ShowAlert';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as auth from '../../store/actions/auth';
 import { checkValidEmail } from '../../functional/emailValid'
-import { NoInput, NoValidInput } from '../../alertData.json/alert.json'
+import { NoInput, NoValidInput, forgetPasswordMessageValidEmail, forgetPasswordMessageNotValidEmail, UserNotExist } from '../../alertData.json/alert.json'
  
 export const ForgetPassword = (props) => {
 
@@ -19,7 +19,9 @@ export const ForgetPassword = (props) => {
 
   const submitData = async () => {
     try{
+      // ShowAlert(props, NoInput)
 
+      // console.log(!checkEmailInput.valideEmail)
       if(email === ""){
         ShowAlert(props, NoInput)
         return;
@@ -32,34 +34,17 @@ export const ForgetPassword = (props) => {
       const response = await auth.checkEmail(email)
       const resData = await response.json()
 
-      let message = "המשתמש לא קיים במערכת."
-      let text = ""
       if(resData.registered == "yes"){
-        message = "אנא בדוק את המייל"
-        text = "נשלח קוד אימות לצורך אימות מייל המשתמש."
+        ShowAlert(props, forgetPasswordMessageValidEmail, { Email: email })
 
       }
       else if(resData.registered == "no"){
-        message = "עדיין לא נרשמת למערכת"
+        ShowAlert(props, forgetPasswordMessageNotValidEmail)
+      }
+      else{
+        ShowAlert(props, UserNotExist)
       }
 
-      Alert.alert(
-        message,
-        text,
-        [
-          { 
-            text:'הבנתי', 
-            onPress: () =>  { 
-              if(resData.registered == "yes"){
-                props.navigation.navigate('VerifyCode', { Email: email })
-              }
-              else 
-                props.navigation.navigate('HomePage')
-            }, 
-          }
-        ]
-      )
-      
         
     }catch{
         (err) => {console.log(err)}

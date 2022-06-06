@@ -547,7 +547,9 @@ exports.resetPassword = async (req, res, next) => {
 
     try{
 
-        let user =  await Users.findOne({ email: req.body.email })
+        const lowerCasedEmail = await this.lowerCaseEmail(req.body.email)
+
+        let user =  await Users.findOne({ email: lowerCasedEmail })
    
         if(!user){
             return res.status(401).json({
