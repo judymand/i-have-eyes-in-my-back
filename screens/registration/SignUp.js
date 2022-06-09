@@ -135,7 +135,7 @@ export const SignUp = (props) => {
                 styleMainButtonText={style.homePageButton}
                 onPress={submitData} 
                 >
-                  היכנס
+                  הירשם
                 </MainButton>
               </View>
             
