@@ -105,7 +105,7 @@ export const ResetPassword = (props) => {
                 styleMainButtonText={style.homePageButton}
                 onPress={submitData} 
                 >
-                  היכנס
+                  שמור סיסמה
                 </MainButton>
               </View>
             
