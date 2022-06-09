@@ -19,9 +19,7 @@ export const ForgetPassword = (props) => {
 
   const submitData = async () => {
     try{
-      // ShowAlert(props, NoInput)
 
-      // console.log(!checkEmailInput.valideEmail)
       if(email === ""){
         ShowAlert(props, NoInput)
         return;

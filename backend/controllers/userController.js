@@ -494,15 +494,17 @@ exports.verifyEmailUser = async (req, res, next) => {
         const copyEmail = email;
 
         const nodemailer = require("nodemailer");
+        require('dotenv').config({path:__dirname+'/./../.env'})
       
-        userEmail = "ihaveeyesonmyback@gmail.com"
-
+        userEmail = process.env.nodemailerUser
+     
         // create reusable transporter object using the default SMTP transport
         var transporter = nodemailer.createTransport({
             service: 'gmail',
+            secure: true, // use SSL
             auth: {
                 user: userEmail,
-                pass: "22Eyes!?",
+                pass: process.env.nodemailerPasswordForApp
             },
           });
 
@@ -593,4 +595,5 @@ exports.resetPassword = async (req, res, next) => {
     }
 
 }
-
+require('dotenv').config({path:__dirname+'/./../.env'})
+console.log(process.env.nodemailerPasswordForApp)

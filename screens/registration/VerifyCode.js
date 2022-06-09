@@ -6,19 +6,27 @@ import { MainButton } from '../../components/MainButton'
 import { BodyText } from '../../components/BodyText'
 import { Card } from '../../components/Card'
 import { LinearGradient } from 'expo-linear-gradient';
-import * as auth from '../../store/actions/auth'
+import * as auth from '../../store/actions/auth';
+import { ShowAlert } from '../../components/ShowAlert';
+import { NoInputCode, NoValidCode } from '../../alertData.json/alert.json'
  
 export const VerifyCode = (props) => {
 
   const [code, SetCode] = useState('')
   const [codeInput, SetCodeInput] = useState('')
   const email = props.navigation.getParam('Email')
+  const flag = false
 
   useEffect(() => {
     async function getCode(){
       try{
 
        const resData = await auth.verifyEmailUser(email)
+       console.log(resData)
+       if(!(await resData.success)){
+        resData.message = "אופסי, ישנה שגיאה, בבקשה תנסה מאוחר יותר."
+        ShowAlert(props, resData)
+       }
       
         SetCode(await resData.code)
    
@@ -28,26 +36,23 @@ export const VerifyCode = (props) => {
     }
     getCode()
 
-  }, [])
+  }, [flag])
 
 
   const submitData = async () => {
     try{
 
+      if(codeInput === ""){
+        ShowAlert(props,NoInputCode)
+        return;
+      }
+      
+
       if(code === codeInput){
         props.navigation.navigate('ResetPassword', { Email: email })
       }
       else{
-        Alert.alert(
-          "שגיאה",
-          'הקוד שהוכנס לא תקין',
-          [
-            { 
-              text:'הבנתי', 
-              onPress: () =>  {}, 
-            }
-          ]
-        )
+        ShowAlert(props,NoValidCode)
       }
       
         

@@ -51,7 +51,19 @@
       "textButton":"הבנתי",
       "pageName": "HomePage"
 
-    }
+    },
+    "NoInputCode": {
+        "message": "לא הוכנס קוד",
+        "text":"",
+        "textButton":"הבנתי",
+        "pageName": ""
+    },
+    "NoValidCode": {
+        "message": "שגיאה",
+        "text":"הקוד שהוכנס לא תקין",
+        "textButton":"הבנתי",
+        "pageName": ""
+    } 
 
 
 }

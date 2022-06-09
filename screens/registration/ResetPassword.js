@@ -81,6 +81,8 @@ export const ResetPassword = (props) => {
                   <Pressable onPress={verifyPasswordVisibility.handlePasswordVisibility}
                   style={style.inputContainerPassword}
                   >
+                    <MaterialCommunityIcons name={verifyPasswordVisibility.rightIcon} size={22} color="#232323" />
+                  </Pressable>
                   <Input 
                   style={ style.input } 
                   onChangeText={ (text) => 
@@ -92,8 +94,7 @@ export const ResetPassword = (props) => {
                   enablesReturnKeyAutomatically
                   />
                  
-                    <MaterialCommunityIcons name={verifyPasswordVisibility.rightIcon} size={22} color="#232323" />
-                  </Pressable>
+                  
                 </View>
                 <BodyText  style={{color: "red",fontSize: 12}}>  {password === verifyPassword || verifyPassword === "" ? "" : errorText} </BodyText>
 

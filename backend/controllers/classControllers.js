@@ -132,8 +132,8 @@ exports.deleteClass = async (req, res) => {
             success: true,
             Newclass: listOfClass,
             message: " הכיתה " + listOfClass + ' נמחקה בהצלחה מרשימת הכיתות.',
-            textButton:'המשך',
-            pageName: 'DeleteClass'
+            textButton:'חזרה לעמוד הראשי',
+            pageName: 'HomePage' 
         })
       
   
