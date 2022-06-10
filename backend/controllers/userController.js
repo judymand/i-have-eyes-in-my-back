@@ -169,7 +169,7 @@ exports.Login = async (req, res, next) => {
             else{
                 return res.status(401).json({
                     success: false,
-                    message: "שם משתמש או הסיסמא אינם נכונים.",
+                    message: "שם המשתמש או הסיסמא אינם נכונים.",
                     textButton:'נסה שנית',
                     pageName: 'LogIn'
             });
