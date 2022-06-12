@@ -23,7 +23,7 @@ export default function App() {
   useEffect(() => {
     setTimeout(() => {
       setisloading(!isloading);
-    }, 2000);
+    }, 1000);
   }, []);
 
   if (isloading) {
