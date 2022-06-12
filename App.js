@@ -31,7 +31,7 @@ export default function App() {
       <SafeAreaView style={styles.container} >
         <Image
         style={style.image}
-        source={require('./assets/logo.jpeg')}
+        source={require('./assets/logo.png')}
       />
       </SafeAreaView>
     )
