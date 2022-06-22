@@ -91,8 +91,8 @@ export const BelongsStudentClass = (props) => {
       }
 
       Alert.alert(
-        message + classList.join(),
-        message2 + studentsList.join(),
+        message + studentsList.join(),
+        message2 + classList.join(),
         
   
       [

@@ -170,23 +170,22 @@ exports.addProfessionsToClasses = async (req, res) => {
                     profession: professionList
                 }
             })
-
-            // if(!result){
-            //     return res.status(401).json({
-            //     success: false,
-            //     message: "אופסי, ישנה תקלה.\n בבקשה נסה שנית מאוחר יותר.",
-            //     list: list
-            //     })
-            // }
             
         })
+
+        let message = professionList + ' נוספו בהצלחה ל ' + classList;
+
+
+        if(professionList.length == 1){
+            message = professionList + ' נוסף בהצלחה ל ' + classList;
+        }
        
        
         return res.status(201).json({
             success: true,
             professionList: professionList,
             classList: classList,
-            message: professionList + ' נוספו בהצלחה ל ' + classList,
+            message: message,
             list: list
         })
 

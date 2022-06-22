@@ -187,7 +187,7 @@ exports.deleteProfessions = async (req, res) => {
         return res.status(201).json({
             success: true,
             professionList: professionList,
-            message: " המקצוע " + professionList + ' נמחקה בהצלחה מרשימת המקצועות.',
+            message: " המקצוע/ות " + professionList + ' נמחק/ו בהצלחה מרשימת המקצועות.',
             list: list
         })
 
@@ -224,7 +224,7 @@ exports.deleteProfessionsFromClass = async (req, res) => {
             return res.status(201).json({
                 success: true,
                 professionList: professionList,
-                message:  " המקצוע " + professionList + ' נמחק בהצלחה מרשימת המקצועות של כיתה' + oneClass.className,
+                message:  " המקצוע " + professionList + ' נמחק בהצלחה מרשימת המקצועות של כיתה ' + oneClass.className,
                 list: list
             })
         }
