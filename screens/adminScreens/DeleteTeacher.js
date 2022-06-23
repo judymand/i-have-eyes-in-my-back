@@ -23,7 +23,7 @@ export const DeleteTeacher = (props) => {
     
       Alert.alert(
         resData.message,
-        '',
+        resData.list.text,
       [
         { 
           text: resData.list.textButton,

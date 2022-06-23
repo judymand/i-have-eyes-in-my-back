@@ -175,11 +175,9 @@ exports.addProfessionsToClasses = async (req, res) => {
 
         let message = professionList + ' נוספו בהצלחה ל ' + classList;
 
-
         if(professionList.length == 1){
             message = professionList + ' נוסף בהצלחה ל ' + classList;
         }
-       
        
         return res.status(201).json({
             success: true,

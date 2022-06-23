@@ -49,7 +49,7 @@ exports.addStudentsToClass = async (req, res) => {
             success: true,
             studentsList: studentsList,
             classList: classList,
-            message: studentsList + ' נוספו בהצלחה ל ' + classList,
+            message: studentsList + ' נוספ/ו בהצלחה ל ' + classList,
             list: list
         })
     
@@ -129,7 +129,7 @@ exports.deleteStudentsFromClass = async (req, res) => {
                 success: true,
                 studentsList: studentsList,
                 oneClass: oneClass.className,
-                message: studentsList + ' נמחקו בהצלחה מכיתה ' + oneClass.className,
+                message: studentsList + ' נמחק/ו בהצלחה מכיתה ' + oneClass.className,
                 list: list
             })
         }

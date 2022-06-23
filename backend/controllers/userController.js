@@ -324,10 +324,12 @@ exports.deleteTeacher = async (req, res, next) => {
 
         })
 
+        let list = { textButton:'חזרה לעמוד הראשי',  pageName: 'HomePage', text: teacherArr + ' \nנמחק/ו בהצלחה מהמערכת.'}
+
         return res.status(201).json({
             success: true,
             teacherArr: teacherArr,
-            message: " המיילים והמשתמשים " + teacherArr + ' נמחקן בהצלחה מרשימת המיילים של משתמש מסוג מורה ומרשימת המשתמשים.',
+            message: " המייל/ים והמשתמש/ים: " ,
             list: list
         })
 
