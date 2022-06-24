@@ -570,7 +570,7 @@ exports.resetPassword = async (req, res, next) => {
         if(changePassword){
             return res.status(201).json({
                 success: true,
-                message: " \n !הסיסמא שונתה בהצלחה",
+                message: " \n הסיסמא שונתה בהצלחה!",
                 textButton:'מעבר לעמוד התחברות',
                 list: list
     

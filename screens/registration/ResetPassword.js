@@ -9,7 +9,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 import * as auth from '../../store/actions/auth';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTogglePasswordVisibility } from './useTogglePasswordVisibility';
-import { checkPassword } from '../../functional/passwordValid'
+import {PasswordNotTheSame, NotStrongPassword} from '../../alertData.json/alert.json';
+import { ShowAlert } from '../../components/ShowAlert';
+import { checkPassword, samePassword } from '../../functional/passwordValid'
 
 export const ResetPassword = (props) => {
   
@@ -21,12 +23,27 @@ export const ResetPassword = (props) => {
   const verifyPasswordVisibility = useTogglePasswordVisibility();
   const errorText = "הסיסמא שהכנסת לא זהה"
   const checkPassword1 = checkPassword(password) 
-  const checkPasswordVerify = checkPassword(verifyPassword) 
+  const [hasPassword, SetHasPassword] = useState(false)
+  const checkSamePassword = samePassword(password, verifyPassword)
+  let MustInput = '* שדה חובה'
+
 
   const submitData =  async () => {
     try{
+
+      if(!password){
+        SetHasPassword(true)
+      }
+
+      else if(!checkPassword1.isGoodPassword){
+        ShowAlert(props, NotStrongPassword)
+      }
+
+      else if(password !== verifyPassword){
+        ShowAlert(props, PasswordNotTheSame)
+      }
   
-      if(password === verifyPassword){
+      else if(password === verifyPassword){
         const resData = await auth.ResetPassword(email, password)
         Alert.alert(
           resData.message,
@@ -75,9 +92,9 @@ export const ResetPassword = (props) => {
                   enablesReturnKeyAutomatically
                   />
                 </View>
-                <BodyText  style={{color: checkPassword1.color,fontSize: 12}}>  {password === ""  ? "" : checkPassword1.passwordLevel} </BodyText>
+                <BodyText  style={{color: checkPassword1.color,fontSize: 12}}>  {password === ""  && hasPassword ? MustInput : password === "" ? "" : checkPassword1.passwordLevel} </BodyText>
               <BodyText style={style.Bodytext} > וידוי סיסמא:</BodyText>
-              <View style={{...style.inputContainer, ...verifyPassword === '' ? style.inputContainer : checkPasswordVerify.color === 'red' ? style.noValid : checkPasswordVerify.color === 'blue' ? style.mediumPasswordStyle : style.Valid }}>
+              <View style={{...style.inputContainer, ...verifyPassword === '' ? style.inputContainer : checkSamePassword.checkSamePassword ? style.Valid : style.noValid}}>
                   <Pressable onPress={verifyPasswordVisibility.handlePasswordVisibility}
                   style={style.inputContainerPassword}
                   >

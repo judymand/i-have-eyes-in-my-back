@@ -22,7 +22,6 @@ export const VerifyCode = (props) => {
       try{
 
        const resData = await auth.verifyEmailUser(email)
-       console.log(resData)
        if(!(await resData.success)){
         resData.message = "אופסי, ישנה שגיאה, בבקשה תנסה מאוחר יותר."
         ShowAlert(props, resData)
