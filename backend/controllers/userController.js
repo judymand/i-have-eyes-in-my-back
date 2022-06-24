@@ -559,7 +559,7 @@ exports.resetPassword = async (req, res, next) => {
             return res.status(401).json({
                 success: false,
                 message: "אופסי, ישנה תקלה.\n בבקשה נסה שנית מאוחר יותר.",
-                textButton:'מעבר לעמוד התחברות',
+                textButton:'חזרה לעמוד הבית',
                 list: list
             });
         }
@@ -571,7 +571,7 @@ exports.resetPassword = async (req, res, next) => {
             return res.status(201).json({
                 success: true,
                 message: " \n הסיסמא שונתה בהצלחה!",
-                textButton:'מעבר לעמוד התחברות',
+                textButton:'חזרה לעמוד הבית',
                 list: list
     
             });
@@ -581,7 +581,7 @@ exports.resetPassword = async (req, res, next) => {
         return res.status(401).json({
             success: false,
             message:  "\n אופסי, ישנה שגיאה, הסיסמא לא התעדכנה במערכת.",
-            textButton:'מעבר לעמוד התחברות',
+            textButton:'חזרה לעמוד הבית',
             list: list
 
         });
